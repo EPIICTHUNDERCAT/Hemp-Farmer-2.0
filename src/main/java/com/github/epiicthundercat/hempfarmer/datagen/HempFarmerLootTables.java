@@ -1,5 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.datagen;
 
+import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 
 public class HempFarmerLootTables extends BaseLootTableProvider {
@@ -11,7 +12,7 @@ public class HempFarmerLootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        //Add Block drop loot tables here
+        lootTables.put(Registration.POWER_BATTERY.get(), createStandardTable("powerbattery", Registration.POWER_BATTERY.get(), Registration.POWER_BATTERY_BE.get()));
 
     }
 

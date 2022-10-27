@@ -37,6 +37,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
             });
         }
+        //tracks player inventory as well
         layoutPlayerInventorySlots(10, 70);
         trackPower();
     }
@@ -91,17 +92,20 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack stack = slot.getItem();
             itemstack = stack.copy();
+            //If is in our Block Slot, move to inventory
             if (index == 0) {
                 if (!this.moveItemStackTo(stack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickCraft(stack, itemstack);
             } else {
+                //if item is smeltable, add it to our slot
                 if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0) {
                     if (!this.moveItemStackTo(stack, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 28) {
+                    //if its in the inv keep it in the inv
                     if (!this.moveItemStackTo(stack, 28, 37, false)) {
                         return ItemStack.EMPTY;
                     }

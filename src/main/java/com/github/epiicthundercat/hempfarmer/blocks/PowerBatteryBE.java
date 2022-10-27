@@ -80,9 +80,9 @@ public class PowerBatteryBE extends BlockEntity {
         AtomicInteger capacity = new AtomicInteger(energyStorage.getEnergyStored());
         if (capacity.get() > 0) {
             for (Direction direction : Direction.values()) {
-                BlockEntity be = level.getBlockEntity(worldPosition.relative(direction));
-                if (be != null) {
-                    boolean doContinue = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
+                BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+                if (blockEntity != null) {
+                    boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                                 if (handler.canReceive()) {
                                     int received = handler.receiveEnergy(Math.min(capacity.get(), POWER_BATTERY_SEND), false);
                                     capacity.addAndGet(-received);

@@ -34,7 +34,7 @@ public class ModSetup {
 //            Ores.registerConfiguredFeatures();
 //            Dimensions.register();
 //        });
-//        Messages.register();
+        HFMessages.register();
 
     }
 

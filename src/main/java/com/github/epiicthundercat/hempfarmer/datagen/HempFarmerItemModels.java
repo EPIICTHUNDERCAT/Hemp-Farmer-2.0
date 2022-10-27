@@ -173,6 +173,9 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/oily_burlap"));
 
 
+        //BLOCK ITEMs
+        // withExistingParent(Registration.GENERATOR_ITEM.get().getRegistryName().getPath(), modLoc("block/generator"));
+        withExistingParent(Registration.POWER_BATTERY_ITEM.get().getRegistryName().getPath(), modLoc("block/powerbattery_off"));
     }
 
 }

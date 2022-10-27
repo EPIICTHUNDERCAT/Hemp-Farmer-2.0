@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "hempfarmer:seeds_indica_crushed"
+    "item": "hempfarmer:seeds_indica"
   },
   "result": "hempfarmer:seeds_indica_toasted",
   "experience": 1.0,

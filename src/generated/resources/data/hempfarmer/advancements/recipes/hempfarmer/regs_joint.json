@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hempfarmer:regs_joint"
+    ]
+  },
+  "criteria": {
+    "bud": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:bud"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hempfarmer:regs_joint"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bud",
+      "has_the_recipe"
+    ]
+  ]
+}

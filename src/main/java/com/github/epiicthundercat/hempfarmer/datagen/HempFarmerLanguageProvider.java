@@ -5,6 +5,8 @@ import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
+import static com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock.MESSAGE_POWER_BATTERY;
+import static com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock.SCREEN_HEMP_FARMER_POWER_BATTERY;
 import static com.github.epiicthundercat.hempfarmer.setup.ModSetup.TAB_NAME;
 
 public class HempFarmerLanguageProvider extends LanguageProvider {
@@ -16,6 +18,9 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
+        add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
+        add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
+        add(Registration.POWER_BATTERY.get(), "Power Battery");
 
         // SATIVA
         add(Registration.SATIVA_JOINT.get(), "Sativa Joint");
