@@ -1,0 +1,17 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "item": "hempfarmer:rolling_paper"
+     },
+      {
+        "item": "hempfarmer:rolling_paper"
+     }, {
+        "item": "hempfarmer:rolling_paper"
+     }
+  ],
+   "result": {
+    "item": "minecraft:paper"
+  }
+ 
+ }

@@ -1,0 +1,19 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "type":"forge:ore_dict",
+        "ore": "listAllmilk"
+     },
+     {
+       "item":"minecraft:bowl"
+     },
+     {
+       "item":"hempfarmer:lime_hemp_hearts"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:bowl_lime_hemp_hearts"
+  }
+ 
+ }

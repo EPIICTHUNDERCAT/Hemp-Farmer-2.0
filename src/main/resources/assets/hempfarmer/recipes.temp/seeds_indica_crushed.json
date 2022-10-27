@@ -1,0 +1,19 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "item": "hempfarmer:seeds_indica_toasted"//,
+       // "data": 0
+     },
+     {
+       "item":"minecraft:shears",
+       "data": 32767
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:seeds_indica_crushed",
+    "count": 1//,
+        //"data": 1
+  }
+ 
+ }

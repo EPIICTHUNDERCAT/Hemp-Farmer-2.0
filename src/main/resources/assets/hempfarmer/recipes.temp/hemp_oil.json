@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": ["sss", "gsg", " g "],
+  "key":{
+    "g": {
+      "type":"forge:ore_dict",
+    "ore": "blockGlass"
+  },
+    "s":{
+        "item": "hempfarmer:seeds_hemp"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:hemp_oil",
+    "count": 1
+  }
+}

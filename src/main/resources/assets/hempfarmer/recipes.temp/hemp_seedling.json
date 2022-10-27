@@ -1,0 +1,13 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     
+     {
+       "item": "hempfarmer:seeds_hemp"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:hemp_crop"
+  }
+ 
+ }

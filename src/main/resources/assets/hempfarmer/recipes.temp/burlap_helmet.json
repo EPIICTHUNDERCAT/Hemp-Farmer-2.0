@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": ["bbb", "b b", "   "],
+  "key":{
+    
+    "b":{
+        "item": "hempfarmer:burlap"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:burlap_helmet",
+    "count": 1
+  }
+}

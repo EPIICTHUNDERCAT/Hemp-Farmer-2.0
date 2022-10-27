@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [ "h h", "hhh", " h "],
+  "key":{
+    
+    "h":{
+        "item": "hempfarmer:seeds_indica_crushed"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:violet_hemp_hearts",
+    "count": 1
+  }
+}

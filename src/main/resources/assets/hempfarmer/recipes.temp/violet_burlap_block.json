@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [ "hh", "hh"],
+  "key":{
+   
+    "h":{
+        "item": "hempfarmer:violet_burlap"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:violet_burlap_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "item": "hempfarmer:burlap"
+     },
+     {
+      "item": "hempfarmer:hemp_oil"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:oily_burlap"
+  }
+ 
+ }

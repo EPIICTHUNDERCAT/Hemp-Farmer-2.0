@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "hempfarmer:seeds_hemp_crushed"
+  },
+  "result": "hempfarmer:seeds_hemp_toasted",
+  "experience": 1.0,
+  "cookingtime": 100
+}

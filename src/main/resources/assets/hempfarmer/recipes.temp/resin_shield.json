@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [ "rrr", "rwr", " r "],
+  "key":{
+    "w": {
+        "type":"forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "r":{
+        "item": "hempfarmer:resin"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:resin_shield",
+    "count": 1
+  }
+}

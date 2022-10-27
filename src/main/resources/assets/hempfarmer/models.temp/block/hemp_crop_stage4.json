@@ -1,0 +1,6 @@
+{
+  "parent": "hempfarmer:block/cannibis_crop",
+  "textures": {
+    "crop": "hempfarmer:blocks/hemp_crop_stage4"
+  }
+}

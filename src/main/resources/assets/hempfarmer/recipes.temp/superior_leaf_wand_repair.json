@@ -1,0 +1,15 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+      "item":"hempfarmer:resin"
+     },
+     {
+      "item":"hempfarmer:broken_superior_leaf_wand"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:superior_leaf_wand"
+  }
+ 
+ }

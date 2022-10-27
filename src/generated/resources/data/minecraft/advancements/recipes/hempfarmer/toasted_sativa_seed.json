@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:toasted_sativa_seed"
+    ]
+  },
+  "criteria": {
+    "has_seed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:seeds_sativa"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:toasted_sativa_seed"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_seed",
+      "has_the_recipe"
+    ]
+  ]
+}

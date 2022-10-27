@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [ "hh", "hh"],
+  "key":{
+    
+    "h":{
+        "item": "hempfarmer:dry_hemp"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:burlap",
+    "count": 1
+  }
+}

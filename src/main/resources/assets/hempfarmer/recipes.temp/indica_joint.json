@@ -1,0 +1,21 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "item": "hempfarmer:rolling_paper"
+     },
+     {
+       "item": "hempfarmer:indica_bud"
+     },
+     {
+        "item": "hempfarmer:indica_bud"
+     },
+     {
+        "item": "hempfarmer:indica_bud"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:indica_joint"
+  }
+ 
+ }

@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": ["bbb", "b b", "   "],
+  "key":{
+    
+    "b":{
+        "item": "hempfarmer:resin"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:resin_helmet",
+    "count": 1
+  }
+}

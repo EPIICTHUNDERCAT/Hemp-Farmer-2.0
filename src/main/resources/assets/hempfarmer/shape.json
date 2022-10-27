@@ -1,0 +1,23 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [ "mmm", "ses", "www"],
+  "key":{
+    "m": {
+        "type":"forge:ore_dict",
+      "ore": "listAllmilk"
+    },
+    "s":{
+        "item": "minecraft:sugar"
+    },
+    "e":{
+        "item":"minecraft:egg"
+    },
+    "w":{
+        "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "minecraft:cake",
+    "count": 1
+  }
+}

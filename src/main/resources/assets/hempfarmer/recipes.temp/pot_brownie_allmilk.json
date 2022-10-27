@@ -1,0 +1,27 @@
+{
+   "type": "forge:ore_shapeless",
+   "ingredients": [
+     {
+        "type":"forge:ore_dict",
+        "ore": "listAllmilk"
+     },
+     {
+       "item": "minecraft:egg"
+     }, {
+       "item": "minecraft:sugar"
+     }, {
+       "item": "minecraft:dye",
+       "data": 3
+     }, {
+       "item": "hempfarmer:bud"
+     },{
+       "item": "hempfarmer:indica_bud"
+     },{
+       "item": "hempfarmer:sativa_bud"
+     }
+  ],
+   "result": {
+    "item": "hempfarmer:pot_brownie"
+  }
+ 
+ }

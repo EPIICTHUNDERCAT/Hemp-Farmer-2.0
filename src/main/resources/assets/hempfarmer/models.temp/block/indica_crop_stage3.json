@@ -1,0 +1,6 @@
+{
+  "parent": "hempfarmer:block/cannibis_indica",
+  "textures": {
+    "crop": "hempfarmer:blocks/indica_crop_stage3"
+  }
+}
