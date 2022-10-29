@@ -1,5 +1,8 @@
 {
+  "block.hemp.invalid_placement": "Cannot Place on this block type",
   "block.hempfarmer.powerbattery": "Power Battery",
+  "block.indica.invalid_placement": "Cannot Place on this block type",
+  "block.sativa.invalid_placement": "Cannot Place on this block type",
   "item.hempfarmer.bowl_hemp_hearts": "Bowl of Hemp Hearts",
   "item.hempfarmer.bowl_lime_hemp_hearts": "Bowl of Lime Hearts",
   "item.hempfarmer.bowl_violet_hemp_hearts": "Bowl of Violet Hemp Hearts",

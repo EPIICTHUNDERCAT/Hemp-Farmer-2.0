@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "hempfarmer:hemp_crop",
+    "hempfarmer:sativa_crop",
+    "hempfarmer:indica_crop"
+  ]
+}

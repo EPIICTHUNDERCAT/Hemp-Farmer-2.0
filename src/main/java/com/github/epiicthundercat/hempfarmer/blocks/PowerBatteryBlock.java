@@ -26,10 +26,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
@@ -41,21 +40,16 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
 
     public static final String MESSAGE_POWER_BATTERY = "message.powerbattery";
     public static final String SCREEN_HEMP_FARMER_POWER_BATTERY = "screen.hempfarmer.powerbattery";
-    private static final VoxelShape SHAPE_DOWN = Shapes.box(0, .2, 0, 1, 1, 1);
-    private static final VoxelShape SHAPE_UP = Shapes.box(0, 0, 0, 1, .8, 1);
-    private static final VoxelShape SHAPE_NORTH = Shapes.box(0, 0, .2, 1, 1, 1);
-    private static final VoxelShape SHAPE_SOUTH = Shapes.box(0, 0, 0, 1, 1, .8);
-    private static final VoxelShape SHAPE_WEST = Shapes.box(.2, 0, 0, 1, 1, 1);
-    private static final VoxelShape SHAPE_EAST = Shapes.box(0, 0, 0, .8, 1, 1);
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape RENDER_SHAPE = Shapes.box(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
 
     public PowerBatteryBlock() {
-        super(Properties.of(Material.METAL)
-                .sound(SoundType.METAL)
-                .strength(2.0f)
-                .lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
+        super(Properties.of(Material.METAL).sound(SoundType.METAL).strength(2.0f).lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
+
                 .requiresCorrectToolForDrops()
+
         );
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @SuppressWarnings("deprecation")
@@ -64,22 +58,10 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
         return RENDER_SHAPE;
     }
 
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(BlockStateProperties.FACING)) {
-            case DOWN -> SHAPE_DOWN;
-            case UP -> SHAPE_UP;
-            case NORTH -> SHAPE_NORTH;
-            case SOUTH -> SHAPE_SOUTH;
-            case WEST -> SHAPE_WEST;
-            case EAST -> SHAPE_EAST;
-        };
-    }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
-        list.add(new TranslatableComponent(MESSAGE_POWER_BATTERY, Integer.toString(PowerBatteryConfig.POWER_BATTERY_GENERATE.get()))
-                .withStyle(ChatFormatting.BLUE));
+        list.add(new TranslatableComponent(MESSAGE_POWER_BATTERY, Integer.toString(PowerBatteryConfig.POWER_BATTERY_GENERATE.get())).withStyle(ChatFormatting.BLUE));
     }
 
     @Nullable
@@ -127,42 +109,19 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    private double getYFromHit(Direction facing, Vec3 hit) {
-        return switch (facing) {
-            case UP -> 1 - hit.x;
-            case DOWN -> 1 - hit.x;
-            case NORTH -> 1 - hit.x;
-            case SOUTH -> hit.x;
-            case WEST -> hit.z;
-            case EAST -> 1 - hit.z;
-        };
-    }
-
-    private double getXFromHit(Direction facing, Vec3 hit) {
-        return switch (facing) {
-            case UP -> hit.z;
-            case DOWN -> 1 - hit.z;
-            case NORTH -> hit.y;
-            case SOUTH -> hit.y;
-            case WEST -> hit.y;
-            case EAST -> hit.y;
-        };
-    }
-
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        super.getStateForPlacement(context).setValue(BlockStateProperties.POWERED, false);
-        return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
+
+        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection()).setValue(BlockStateProperties.POWERED, false);
 
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(BlockStateProperties.POWERED);
-        builder.add(BlockStateProperties.FACING);
+
+        builder.add(FACING, BlockStateProperties.POWERED);
 
     }
 }

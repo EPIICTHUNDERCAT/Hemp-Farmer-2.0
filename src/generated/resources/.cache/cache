@@ -1,4 +1,4 @@
-104b5bd006a3c3c9c2ca7393fedfba2a7d6e00cf assets/hempfarmer/lang/en_us.json
+2947702e6775c5a49f056f5ffb0030b39289dfc7 assets/hempfarmer/lang/en_us.json
 3c6a30f74245b7473d81ab11f2178ca2e16e3fe8 assets/hempfarmer/models/item/bowl_hemp_hearts.json
 ccc098e23f9ab3174f146e830e9310868b7385e6 assets/hempfarmer/models/item/bowl_lime_hemp_hearts.json
 04128ddf15e814eb80a580a4d178857299cc6d52 assets/hempfarmer/models/item/bowl_violet_hemp_hearts.json
@@ -56,5 +56,6 @@ ece11683f73d906a4fcbeeada0cca101d21e2e39 data/minecraft/advancements/recipes/hem
 6d5fa38fec3673cd9d5daa6ce5fe0eb60e44e911 data/minecraft/recipes/toasted_hemp_seed.json
 96e3ca0e22b5dff09d8e737dda1cf16e4ae8b966 data/minecraft/recipes/toasted_indica_seed.json
 b9200239a9ed54c19c4682cc3ddcf02ee912f20c data/minecraft/recipes/toasted_sativa_seed.json
+8ad238dba161fe886131cb56a4e85af7b774ba6f data/minecraft/tags/blocks/crops.json
 5aa87e56fbf641137596c51dd2c350d8936a8863 data/minecraft/tags/blocks/mineable/pickaxe.json
 5aa87e56fbf641137596c51dd2c350d8936a8863 data/minecraft/tags/blocks/needs_iron_tool.json

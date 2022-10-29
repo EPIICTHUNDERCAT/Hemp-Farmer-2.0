@@ -3,10 +3,15 @@ package com.github.epiicthundercat.hempfarmer.setup;
 import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBE;
 import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryContainer;
+import com.github.epiicthundercat.hempfarmer.blocks.crops.IndicaCrop;
+import com.github.epiicthundercat.hempfarmer.common.item.HempItem;
+import com.github.epiicthundercat.hempfarmer.common.item.IndicaItem;
+import com.github.epiicthundercat.hempfarmer.common.item.SativaItem;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,7 +25,7 @@ import static com.github.epiicthundercat.hempfarmer.HempFarmer.MODID;
 public class Registration {
 
 
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
     private static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
@@ -87,20 +92,27 @@ public class Registration {
     public static final RegistryObject<Item> BROKEN_SUPERIOR_LEAF_WAND = ITEMS.register("broken_superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
 
     //Seeds and Seed types
-    public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new SativaItem(Registration.SATIVA_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_SATIVA_CRUSHED = ITEMS.register("seeds_sativa_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_INDICA_CRUSHED = ITEMS.register("seeds_indica_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_CRUSHED = ITEMS.register("seeds_hemp_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(ITEM_PROPERTIES));
 
 
     //Blocks Here
     //   public static final RegistryObject<Block> LIME_BURLAP_BLOCK = BLOCKS.register("lime_burlap_block", () -> new Block(BLOCK_PROPERTIES));
+    public static final RegistryObject<Block> INDICA_CROP = BLOCKS.register("indica_crop",
+            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+    public static final RegistryObject<Block> SATIVA_CROP = BLOCKS.register("sativa_crop",
+            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+    public static final RegistryObject<Block> HEMP_CROP = BLOCKS.register("hemp_crop",
+            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
 
+    //Power Battery Registrations - Container, Block Entity, Block, and Item //
     public static final RegistryObject<PowerBatteryBlock> POWER_BATTERY = BLOCKS.register("powerbattery", PowerBatteryBlock::new);
     public static final RegistryObject<Item> POWER_BATTERY_ITEM = fromBlock(POWER_BATTERY);
     public static final RegistryObject<BlockEntityType<PowerBatteryBE>> POWER_BATTERY_BE = BLOCK_ENTITIES.register("powerbattery",

@@ -13,6 +13,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientSetup {
 
     public static void init(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(Registration.HEMP_CROP.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Registration.INDICA_CROP.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Registration.SATIVA_CROP.get(), RenderType.cutout());
+
         event.enqueueWork(() -> {
             MenuScreens.register(Registration.POWER_BATTERY_CONTAINER.get(), PowerBatteryScreen::new);
             ItemBlockRenderTypes.setRenderLayer(Registration.POWER_BATTERY.get(), RenderType.translucent());
@@ -24,7 +28,7 @@ public class ClientSetup {
     }
 
 
-//    @SubscribeEvent
+    //    @SubscribeEvent
 //    public static void onModelRegistryEvent(ModelRegistryEvent event) {
 //        ModelLoaderRegistry.registerLoader(GeneratorModelLoader.GENERATOR_LOADER, new GeneratorModelLoader());
 //    }

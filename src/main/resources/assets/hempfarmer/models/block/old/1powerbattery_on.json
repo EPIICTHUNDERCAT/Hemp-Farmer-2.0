@@ -1,0 +1,61 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "hempfarmer:blocks/power_battery",
+		"1": "hempfarmer:blocks/power_battery_sides",
+		"2": "hempfarmer:blocks/power_battery_on",
+		"3": "hempfarmer:blocks/power_battery_on_ground",
+		"4": "hempfarmer:blocks/power_battery_elec_on",
+		"particle": "hempfarmer:blocks/power_battery"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 11, 16],
+			"faces": {
+				"north": {"uv": [0, 5, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 5, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 5, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 5, 16, 16], "texture": "#1"},
+				"up": {"uv": [0, 5, 16, 16], "texture": "#1"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [4, 11, 0],
+			"to": [12, 16, 4],
+			"faces": {
+				"north": {"uv": [4, 9, 12, 14], "texture": "#2"},
+				"east": {"uv": [4, 9, 8, 14], "texture": "#2"},
+				"south": {"uv": [4, 9, 12, 14], "texture": "#2"},
+				"west": {"uv": [4, 9, 8, 14], "texture": "#2"},
+				"up": {"uv": [4, 8, 12, 12], "texture": "#2"},
+				"down": {"uv": [3, 12, 11, 16], "texture": "#2"}
+			}
+		},
+		{
+			"from": [4, 11, 12],
+			"to": [12, 16, 16],
+			"faces": {
+				"north": {"uv": [4, 9, 12, 14], "texture": "#3"},
+				"east": {"uv": [4, 9, 8, 14], "texture": "#3"},
+				"south": {"uv": [4, 9, 12, 14], "texture": "#3"},
+				"west": {"uv": [4, 9, 8, 14], "texture": "#3"},
+				"up": {"uv": [4, 8, 12, 12], "texture": "#3"},
+				"down": {"uv": [4, 12, 12, 16], "texture": "#3"}
+			}
+		},
+		{
+			"from": [7, 13, 4],
+			"to": [9, 15, 12],
+			"faces": {
+				"north": {"uv": [4, 4, 6, 6], "texture": "#4"},
+				"east": {"uv": [4, 4, 12, 6], "texture": "#4"},
+				"south": {"uv": [4, 4, 6, 6], "texture": "#4"},
+				"west": {"uv": [4, 4, 12, 6], "texture": "#4"},
+				"up": {"uv": [4, 4, 6, 12], "texture": "#4"},
+				"down": {"uv": [10, 4, 12, 12], "texture": "#4"}
+			}
+		}
+	]
+}

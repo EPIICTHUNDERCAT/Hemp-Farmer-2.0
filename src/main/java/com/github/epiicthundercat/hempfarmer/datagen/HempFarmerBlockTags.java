@@ -4,8 +4,6 @@ import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class HempFarmerBlockTags extends BlockTagsProvider {
@@ -16,31 +14,18 @@ public class HempFarmerBlockTags extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
-//                .add(Registration.GENERATOR.get())
+
+        tag(net.minecraft.tags.BlockTags.CROPS)
+                .add(Registration.HEMP_CROP.get())
+                .add(Registration.SATIVA_CROP.get())
+                .add(Registration.INDICA_CROP.get());
+        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
+                //.add(Registration.GENERATOR.get())
                 .add(Registration.POWER_BATTERY.get());
-//                .add(Registration.MYSTERIOUS_ORE_OVERWORLD.get())
-//                .add(Registration.MYSTERIOUS_ORE_NETHER.get())
-//                .add(Registration.MYSTERIOUS_ORE_END.get())
-//                .add(Registration.MYSTERIOUS_ORE_DEEPSLATE.get());
-      tag(BlockTags.NEEDS_IRON_TOOL)
-             //   .add(Registration.GEN.get())
+        tag(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL)
+                //   .add(Registration.GEN.get())
                 .add(Registration.POWER_BATTERY.get());
-//                .add(Registration.MYSTERIOUS_ORE_OVERWORLD.get())
-//                .add(Registration.MYSTERIOUS_ORE_NETHER.get())
-//                .add(Registration.MYSTERIOUS_ORE_END.get())
-//                .add(Registration.MYSTERIOUS_ORE_DEEPSLATE.get());
-//        tag(Tags.Blocks.ORES)
-//                .add(Registration.MYSTERIOUS_ORE_OVERWORLD.get())
-//                .add(Registration.MYSTERIOUS_ORE_NETHER.get())
-//                .add(Registration.MYSTERIOUS_ORE_END.get())
-//                .add(Registration.MYSTERIOUS_ORE_DEEPSLATE.get());
-//
-//        tag(Registration.MYSTERIOUS_ORE)
-//                .add(Registration.MYSTERIOUS_ORE_OVERWORLD.get())
-//                .add(Registration.MYSTERIOUS_ORE_NETHER.get())
-//                .add(Registration.MYSTERIOUS_ORE_END.get())
-//                .add(Registration.MYSTERIOUS_ORE_DEEPSLATE.get());
+
     }
 
     @Override

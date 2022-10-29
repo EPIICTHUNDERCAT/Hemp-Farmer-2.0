@@ -25,7 +25,7 @@ public class DataGenerators {
             //    generator.addProvider(new TutStructureSetTags(generator, event.getExistingFileHelper()));
         }
         if (event.includeClient()) {
-            // generator.addProvider(new HempFarmerBlockStates(generator, event.getExistingFileHelper()));
+            generator.addProvider(new HempFarmerBlockStates(generator, event.getExistingFileHelper()));
             generator.addProvider(new HempFarmerItemModels(generator, event.getExistingFileHelper()));
             generator.addProvider(new HempFarmerLanguageProvider(generator, "en_us"));
 

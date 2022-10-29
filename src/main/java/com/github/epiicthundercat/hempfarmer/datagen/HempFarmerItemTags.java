@@ -17,9 +17,7 @@ public class HempFarmerItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-//        tag(Tags.Items.CROPS)
-//                .add(Registration.BLOCK.get());
-//
+
 
         tag(Tags.Items.SEEDS)
                 .add(Registration.SEEDS_SATIVA.get())
@@ -29,6 +27,11 @@ public class HempFarmerItemTags extends ItemTagsProvider {
 //        tag(Tags.Items.)
 
     }
+//
+//    private void registerModTags() {
+//
+//
+//    }
 
     @Override
     public String getName() {

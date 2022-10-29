@@ -17,6 +17,10 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+
+        add("hempfarmer.block.indica.invalid_placement", "Must Be Placed on Farmland");
+        add("hempfarmer.block.hemp.invalid_placement", "Must Be Placed on Farmland");
+        add("hempfarmer.block.sativa.invalid_placement", "Must Be Placed on Farmland");
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
         add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
         add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
