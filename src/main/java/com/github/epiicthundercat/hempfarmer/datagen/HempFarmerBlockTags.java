@@ -20,10 +20,10 @@ public class HempFarmerBlockTags extends BlockTagsProvider {
                 .add(Registration.SATIVA_CROP.get())
                 .add(Registration.INDICA_CROP.get());
         tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
-                //.add(Registration.GENERATOR.get())
+                .add(Registration.GRINDER.get())
                 .add(Registration.POWER_BATTERY.get());
         tag(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL)
-                //   .add(Registration.GEN.get())
+                .add(Registration.GRINDER.get())
                 .add(Registration.POWER_BATTERY.get());
 
     }

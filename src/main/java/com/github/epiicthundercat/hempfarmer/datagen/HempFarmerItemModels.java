@@ -174,7 +174,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
 
 
         //BLOCK ITEMs
-        // withExistingParent(Registration.GENERATOR_ITEM.get().getRegistryName().getPath(), modLoc("block/generator"));
+        withExistingParent(Registration.GRINDER_ITEM.get().getRegistryName().getPath(), modLoc("block/grinder"));
         withExistingParent(Registration.POWER_BATTERY_ITEM.get().getRegistryName().getPath(), modLoc("block/powerbattery_off"));
     }
 

@@ -1,9 +1,7 @@
 package com.github.epiicthundercat.hempfarmer.common.item;
 
-import com.github.epiicthundercat.hempfarmer.HempFarmer;
+import com.github.epiicthundercat.hempfarmer.util.UtilTools;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +13,9 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SativaItem extends ItemNameBlockItem {
+
+    public static final String SATIVA_ITEM_MESSAGE = "message.sativa.invalid_placement";
+
     public SativaItem(Block block, Properties properties) {
         super(block, properties);
     }
@@ -26,13 +27,11 @@ public class SativaItem extends ItemNameBlockItem {
             Player player = context.getPlayer();
             BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
             if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.getBlock() instanceof FarmBlock)) {
-                player.displayClientMessage(translate("block.sativa.invalid_placement"), true);
+                player.displayClientMessage(UtilTools.translate(SATIVA_ITEM_MESSAGE), true);
             }
         }
         return !result.consumesAction() && this.isEdible() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult() : result;
     }
 
-    public static MutableComponent translate(String key, Object... args) {
-        return new TranslatableComponent(HempFarmer.MODID + "." + key, args);
-    }
+
 }

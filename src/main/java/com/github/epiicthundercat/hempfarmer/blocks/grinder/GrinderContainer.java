@@ -1,4 +1,4 @@
-package com.github.epiicthundercat.hempfarmer.blocks;
+package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
@@ -20,14 +20,14 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class PowerBatteryContainer extends AbstractContainerMenu {
+public class GrinderContainer extends AbstractContainerMenu {
 
     private BlockEntity blockEntity;
     private Player playerEntity;
     private IItemHandler playerInventory;
 
-    public PowerBatteryContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(Registration.POWER_BATTERY_CONTAINER.get(), windowId);
+    public GrinderContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
+        super(Registration.GRINDER_CONTAINER.get(), windowId);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -35,6 +35,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
+                addSlot(new SlotItemHandler(h, 1, 64, 28));
             });
         }
         //tracks player inventory as well
@@ -82,7 +83,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.POWER_BATTERY.get());
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.GRINDER.get());
     }
 
     @Override
@@ -99,7 +100,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
                 }
                 slot.onQuickCraft(stack, itemstack);
             } else {
-                //if item is smeltable, add it to our slot
+                //if item is grindable, add it to our slot
                 if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0) {
                     if (!this.moveItemStackTo(stack, 0, 1, false)) {
                         return ItemStack.EMPTY;

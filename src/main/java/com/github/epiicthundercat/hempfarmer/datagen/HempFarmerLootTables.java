@@ -12,7 +12,9 @@ public class HempFarmerLootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        lootTables.put(Registration.POWER_BATTERY.get(), createStandardTable("powerbattery", Registration.POWER_BATTERY.get(), Registration.POWER_BATTERY_BE.get()));
+        lootTables.put(Registration.POWER_BATTERY.get(), createStandardTable("powerbattery", Registration.POWER_BATTERY.get(),
+                Registration.POWER_BATTERY_BE.get()));
+        lootTables.put(Registration.GRINDER.get(), createStandardTable("grinder", Registration.GRINDER.get(), Registration.GRINDER_BE.get()));
 
     }
 

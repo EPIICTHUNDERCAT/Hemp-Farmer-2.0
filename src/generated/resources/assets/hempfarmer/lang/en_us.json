@@ -1,8 +1,6 @@
 {
-  "block.hemp.invalid_placement": "Cannot Place on this block type",
+  "block.hempfarmer.grinder": "Hemp Grinder",
   "block.hempfarmer.powerbattery": "Power Battery",
-  "block.indica.invalid_placement": "Cannot Place on this block type",
-  "block.sativa.invalid_placement": "Cannot Place on this block type",
   "item.hempfarmer.bowl_hemp_hearts": "Bowl of Hemp Hearts",
   "item.hempfarmer.bowl_lime_hemp_hearts": "Bowl of Lime Hearts",
   "item.hempfarmer.bowl_violet_hemp_hearts": "Bowl of Violet Hemp Hearts",
@@ -48,6 +46,10 @@
   "item.hempfarmer.violet_oil": "Violet oil",
   "item.hempfarmer.violet_raw_hemp": "Raw Violet Hemp",
   "itemGroup.hempfarmer": "Hemp Farmer",
+  "message.grinder": "Grinding Hemp!",
+  "message.hemp.invalid_placement": "Must Be Placed on Farmland",
+  "message.indica.invalid_placement": "Must Be Placed on Farmland",
   "message.powerbattery": "Power battery generating %s per tick!",
+  "message.sativa.invalid_placement": "Must Be Placed on Farmland",
   "screen.hempfarmer.powerbattery": "Power Battery"
 }

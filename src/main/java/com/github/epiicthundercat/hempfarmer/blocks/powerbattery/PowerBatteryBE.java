@@ -1,4 +1,4 @@
-package com.github.epiicthundercat.hempfarmer.blocks;
+package com.github.epiicthundercat.hempfarmer.blocks.powerbattery;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;

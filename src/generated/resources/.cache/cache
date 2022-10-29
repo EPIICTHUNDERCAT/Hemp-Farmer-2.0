@@ -1,4 +1,4 @@
-2947702e6775c5a49f056f5ffb0030b39289dfc7 assets/hempfarmer/lang/en_us.json
+7bbd2d5f9dbca339c43345ded4483e0c18bd8e7d assets/hempfarmer/lang/en_us.json
 3c6a30f74245b7473d81ab11f2178ca2e16e3fe8 assets/hempfarmer/models/item/bowl_hemp_hearts.json
 ccc098e23f9ab3174f146e830e9310868b7385e6 assets/hempfarmer/models/item/bowl_lime_hemp_hearts.json
 04128ddf15e814eb80a580a4d178857299cc6d52 assets/hempfarmer/models/item/bowl_violet_hemp_hearts.json
@@ -6,6 +6,7 @@ b4635cc639aad41518d3eb1eed869f210f50a2ea assets/hempfarmer/models/item/broken_su
 e770c4ec98b0e857446dca53fffb60789616e98d assets/hempfarmer/models/item/bud.json
 a71aa3dfaca30e31f01e29cc837645910a1eec73 assets/hempfarmer/models/item/burlap.json
 b9c2c8f5440d7fbe5561a07a0ebf393a2ab13342 assets/hempfarmer/models/item/dry_hemp.json
+ef9c9f019f8b304bfc67f98250ed7757d6e8e9cb assets/hempfarmer/models/item/grinder.json
 ba8bab3dabd2bb8a6922633b9a4b1b5fcf7cd741 assets/hempfarmer/models/item/hemp_hearts.json
 957dfd6ace51a60e043a266c4164f92e651f8365 assets/hempfarmer/models/item/hemp_milk_bucket.json
 ad77af657513b8b07dabc3c38ec09793e6e9e98d assets/hempfarmer/models/item/hemp_oil.json
@@ -47,6 +48,7 @@ b6bf7bf0c598d5243f0c0e1e2f65ce696b80c347 assets/hempfarmer/models/item/violet_ra
 4cceef6ee8a627f3744620eb1647c7475f182016 data/forge/tags/items/seeds.json
 823cf93dd0b201064a097f54057f7a3f1d1e88f2 data/hempfarmer/advancements/recipes/hempfarmer/powerbattery.json
 54e69019b5adb919c3b00f5e23695d47f2f94313 data/hempfarmer/advancements/recipes/hempfarmer/regs_joint.json
+ac3c8e4a2abf8ca8698fdb18963a7b5e24c3067a data/hempfarmer/loot_tables/blocks/grinder.json
 19ddd5c6a2ee3dbed6bb0dcaf46abfebd52ad18e data/hempfarmer/loot_tables/blocks/powerbattery.json
 29dbfceeafe4ba3e13e157978ee66c64c503ea80 data/hempfarmer/recipes/powerbattery.json
 0a753732034ee5ac62dbd929ef2badb9084f8cd6 data/hempfarmer/recipes/regs_joint.json
@@ -57,5 +59,5 @@ ece11683f73d906a4fcbeeada0cca101d21e2e39 data/minecraft/advancements/recipes/hem
 96e3ca0e22b5dff09d8e737dda1cf16e4ae8b966 data/minecraft/recipes/toasted_indica_seed.json
 b9200239a9ed54c19c4682cc3ddcf02ee912f20c data/minecraft/recipes/toasted_sativa_seed.json
 8ad238dba161fe886131cb56a4e85af7b774ba6f data/minecraft/tags/blocks/crops.json
-5aa87e56fbf641137596c51dd2c350d8936a8863 data/minecraft/tags/blocks/mineable/pickaxe.json
-5aa87e56fbf641137596c51dd2c350d8936a8863 data/minecraft/tags/blocks/needs_iron_tool.json
+6f6d529577eac21ec130c84260a73d6c9639e852 data/minecraft/tags/blocks/mineable/pickaxe.json
+6f6d529577eac21ec130c84260a73d6c9639e852 data/minecraft/tags/blocks/needs_iron_tool.json

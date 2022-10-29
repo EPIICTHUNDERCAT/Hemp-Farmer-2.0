@@ -1,9 +1,12 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBE;
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock;
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryContainer;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.IndicaCrop;
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBE;
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock;
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
 import com.github.epiicthundercat.hempfarmer.common.item.HempItem;
 import com.github.epiicthundercat.hempfarmer.common.item.IndicaItem;
 import com.github.epiicthundercat.hempfarmer.common.item.SativaItem;
@@ -119,6 +122,15 @@ public class Registration {
             () -> BlockEntityType.Builder.of(PowerBatteryBE::new, POWER_BATTERY.get()).build(null));
     public static final RegistryObject<MenuType<PowerBatteryContainer>> POWER_BATTERY_CONTAINER = MENU.register("powerbattery",
             () -> IForgeMenuType.create((windowId, inv, data) -> new PowerBatteryContainer(windowId, data.readBlockPos(), inv, inv.player)));
+
+
+    //Grinder Blcoks and Data
+    public static final RegistryObject<GrinderBlock> GRINDER = BLOCKS.register("grinder", GrinderBlock::new);
+    public static final RegistryObject<Item> GRINDER_ITEM = fromBlock(GRINDER);
+    public static final RegistryObject<BlockEntityType<GrinderBE>> GRINDER_BE = BLOCK_ENTITIES.register("grinder",
+            () -> BlockEntityType.Builder.of(GrinderBE::new, GRINDER.get()).build(null));
+    public static final RegistryObject<MenuType<GrinderContainer>> GRINDER_CONTAINER = MENU.register("grinder",
+            () -> IForgeMenuType.create((windowId, inv, data) -> new GrinderContainer(windowId, data.readBlockPos(), inv, inv.player)));
 
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {

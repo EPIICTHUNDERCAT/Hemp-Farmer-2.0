@@ -1,4 +1,4 @@
-package com.github.epiicthundercat.hempfarmer.blocks;
+package com.github.epiicthundercat.hempfarmer.blocks.powerbattery;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

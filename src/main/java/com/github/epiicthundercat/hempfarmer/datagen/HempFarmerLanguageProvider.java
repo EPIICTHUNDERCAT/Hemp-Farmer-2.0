@@ -5,8 +5,12 @@ import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
-import static com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock.MESSAGE_POWER_BATTERY;
-import static com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBlock.SCREEN_HEMP_FARMER_POWER_BATTERY;
+import static com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock.MESSAGE_GRINDER;
+import static com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock.MESSAGE_POWER_BATTERY;
+import static com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock.SCREEN_HEMP_FARMER_POWER_BATTERY;
+import static com.github.epiicthundercat.hempfarmer.common.item.HempItem.HEMP_ITEM_MESSAGE;
+import static com.github.epiicthundercat.hempfarmer.common.item.IndicaItem.INDICA_ITEM_MESSAGE;
+import static com.github.epiicthundercat.hempfarmer.common.item.SativaItem.SATIVA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.setup.ModSetup.TAB_NAME;
 
 public class HempFarmerLanguageProvider extends LanguageProvider {
@@ -18,13 +22,17 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
 
-        add("hempfarmer.block.indica.invalid_placement", "Must Be Placed on Farmland");
-        add("hempfarmer.block.hemp.invalid_placement", "Must Be Placed on Farmland");
-        add("hempfarmer.block.sativa.invalid_placement", "Must Be Placed on Farmland");
+        add(INDICA_ITEM_MESSAGE, "Must Be Placed on Farmland");
+        add(HEMP_ITEM_MESSAGE, "Must Be Placed on Farmland");
+        add(SATIVA_ITEM_MESSAGE, "Must Be Placed on Farmland");
+
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
         add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
         add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
         add(Registration.POWER_BATTERY.get(), "Power Battery");
+
+        add(MESSAGE_GRINDER, "Grinding Hemp!");
+        add(Registration.GRINDER.get(), "Hemp Grinder");
 
         // SATIVA
         add(Registration.SATIVA_JOINT.get(), "Sativa Joint");

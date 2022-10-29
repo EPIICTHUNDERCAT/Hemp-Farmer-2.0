@@ -1,9 +1,11 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryConfig;
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderConfig;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import org.apache.commons.compress.archivers.sevenz.CLI;
 
 public class HFConfig {
 
@@ -17,6 +19,7 @@ public class HFConfig {
 
         ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
         PowerBatteryConfig.registerClientConfig(CLIENT_BUILDER);
+        GrinderConfig.registerServerConfig(CLIENT_BUILDER);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_BUILDER.build());
 
     }
@@ -33,6 +36,7 @@ public class HFConfig {
     private static void registerServerConfigs() {
 
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
+        GrinderConfig.registerServerConfig(SERVER_BUILDER);
         PowerBatteryConfig.registerServerConfig(SERVER_BUILDER);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_BUILDER.build());
 

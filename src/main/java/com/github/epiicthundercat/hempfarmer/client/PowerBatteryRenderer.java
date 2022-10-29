@@ -2,8 +2,8 @@ package com.github.epiicthundercat.hempfarmer.client;
 
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryBE;
-import com.github.epiicthundercat.hempfarmer.blocks.PowerBatteryConfig;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
+import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryConfig;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -15,9 +15,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import static java.lang.Boolean.TRUE;
@@ -67,6 +69,7 @@ public class PowerBatteryRenderer implements BlockEntityRenderer<PowerBatteryBE>
         buffer.vertex(matrix, scale, scale, 0.0f).color(1.0f, 1.0f, 1.0f, 0.3f).uv(sprite.getU1(), sprite.getV1()).uv2(brightness).normal(1, 0, 0).endVertex();
         buffer.vertex(matrix, scale, -scale, 0.0f).color(1.0f, 1.0f, 1.0f, 0.3f).uv(sprite.getU1(), sprite.getV0()).uv2(brightness).normal(1, 0, 0).endVertex();
         poseStack.popPose();
+
     }
 
     public static void register() {

@@ -1,4 +1,4 @@
-package com.github.epiicthundercat.hempfarmer.blocks;
+package com.github.epiicthundercat.hempfarmer.blocks.powerbattery;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -44,7 +44,9 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
     private static final VoxelShape RENDER_SHAPE = Shapes.box(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
 
     public PowerBatteryBlock() {
-        super(Properties.of(Material.METAL).sound(SoundType.METAL).strength(2.0f).lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
+        super(Properties.of(Material.METAL).sound(SoundType.METAL)
+                .strength(2.0f)
+                .lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
 
                 .requiresCorrectToolForDrops()
 
