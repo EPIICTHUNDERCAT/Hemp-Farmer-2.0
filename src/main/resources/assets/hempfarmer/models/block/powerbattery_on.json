@@ -1,12 +1,12 @@
 {
-	"credit": "Made with Blockbench",
+
 	"textures": {
-		"0": "hempfarmer:blocks/power_battery",
-		"1": "hempfarmer:blocks/power_battery_sides",
-		"2": "hempfarmer:blocks/power_battery_on",
-		"3": "hempfarmer:blocks/power_battery_on_ground",
-		"4": "hempfarmer:blocks/power_battery_elec_on",
-		"particle": "hempfarmer:blocks/power_battery"
+		"0": "hempfarmer:block/power_battery",
+		"1": "hempfarmer:block/power_battery_sides",
+		"2": "hempfarmer:block/power_battery_on",
+		"3": "hempfarmer:block/power_battery_on_ground",
+		"4": "hempfarmer:block/power_battery_elec_on",
+		"particle": "hempfarmer:block/power_battery"
 	},
 	"elements": [
 		{

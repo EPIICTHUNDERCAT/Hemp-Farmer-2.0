@@ -83,7 +83,14 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.ROLLING_PAPER.get(), "Rolling Paper");
         add(Registration.RESIN_BURLAP.get(), "Resin Burlap");
         add(Registration.OILY_BURLAP.get(), "Oily Burlap");
-
+        add(Registration.LEAF.get(), "Cannabis Leaf");
+        add(Registration.HEMP_CROP.get(), "Hemp Seedling");
+        add(Registration.SATIVA_CROP.get(), "Sativa Seedling");
+        add(Registration.INDICA_CROP.get(), "Indica Seedling");
+        add(Registration.OILY_DIRT.get(), "Oily Dirt");
+        add(Registration.RESIN_DIRT.get(), "Resin Dirt");
+        add(Registration.LIME_DIRT.get(), "Lime Dirt");
+        add(Registration.VIOLET_DIRT.get(), "Violet Dirt");
 
     }
 }

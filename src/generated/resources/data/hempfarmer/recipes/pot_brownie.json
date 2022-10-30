@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hempfarmer",
+  "pattern": [
+    "mxm",
+    "x#x",
+    "#x#"
+  ],
+  "key": {
+    "x": {
+      "item": "hempfarmer:hemp_milk_bucket"
+    },
+    "#": {
+      "tag": "forge:eggs"
+    },
+    "m": {
+      "item": "minecraft:cocoa_beans"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:pot_brownie"
+  }
+}

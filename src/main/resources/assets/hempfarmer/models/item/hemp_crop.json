@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "hempfarmer:blocks/indica_crop"
+        "layer0": "hempfarmer:block/hemp_crop"
     },
 	    "display": {
         "thirdperson_righthand": {

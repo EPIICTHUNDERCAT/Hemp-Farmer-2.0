@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hempfarmer:violet_oil"
+    ]
+  },
+  "criteria": {
+    "oily": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:seeds_indica"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hempfarmer:violet_oil"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "oily",
+      "has_the_recipe"
+    ]
+  ]
+}

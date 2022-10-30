@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "hempfarmer:seeds_sativa"
+  },
+  "result": "hempfarmer:seeds_sativa_toasted",
+  "experience": 1.0,
+  "cookingtime": 100
+}

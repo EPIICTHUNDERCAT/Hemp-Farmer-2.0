@@ -2,7 +2,6 @@ package com.github.epiicthundercat.hempfarmer.client.grinder;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
-import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -28,7 +27,7 @@ public class GrinderScreen extends AbstractContainerScreen<GrinderContainer> {
 
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-        drawString(matrixStack, Minecraft.getInstance().font, "Energy: " + menu.getEnergy(), 10, 10, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, "Energy Stored: " + menu.getEnergy(), 10, 10, 0xffffff);
     }
 
     @Override

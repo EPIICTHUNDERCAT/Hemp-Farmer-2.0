@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hempfarmer",
+  "pattern": [
+    "m m",
+    "mmm",
+    " m "
+  ],
+  "key": {
+    "m": {
+      "item": "hempfarmer:seeds_hemp_crushed"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:hemp_hearts"
+  }
+}

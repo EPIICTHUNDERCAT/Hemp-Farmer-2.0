@@ -1,6 +1,8 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
+import com.github.epiicthundercat.hempfarmer.blocks.crops.HempCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.IndicaCrop;
+import com.github.epiicthundercat.hempfarmer.blocks.crops.SativaCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBE;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
@@ -16,6 +18,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -45,7 +49,7 @@ public class Registration {
     }
 
     public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModSetup.ITEM_GROUP);
-    // public static final BlockBehaviour.Properties BLOCK_PROPERTIES = new BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);// BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);
+    //   public static final BlockBehaviour.Properties BLOCK_PROPERTIES = new BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);// BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);
 
     //Items Here
 
@@ -78,7 +82,6 @@ public class Registration {
     public static final RegistryObject<Item> LIME_DRY_HEMP = ITEMS.register("lime_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_DRY_HEMP = ITEMS.register("violet_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
-
     public static final RegistryObject<Item> VIOLET_BURLAP = ITEMS.register("violet_burlap", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SHOT_LEAF = ITEMS.register("shot_leaf", () -> new Item(ITEM_PROPERTIES));
@@ -106,14 +109,28 @@ public class Registration {
     public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(ITEM_PROPERTIES));
 
 
+    public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(ITEM_PROPERTIES));
+
+
     //Blocks Here
-    //   public static final RegistryObject<Block> LIME_BURLAP_BLOCK = BLOCKS.register("lime_burlap_block", () -> new Block(BLOCK_PROPERTIES));
+    public static final RegistryObject<Block> LIME_DIRT = BLOCKS.register("lime_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Item> LIME_DIRT_ITEM = fromBlock(LIME_DIRT);
+    public static final RegistryObject<Block> OILY_DIRT = BLOCKS.register("oily_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Item> OILY_DIRT_ITEM = fromBlock(OILY_DIRT);
+    public static final RegistryObject<Block> RESIN_DIRT = BLOCKS.register("resin_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Item> RESIN_DIRT_ITEM = fromBlock(RESIN_DIRT);
+    public static final RegistryObject<Block> VIOLET_DIRT = BLOCKS.register("violet_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Item> VIOLET_DIRT_ITEM = fromBlock(VIOLET_DIRT);
     public static final RegistryObject<Block> INDICA_CROP = BLOCKS.register("indica_crop",
             () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+    public static final RegistryObject<Item> INDICA_CROP_ITEM = fromBlock(INDICA_CROP);
     public static final RegistryObject<Block> SATIVA_CROP = BLOCKS.register("sativa_crop",
-            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+            () -> new SativaCrop(Block.Properties.copy(Blocks.WHEAT)));
+    public static final RegistryObject<Item> SATIVA_CROP_ITEM = fromBlock(SATIVA_CROP);
     public static final RegistryObject<Block> HEMP_CROP = BLOCKS.register("hemp_crop",
-            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+            () -> new HempCrop(Block.Properties.copy(Blocks.WHEAT)));
+    public static final RegistryObject<Item> HEMP_CROP_ITEM = fromBlock(HEMP_CROP);
+
 
     //Power Battery Registrations - Container, Block Entity, Block, and Item //
     public static final RegistryObject<PowerBatteryBlock> POWER_BATTERY = BLOCKS.register("powerbattery", PowerBatteryBlock::new);
@@ -124,7 +141,7 @@ public class Registration {
             () -> IForgeMenuType.create((windowId, inv, data) -> new PowerBatteryContainer(windowId, data.readBlockPos(), inv, inv.player)));
 
 
-    //Grinder Blcoks and Data
+    //Grinder Blocks and Data
     public static final RegistryObject<GrinderBlock> GRINDER = BLOCKS.register("grinder", GrinderBlock::new);
     public static final RegistryObject<Item> GRINDER_ITEM = fromBlock(GRINDER);
     public static final RegistryObject<BlockEntityType<GrinderBE>> GRINDER_BE = BLOCK_ENTITIES.register("grinder",

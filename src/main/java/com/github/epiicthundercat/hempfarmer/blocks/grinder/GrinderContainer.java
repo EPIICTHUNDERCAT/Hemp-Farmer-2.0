@@ -35,7 +35,7 @@ public class GrinderContainer extends AbstractContainerMenu {
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
-                addSlot(new SlotItemHandler(h, 1, 64, 28));
+               // addSlot(new SlotItemHandler(h, 1, 64, 28));
             });
         }
         //tracks player inventory as well

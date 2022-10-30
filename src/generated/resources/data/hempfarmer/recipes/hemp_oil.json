@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hempfarmer",
+  "pattern": [
+    "mmm",
+    "xmx",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "tag": "forge:glass"
+    },
+    "m": {
+      "item": "hempfarmer:seeds_hemp"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:hemp_oil"
+  }
+}

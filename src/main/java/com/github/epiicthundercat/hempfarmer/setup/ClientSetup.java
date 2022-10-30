@@ -14,13 +14,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientSetup {
 
     public static void init(FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(Registration.HEMP_CROP.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Registration.INDICA_CROP.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Registration.SATIVA_CROP.get(), RenderType.cutout());
+
 
         event.enqueueWork(() -> {
             MenuScreens.register(Registration.POWER_BATTERY_CONTAINER.get(), PowerBatteryScreen::new);
             ItemBlockRenderTypes.setRenderLayer(Registration.POWER_BATTERY.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(Registration.HEMP_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Registration.INDICA_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Registration.SATIVA_CROP.get(), RenderType.cutout());
             PowerBatteryRenderer.register();
             MenuScreens.register(Registration.GRINDER_CONTAINER.get(), GrinderScreen::new);
             ItemBlockRenderTypes.setRenderLayer(Registration.GRINDER.get(), RenderType.translucent());

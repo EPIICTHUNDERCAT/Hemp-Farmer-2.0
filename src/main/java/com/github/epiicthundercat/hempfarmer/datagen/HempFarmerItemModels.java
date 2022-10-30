@@ -139,9 +139,9 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/superior_leaf_wand"));
 
-        singleTexture(Registration.POT_BROWNIE.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", new ResourceLocation(HempFarmer.MODID, "items/pot_brownie"));
+//        singleTexture(Registration.POT_BROWNIE.get().getRegistryName().getPath(),
+//                mcLoc("item/generated"),
+//                "layer0", new ResourceLocation(HempFarmer.MODID, "items/pot_brownie"));
 
         singleTexture(Registration.RESIN.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
@@ -171,10 +171,30 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.OILY_BURLAP.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/oily_burlap"));
+        singleTexture(Registration.LEAF.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/leaf"));
 
 
         //BLOCK ITEMs
+
+//        singleTexture(Registration.INDICA_CROP_ITEM.get().getRegistryName().getPath(),
+//                mcLoc("item/generated"),
+//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/indica_crop"));
+//        singleTexture(Registration.SATIVA_CROP_ITEM.get().getRegistryName().getPath(),
+//                mcLoc("item/generated"),
+//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/sativa_crop"));
+//        singleTexture(Registration.HEMP_CROP_ITEM.get().getRegistryName().getPath(),
+//                mcLoc("item/generated"),
+//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/hemp_crop"));
+
         withExistingParent(Registration.GRINDER_ITEM.get().getRegistryName().getPath(), modLoc("block/grinder"));
+
+        withExistingParent(Registration.OILY_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/oily_dirt"));
+        withExistingParent(Registration.LIME_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/lime_dirt"));
+        withExistingParent(Registration.VIOLET_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/violet_dirt"));
+        withExistingParent(Registration.RESIN_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/resin_dirt"));
+
         withExistingParent(Registration.POWER_BATTERY_ITEM.get().getRegistryName().getPath(), modLoc("block/powerbattery_off"));
     }
 

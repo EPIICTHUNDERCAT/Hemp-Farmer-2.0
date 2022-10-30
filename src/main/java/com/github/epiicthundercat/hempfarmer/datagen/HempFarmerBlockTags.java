@@ -4,6 +4,7 @@ import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class HempFarmerBlockTags extends BlockTagsProvider {
@@ -25,6 +26,12 @@ public class HempFarmerBlockTags extends BlockTagsProvider {
         tag(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL)
                 .add(Registration.GRINDER.get())
                 .add(Registration.POWER_BATTERY.get());
+        tag(BlockTags.DIRT)
+                .add(Registration.LIME_DIRT.get())
+                .add(Registration.OILY_DIRT.get())
+                .add(Registration.RESIN_DIRT.get())
+                .add(Registration.VIOLET_DIRT.get());
+
 
     }
 

@@ -2,11 +2,11 @@
 
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "hempfarmer:blocks/grinder_base",
-		"2": "hempfarmer:blocks/grinder_teeth",
-		"3": "hempfarmer:blocks/grinder_cutout",
-		"5": "hempfarmer:blocks/grinder_top",
-		"particle": "hempfarmer:blocks/grinder_base"
+		"1": "hempfarmer:block/grinder_base",
+		"2": "hempfarmer:block/grinder_teeth",
+		"3": "hempfarmer:block/grinder_cutout",
+		"5": "hempfarmer:block/grinder_top",
+		"particle": "hempfarmer:block/grinder_base"
 	},
 	"elements": [
 		{

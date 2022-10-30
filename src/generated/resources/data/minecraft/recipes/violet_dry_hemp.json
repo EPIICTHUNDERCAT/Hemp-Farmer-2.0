@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "hempfarmer:violet_raw_hemp"
+  },
+  "result": "hempfarmer:violet_dry_hemp",
+  "experience": 1.0,
+  "cookingtime": 100
+}

@@ -3,7 +3,7 @@
   "group": "hempfarmer",
   "ingredients": [
     {
-      "item": "minecraft:paper"
+      "item": "hempfarmer:rolling_paper"
     },
     {
       "item": "hempfarmer:bud"
