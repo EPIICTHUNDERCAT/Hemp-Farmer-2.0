@@ -2,8 +2,10 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
@@ -25,13 +27,15 @@ public class HempFarmerRecipes extends RecipeProvider {
         //ADD TAG FOR MILK
         ShapedRecipeBuilder.shaped(Registration.POT_BROWNIE.get())
                 .pattern("mxm")
-                .pattern("x#x")
+                .pattern("bsb")
                 .pattern("#x#")
                 .define('x', Registration.HEMP_MILK_BUCKET.get())
                 .define('#', Tags.Items.EGGS)
                 .define('m', Items.COCOA_BEANS)
+                .define('s', Items.SUGAR)
+                .define('b', Registration.BUD_ITEM)
                 .group("hempfarmer")
-                .unlockedBy("powah", InventoryChangeTrigger.TriggerInstance.hasItems(Items.RAW_IRON))
+                .unlockedBy("cocoa", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_MILK_BUCKET.get()))
                 .save(consumer);
 
 
@@ -120,7 +124,7 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .save(consumer);
 
 
-        //Power Battery
+        //Grinder
         ShapedRecipeBuilder.shaped(Registration.GRINDER.get())
                 .pattern("mxm")
                 .pattern("x#x")
@@ -130,6 +134,16 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .define('m', Tags.Items.INGOTS_GOLD)
                 .group("hempfarmer")
                 .unlockedBy("grinder", InventoryChangeTrigger.TriggerInstance.hasItems(Items.RAW_IRON))
+                .save(consumer);
+    //Leaf Wand
+        ShapedRecipeBuilder.shaped(Registration.LEAF_WAND.get())
+                .pattern(" x ")
+                .pattern("s  ")
+                .pattern("   ")
+                .define('x', Registration.LEAF.get())
+                .define('s', Items.STICK)
+                .group("hempfarmer")
+                .unlockedBy("leaf", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LEAF.get()))
                 .save(consumer);
 
 
@@ -163,6 +177,146 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .unlockedBy("indica_bud", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.INDICA_BUD.get()))
                 .save(consumer);
 
+        //Hemp Seedling
+        ShapelessRecipeBuilder.shapeless(Registration.HEMP_CROP_ITEM.get())
+                .requires(Registration.SEEDS_HEMP.get())
+                .group("hempfarmer")
+                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_HEMP.get()))
+                .save(consumer);
+        //Indica Seedling
+        ShapelessRecipeBuilder.shapeless(Registration.INDICA_CROP_ITEM.get())
+                .requires(Registration.SEEDS_INDICA.get())
+                .group("hempfarmer")
+                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_INDICA.get()))
+                .save(consumer);
+
+        //Sativa Seedling
+        ShapelessRecipeBuilder.shapeless(Registration.SATIVA_CROP_ITEM.get())
+                .requires(Registration.SEEDS_SATIVA.get())
+                .group("hempfarmer")
+                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_SATIVA.get()))
+                .save(consumer);
+
+
+        //Hemp Paper
+        ShapelessRecipeBuilder.shapeless(Registration.HEMP_PAPER.get())
+                .requires(Registration.DRY_HEMP_ITEM)
+                .requires(Registration.DRY_HEMP_ITEM)
+                .group("hempfarmer")
+                .unlockedBy("dry_hemp", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(Registration.DRY_HEMP_ITEM).build()))
+                .save(consumer);
+
+
+        //Burlap
+        ShapedRecipeBuilder.shaped(Registration.BURLAP.get())
+                .pattern("xx ")
+                .pattern("xx ")
+                .pattern("   ")
+                .define('x', Registration.DRY_HEMP.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.DRY_HEMP.get()))
+                .save(consumer);
+
+        //Oily Burlap
+        ShapelessRecipeBuilder.shapeless(Registration.OILY_BURLAP.get())
+                .requires(Registration.HEMP_OIL.get())
+                .requires(Registration.BURLAP.get())
+                .group("hempfarmer")
+                .unlockedBy("oily_burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_OIL.get()))
+                .save(consumer);
+        //Oily dirt
+        ShapelessRecipeBuilder.shapeless(Registration.OILY_DIRT.get())
+                .requires(Registration.HEMP_OIL.get())
+                .requires(Registration.OILY_DIRT_ITEM_TAG)
+                .group("hempfarmer")
+                .unlockedBy("oily_burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_OIL.get()))
+                .save(consumer);
+
+
+
+
+        //lime dirt
+        ShapelessRecipeBuilder.shapeless(Registration.LIME_DIRT.get())
+                .requires(Registration.LIME_OIL.get())
+                .requires(Registration.OILY_DIRT_ITEM_TAG)
+                .group("hempfarmer")
+                .unlockedBy("lime_dirt", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LIME_OIL.get()))
+                .save(consumer);
+
+
+        //VIOLET BURLAP
+        ShapedRecipeBuilder.shaped(Registration.VIOLET_BURLAP.get())
+                .pattern("xx ")
+                .pattern("xx ")
+                .pattern("   ")
+                .define('x', Registration.VIOLET_DRY_HEMP.get())
+                .group("hempfarmer")
+                .unlockedBy("violet_burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.VIOLET_DRY_HEMP.get()))
+                .save(consumer);
+
+        //LIME BURLAP
+        ShapedRecipeBuilder.shaped(Registration.LIME_BURLAP.get())
+                .pattern("xx ")
+                .pattern("xx ")
+                .pattern("   ")
+                .define('x', Registration.LIME_DRY_HEMP.get())
+                .group("hempfarmer")
+                .unlockedBy("lime_burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LIME_DRY_HEMP.get()))
+                .save(consumer);
+
+
+        //violet dirt
+        ShapelessRecipeBuilder.shapeless(Registration.VIOLET_DIRT.get())
+                .requires(Registration.VIOLET_OIL.get())
+                .requires(Registration.OILY_DIRT_ITEM_TAG)
+                .group("hempfarmer")
+                .unlockedBy("violet_dirt", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.VIOLET_OIL.get()))
+                .save(consumer);
+
+        //Hemp Bowl
+        ShapelessRecipeBuilder.shapeless(Registration.BOWL_HEMP_HEARTS.get())
+                .requires(Registration.HEMP_HEARTS.get())
+                .requires(Registration.MILK_ITEM)
+                .requires(Items.BOWL)
+                .group("hempfarmer")
+                .unlockedBy("hemp_bowl", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_HEARTS.get()))
+                .save(consumer);
+
+        //Lime Hemp Bowl
+        ShapelessRecipeBuilder.shapeless(Registration.BOWL_LIME_HEMP_HEARTS.get())
+                .requires(Registration.LIME_HEMP_HEARTS.get())
+                .requires(Registration.MILK_ITEM)
+                .requires(Items.BOWL)
+                .group("hempfarmer")
+                .unlockedBy("lime_hemp_bowl", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LIME_HEMP_HEARTS.get()))
+                .save(consumer);
+
+        //Violet Hemp Bowl
+        ShapelessRecipeBuilder.shapeless(Registration.BOWL_VIOLET_HEMP_HEARTS.get())
+                .requires(Registration.VIOLET_HEMP_HEARTS.get())
+                .requires(Registration.MILK_ITEM)
+                .requires(Items.BOWL)
+                .group("hempfarmer")
+                .unlockedBy("violet_hemp_bowl", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.VIOLET_HEMP_HEARTS.get()))
+                .save(consumer);
+        //Rolling paper
+
+        ShapelessRecipeBuilder.shapeless(Registration.ROLLING_PAPER.get(), 3)
+                .requires(Registration.PAPER_ITEM)
+
+                .group("hempfarmer")
+                .unlockedBy("rolling_paper", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(Registration.PAPER_ITEM).build()))
+                .save(consumer);
+
+
+
+
+
+
+
+
+
+
         //Toasted Seeds
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.SEEDS_HEMP.get()), Registration.SEEDS_HEMP_TOASTED.get(), 1.0f, 100)
                 .unlockedBy("has_seed", has(Registration.SEEDS_HEMP.get())).save(consumer, "toasted_hemp_seed");
@@ -182,6 +336,9 @@ public class HempFarmerRecipes extends RecipeProvider {
 
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.VIOLET_RAW_HEMP.get()), Registration.VIOLET_DRY_HEMP.get(), 1.0f, 100)
                 .unlockedBy("has_raw_hemp", has(Registration.VIOLET_RAW_HEMP.get())).save(consumer, "violet_dry_hemp");
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.HEMP_OIL.get()), Registration.RESIN.get(), 1.0f, 100)
+                .unlockedBy("has_hemp_oil", has(Registration.HEMP_OIL.get())).save(consumer, "hemp_oil");
 
 
         //ADDING COOK RECIPES TO CAMPFIRE

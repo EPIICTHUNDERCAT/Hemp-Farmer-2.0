@@ -1,5 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
+import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.HempCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.IndicaCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.SativaCrop;
@@ -12,6 +13,9 @@ import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryCon
 import com.github.epiicthundercat.hempfarmer.common.item.HempItem;
 import com.github.epiicthundercat.hempfarmer.common.item.IndicaItem;
 import com.github.epiicthundercat.hempfarmer.common.item.SativaItem;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -148,6 +152,17 @@ public class Registration {
             () -> BlockEntityType.Builder.of(GrinderBE::new, GRINDER.get()).build(null));
     public static final RegistryObject<MenuType<GrinderContainer>> GRINDER_CONTAINER = MENU.register("grinder",
             () -> IForgeMenuType.create((windowId, inv, data) -> new GrinderContainer(windowId, data.readBlockPos(), inv, inv.player)));
+
+    //TAG KEYS ARE CREATED HERE AND THEN CALLED IN THE TAGS
+    //BUD
+    public static final TagKey<Item> BUD_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "bud"));
+    //Paper
+    public static final TagKey<Item> PAPER_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "paper"));
+    public static final TagKey<Item> DRY_HEMP_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "dry_hemp"));
+    public static final TagKey<Item> OILY_DIRT_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "oily_dirt"));
+
+    public static final TagKey<Block> OILY_DIRT_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(HempFarmer.MODID, "oily_dirt"));
+    public static final TagKey<Item> MILK_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "milk"));
 
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {

@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "hempfarmer:hemp_paper"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "dry_hemp": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "hempfarmer:hemp_milk_bucket"
-            ]
+            "tag": "hempfarmer:dry_hemp"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "hempfarmer:hemp_paper"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "dry_hemp",
       "has_the_recipe"
     ]
   ]

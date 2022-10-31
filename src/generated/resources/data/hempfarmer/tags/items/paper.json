@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "hempfarmer:hemp_paper",
+    "hempfarmer:rolling_paper",
+    "minecraft:paper"
+  ]
+}

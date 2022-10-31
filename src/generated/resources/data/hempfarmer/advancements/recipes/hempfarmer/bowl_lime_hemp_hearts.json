@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "hempfarmer:bowl_lime_hemp_hearts"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "lime_hemp_bowl": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:hemp_milk_bucket"
+              "hempfarmer:lime_hemp_hearts"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "hempfarmer:bowl_lime_hemp_hearts"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "lime_hemp_bowl",
       "has_the_recipe"
     ]
   ]

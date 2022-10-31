@@ -32,6 +32,12 @@ public class HempFarmerBlockTags extends BlockTagsProvider {
                 .add(Registration.RESIN_DIRT.get())
                 .add(Registration.VIOLET_DIRT.get());
 
+        tag(Registration.OILY_DIRT_TAG)
+                .add(Registration.LIME_DIRT.get())
+                .add(Registration.OILY_DIRT.get())
+                .add(Registration.RESIN_DIRT.get())
+                .add(Registration.VIOLET_DIRT.get());
+
 
     }
 

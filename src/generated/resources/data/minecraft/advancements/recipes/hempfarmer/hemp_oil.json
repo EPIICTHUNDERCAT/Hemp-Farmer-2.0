@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "minecraft:hemp_oil"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "has_hemp_oil": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:hemp_milk_bucket"
+              "hempfarmer:hemp_oil"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "minecraft:hemp_oil"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "has_hemp_oil",
       "has_the_recipe"
     ]
   ]

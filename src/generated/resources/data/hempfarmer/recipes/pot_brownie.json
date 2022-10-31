@@ -3,7 +3,7 @@
   "group": "hempfarmer",
   "pattern": [
     "mxm",
-    "x#x",
+    "bsb",
     "#x#"
   ],
   "key": {
@@ -15,6 +15,12 @@
     },
     "m": {
       "item": "minecraft:cocoa_beans"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "b": {
+      "tag": "hempfarmer:bud"
     }
   },
   "result": {

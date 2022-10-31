@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "hempfarmer:violet_burlap"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "violet_burlap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:hemp_milk_bucket"
+              "hempfarmer:violet_oil"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "hempfarmer:violet_burlap"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "violet_burlap",
       "has_the_recipe"
     ]
   ]

@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "hempfarmer:leaf_wand"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "leaf": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:hemp_milk_bucket"
+              "hempfarmer:leaf"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "hempfarmer:leaf_wand"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "leaf",
       "has_the_recipe"
     ]
   ]

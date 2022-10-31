@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "item": "hempfarmer:lime_oil"
+    },
+    {
+      "tag": "hempfarmer:oily_dirt"
+    }
+  ],
+  "result": {
+    "item": "hempfarmer:lime_burlap"
+  }
+}

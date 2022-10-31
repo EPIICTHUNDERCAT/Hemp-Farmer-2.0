@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "hempfarmer:hemp_milk_bucket",
+    "minecraft:milk_bucket"
+  ]
+}

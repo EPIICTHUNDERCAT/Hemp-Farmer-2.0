@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:pot_brownie"
+      "hempfarmer:rolling_paper"
     ]
   },
   "criteria": {
-    "cocoa": {
+    "rolling_paper": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "hempfarmer:hemp_milk_bucket"
-            ]
+            "tag": "hempfarmer:paper"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:pot_brownie"
+        "recipe": "hempfarmer:rolling_paper"
       }
     }
   },
   "requirements": [
     [
-      "cocoa",
+      "rolling_paper",
       "has_the_recipe"
     ]
   ]

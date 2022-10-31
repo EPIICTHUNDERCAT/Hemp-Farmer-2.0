@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "item": "hempfarmer:seeds_sativa"
+    }
+  ],
+  "result": {
+    "item": "hempfarmer:sativa_crop"
+  }
+}
