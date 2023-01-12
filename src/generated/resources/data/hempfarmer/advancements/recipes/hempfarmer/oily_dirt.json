@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:violet_burlap"
+      "hempfarmer:oily_dirt"
     ]
   },
   "criteria": {
-    "violet_burlap": {
+    "oily_burlap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:violet_dry_hemp"
+              "hempfarmer:hemp_oil"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:violet_burlap"
+        "recipe": "hempfarmer:oily_dirt"
       }
     }
   },
   "requirements": [
     [
-      "violet_burlap",
+      "oily_burlap",
       "has_the_recipe"
     ]
   ]

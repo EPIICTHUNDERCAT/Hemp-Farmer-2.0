@@ -91,7 +91,7 @@
     },
     {
       "name": "pool4",
-      "rolls": 0.5,
+      "rolls": 0.3,
       "entries": [
         {
           "type": "minecraft:item",

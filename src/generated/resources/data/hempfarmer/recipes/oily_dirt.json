@@ -6,10 +6,10 @@
       "item": "hempfarmer:hemp_oil"
     },
     {
-      "item": "hempfarmer:burlap"
+      "tag": "hempfarmer:oily_dirt"
     }
   ],
   "result": {
-    "item": "hempfarmer:oily_burlap"
+    "item": "hempfarmer:oily_dirt"
   }
 }

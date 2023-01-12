@@ -3,13 +3,13 @@
   "group": "hempfarmer",
   "ingredients": [
     {
-      "item": "hempfarmer:hemp_oil"
+      "item": "hempfarmer:lime_oil"
     },
     {
-      "item": "hempfarmer:burlap"
+      "tag": "hempfarmer:oily_dirt"
     }
   ],
   "result": {
-    "item": "hempfarmer:oily_burlap"
+    "item": "hempfarmer:lime_dirt"
   }
 }
