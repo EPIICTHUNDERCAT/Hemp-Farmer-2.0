@@ -18,7 +18,6 @@ public class HempFarmerLootTables extends BaseLootTableProvider {
         //lootTables.put(Registration.OILY_DIRT.get(), createStandardTable("oily_dirt", Registration.OILY_DIRT.get()));
 
 
-
     }
 
 

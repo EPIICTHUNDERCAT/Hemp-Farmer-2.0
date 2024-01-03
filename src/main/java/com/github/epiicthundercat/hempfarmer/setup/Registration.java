@@ -72,6 +72,7 @@ public class Registration {
     public static final RegistryObject<Item> LIME_RAW_HEMP = ITEMS.register("lime_raw_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_RAW_HEMP = ITEMS.register("violet_raw_hemp", () -> new Item(ITEM_PROPERTIES));
     //Food Items
+
     public static final RegistryObject<Item> BOWL_HEMP_HEARTS = ITEMS.register("bowl_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> BOWL_LIME_HEMP_HEARTS = ITEMS.register("bowl_lime_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> BOWL_VIOLET_HEMP_HEARTS = ITEMS.register("bowl_violet_hemp_hearts", () -> new Item(ITEM_PROPERTIES));

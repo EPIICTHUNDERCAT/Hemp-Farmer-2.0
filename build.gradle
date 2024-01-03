@@ -68,7 +68,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'examplemod'
 
             mods {
-                examplemod {
+                hempfarmer {
                     source sourceSets.main
                 }
             }
@@ -82,7 +82,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'hempfarmer'
 
             mods {
                 examplemod {
@@ -110,10 +110,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'hempfarmer'
 
             mods {
-                examplemod {
+                hempfarmer {
                     source sourceSets.main
                 }
             }
@@ -130,7 +130,7 @@ minecraft {
             args '--mod', 'hempfarmer', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                hempfarmer {
                     source sourceSets.main
                 }
             }
