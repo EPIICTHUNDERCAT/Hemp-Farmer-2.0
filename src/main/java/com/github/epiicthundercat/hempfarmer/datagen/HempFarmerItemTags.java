@@ -30,6 +30,8 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.INDICA_BUD.get())
                 .add(Registration.BUD.get());
 
+        tag(Tags.Items.SLIMEBALLS)
+                .add(Registration.RESIN.get());
 
         tag(Registration.PAPER_ITEM)
                 .add(Registration.HEMP_PAPER.get())
@@ -46,17 +48,12 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.RESIN_DIRT_ITEM.get())
                 .add(Registration.LIME_DIRT_ITEM.get())
                 .add(Registration.VIOLET_DIRT_ITEM.get());
-
         tag(Registration.MILK_ITEM)
                 .add(Registration.HEMP_MILK_BUCKET.get())
                 .add(Items.MILK_BUCKET);
 
     }
-//
-//    private void registerModTags() {
-//
-//
-//    }
+
 
     @Override
     public String getName() {

@@ -10,19 +10,22 @@ import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
+import com.github.epiicthundercat.hempfarmer.common.FoodValues;
 import com.github.epiicthundercat.hempfarmer.common.item.HempItem;
+import com.github.epiicthundercat.hempfarmer.common.item.HempMilkBucket;
 import com.github.epiicthundercat.hempfarmer.common.item.IndicaItem;
 import com.github.epiicthundercat.hempfarmer.common.item.SativaItem;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -73,11 +76,11 @@ public class Registration {
     public static final RegistryObject<Item> VIOLET_RAW_HEMP = ITEMS.register("violet_raw_hemp", () -> new Item(ITEM_PROPERTIES));
     //Food Items
 
-    public static final RegistryObject<Item> BOWL_HEMP_HEARTS = ITEMS.register("bowl_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> BOWL_LIME_HEMP_HEARTS = ITEMS.register("bowl_lime_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> BOWL_VIOLET_HEMP_HEARTS = ITEMS.register("bowl_violet_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> HEMP_MILK_BUCKET = ITEMS.register("hemp_milk_bucket", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> POT_BROWNIE = ITEMS.register("pot_brownie", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> BOWL_HEMP_HEARTS = ITEMS.register("bowl_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
+    public static final RegistryObject<Item> BOWL_LIME_HEMP_HEARTS = ITEMS.register("bowl_lime_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
+    public static final RegistryObject<Item> BOWL_VIOLET_HEMP_HEARTS = ITEMS.register("bowl_violet_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
+    public static final RegistryObject<Item> HEMP_MILK_BUCKET = ITEMS.register("hemp_milk_bucket", () -> new HempMilkBucket((new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(ModSetup.ITEM_GROUP)));
+    public static final RegistryObject<Item> POT_BROWNIE = ITEMS.register("pot_brownie", () -> new Item((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.POT_BROWNIE)));
     public static final RegistryObject<Item> LIME_HEMP_HEARTS = ITEMS.register("lime_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_HEMP_HEARTS = ITEMS.register("violet_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
 
@@ -105,13 +108,13 @@ public class Registration {
     //Seeds and Seed types
     public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new SativaItem(Registration.SATIVA_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_SATIVA_CRUSHED = ITEMS.register("seeds_sativa_crushed", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new  Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
     public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_INDICA_CRUSHED = ITEMS.register("seeds_indica_crushed", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new  Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
     public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_CRUSHED = ITEMS.register("seeds_hemp_crushed", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
 
 
     public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(ITEM_PROPERTIES));
