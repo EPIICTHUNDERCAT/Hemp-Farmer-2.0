@@ -4,6 +4,7 @@ import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.HempCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.IndicaCrop;
 import com.github.epiicthundercat.hempfarmer.blocks.crops.SativaCrop;
+import com.github.epiicthundercat.hempfarmer.blocks.decoration.BurlapCarpetBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBE;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
@@ -23,6 +24,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
@@ -90,19 +92,17 @@ public class Registration {
     public static final RegistryObject<Item> LIME_DRY_HEMP = ITEMS.register("lime_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_DRY_HEMP = ITEMS.register("violet_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> VIOLET_BURLAP = ITEMS.register("violet_burlap", () -> new Item(ITEM_PROPERTIES));
+
     public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SHOT_LEAF = ITEMS.register("shot_leaf", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> ROLLING_PAPER = ITEMS.register("rolling_paper", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> RESIN_BURLAP = ITEMS.register("resin_burlap", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> OILY_BURLAP = ITEMS.register("oily_burlap", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> LIME_BURLAP = ITEMS.register("lime_burlap", () -> new Item(ITEM_PROPERTIES));
+
     public static final RegistryObject<Item> LEAF_WAND = ITEMS.register("leaf_wand", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_PAPER = ITEMS.register("hemp_paper", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_OIL = ITEMS.register("hemp_oil", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_HEARTS = ITEMS.register("hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> DRY_HEMP = ITEMS.register("dry_hemp", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> BURLAP = ITEMS.register("burlap", () -> new Item(ITEM_PROPERTIES));
+
     public static final RegistryObject<Item> BROKEN_SUPERIOR_LEAF_WAND = ITEMS.register("broken_superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
 
     //Seeds and Seed types
@@ -115,6 +115,13 @@ public class Registration {
     public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_CRUSHED = ITEMS.register("seeds_hemp_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
+
+//BURLAPs (for armor and carpet crafting)
+    public static final RegistryObject<Item> OILY_BURLAP_ITEM = ITEMS.register("oily_burlap", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> LIME_BURLAP_ITEM = ITEMS.register("lime_burlap", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> RESIN_BURLAP_ITEM = ITEMS.register("resin_burlap", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> VIOLET_BURLAP_ITEM = ITEMS.register("violet_burlap", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> BURLAP_ITEM = ITEMS.register("burlap", () -> new Item(ITEM_PROPERTIES));
 
 
     public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(ITEM_PROPERTIES));
@@ -138,6 +145,25 @@ public class Registration {
     public static final RegistryObject<Block> HEMP_CROP = BLOCKS.register("hemp_crop",
             () -> new HempCrop(Block.Properties.copy(Blocks.WHEAT)));
     public static final RegistryObject<Item> HEMP_CROP_ITEM = fromBlock(HEMP_CROP);
+
+    public static final RegistryObject<Block> BURLAP_CARPET_BLOCK = BLOCKS.register("burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Item> BURLAP_BLOCK_ITEM = fromBlock(BURLAP_CARPET_BLOCK);
+
+    public static final RegistryObject<Block> RESIN_CARPET_BLOCK = BLOCKS.register("resin_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Item> RESIN_BURLAP_BLOCK_ITEM = fromBlock(RESIN_CARPET_BLOCK);
+
+     public static final RegistryObject<Block> OILY_BURLAP_CARPET_BLOCK = BLOCKS.register("oily_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
+    public static final RegistryObject<Item> OILY_BURLAP_BLOCK_ITEM = fromBlock(OILY_BURLAP_CARPET_BLOCK);
+
+    public static final RegistryObject<Block> LIME_BURLAP_CARPET_BLOCK = BLOCKS.register("lime_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Item> LIME_BURLAP_BLOCK_ITEM = fromBlock(LIME_BURLAP_CARPET_BLOCK);
+
+
+    public static final RegistryObject<Block> VIOLET_BURLAP_CARPET_BLOCK = BLOCKS.register("violet_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Item> VIOLET_BURLAP_BLOCK_ITEM = fromBlock(VIOLET_BURLAP_CARPET_BLOCK);
+
+
+
 
 
     //Power Battery Registrations - Container, Block Entity, Block, and Item //
