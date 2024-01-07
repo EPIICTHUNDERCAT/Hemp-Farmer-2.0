@@ -7,6 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+/*
+ITEM .JSON Files are generated in the data resources folder, this is what allows items to have models and the textures assigned to them. "items/generated" is the key for the item model,
+ the "items/XXXX" is what tells the resource location or texture, its referencing the folder location
+ */
 public class HempFarmerItemModels extends ItemModelProvider {
 
 
@@ -34,7 +38,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/seeds_sativa_toasted"));
         //LIME
-        singleTexture(Registration.LIME_BURLAP.get().getRegistryName().getPath(),
+        singleTexture(Registration.LIME_BURLAP_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/lime_burlap"));
         singleTexture(Registration.LIME_DRY_HEMP.get().getRegistryName().getPath(),
@@ -110,7 +114,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.SEEDS_INDICA_TOASTED.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/seeds_indica_toasted"));
-        singleTexture(Registration.VIOLET_BURLAP.get().getRegistryName().getPath(),
+        singleTexture(Registration.VIOLET_BURLAP_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/violet_burlap"));
         singleTexture(Registration.VIOLET_OIL.get().getRegistryName().getPath(),
@@ -150,7 +154,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/hemp_hearts"));
 
-        singleTexture(Registration.BURLAP.get().getRegistryName().getPath(),
+        singleTexture(Registration.BURLAP_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/burlap"));
 
@@ -164,11 +168,11 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/rolling_paper"));
 
 
-        singleTexture(Registration.RESIN_BURLAP.get().getRegistryName().getPath(),
+        singleTexture(Registration.RESIN_BURLAP_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/resin_burlap"));
 
-        singleTexture(Registration.OILY_BURLAP.get().getRegistryName().getPath(),
+        singleTexture(Registration.OILY_BURLAP_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/oily_burlap"));
         singleTexture(Registration.LEAF.get().getRegistryName().getPath(),
@@ -188,12 +192,22 @@ public class HempFarmerItemModels extends ItemModelProvider {
 //                mcLoc("item/generated"),
 //                "layer0", new ResourceLocation(HempFarmer.MODID, "block/hemp_crop"));
 
+        /*
+        Where block JSON are generated
+         */
+
         withExistingParent(Registration.GRINDER_ITEM.get().getRegistryName().getPath(), modLoc("block/grinder"));
 
         withExistingParent(Registration.OILY_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/oily_dirt"));
         withExistingParent(Registration.LIME_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/lime_dirt"));
         withExistingParent(Registration.VIOLET_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/violet_dirt"));
         withExistingParent(Registration.RESIN_DIRT_ITEM.get().getRegistryName().getPath(), modLoc("block/resin_dirt"));
+
+        withExistingParent(Registration.BURLAP_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/burlap_carpet"));
+        withExistingParent(Registration.OILY_BURLAP_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/oily_burlap_carpet"));
+        withExistingParent(Registration.LIME_BURLAP_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/lime_burlap_carpet"));
+        withExistingParent(Registration.VIOLET_BURLAP_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/violet_burlap_carpet"));
+        withExistingParent(Registration.RESIN_BURLAP_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/resin_carpet"));
 
         withExistingParent(Registration.POWER_BATTERY_ITEM.get().getRegistryName().getPath(), modLoc("block/powerbattery_off"));
     }

@@ -208,7 +208,7 @@ public class HempFarmerRecipes extends RecipeProvider {
 
 
         //Burlap
-        ShapedRecipeBuilder.shaped(Registration.BURLAP.get())
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_ITEM.get())
                 .pattern("xx ")
                 .pattern("xx ")
                 .pattern("   ")
@@ -218,9 +218,9 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .save(consumer);
 
         //Oily Burlap
-        ShapelessRecipeBuilder.shapeless(Registration.OILY_BURLAP.get())
+        ShapelessRecipeBuilder.shapeless(Registration.OILY_BURLAP_ITEM.get())
                 .requires(Registration.HEMP_OIL.get())
-                .requires(Registration.BURLAP.get())
+                .requires(Registration.BURLAP_ITEM.get())
                 .group("hempfarmer")
                 .unlockedBy("oily_burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_OIL.get()))
                 .save(consumer);
@@ -245,7 +245,7 @@ public class HempFarmerRecipes extends RecipeProvider {
 
 
         //VIOLET BURLAP
-        ShapedRecipeBuilder.shaped(Registration.VIOLET_BURLAP.get())
+        ShapedRecipeBuilder.shaped(Registration.VIOLET_BURLAP_ITEM.get())
                 .pattern("xx ")
                 .pattern("xx ")
                 .pattern("   ")
@@ -255,7 +255,7 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .save(consumer);
 
         //LIME BURLAP
-        ShapedRecipeBuilder.shaped(Registration.LIME_BURLAP.get())
+        ShapedRecipeBuilder.shaped(Registration.LIME_BURLAP_ITEM.get())
                 .pattern("xx ")
                 .pattern("xx ")
                 .pattern("   ")

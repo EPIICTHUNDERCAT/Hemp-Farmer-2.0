@@ -12,7 +12,9 @@ import static com.github.epiicthundercat.hempfarmer.common.item.HempItem.HEMP_IT
 import static com.github.epiicthundercat.hempfarmer.common.item.IndicaItem.INDICA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.common.item.SativaItem.SATIVA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.setup.ModSetup.TAB_NAME;
-
+/*
+This is where we translate ITEMS, BLOCKS, or ingame name translation (eng_US file)
+ */
 public class HempFarmerLanguageProvider extends LanguageProvider {
 
     public HempFarmerLanguageProvider(DataGenerator gen, String locale) {
@@ -41,7 +43,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SEEDS_SATIVA_CRUSHED.get(), "Crushed Sativa Seeds");
         add(Registration.SEEDS_SATIVA_TOASTED.get(), "Toasted Sativa Seeds");
         // LIME
-        add(Registration.LIME_BURLAP.get(), "Lime Burlap");
+        add(Registration.LIME_BURLAP_ITEM.get(), "Lime Burlap");
         add(Registration.LIME_DRY_HEMP.get(), "Dry Lime Hemp");
         add(Registration.LIME_HEMP_HEARTS.get(), "Lime Hemp Hearts");
         add(Registration.LIME_OIL.get(), "Lime Oil");
@@ -67,7 +69,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SEEDS_INDICA.get(), "Indica Seeds");
         add(Registration.SEEDS_INDICA_CRUSHED.get(), "Crushed Indica Seeds");
         add(Registration.SEEDS_INDICA_TOASTED.get(), "Toasted Indica Seeds");
-        add(Registration.VIOLET_BURLAP.get(), "Violet Burlap");
+        add(Registration.VIOLET_BURLAP_ITEM.get(), "Violet Burlap");
         add(Registration.VIOLET_OIL.get(), "Violet oil");
         add(Registration.VIOLET_DRY_HEMP.get(), "Dry Violet Hemp");
         add(Registration.INDICA_JOINT.get(), "Indica Joint");
@@ -78,11 +80,11 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SUPERIOR_LEAF_WAND.get(), "Superior Leaf Wand");
         add(Registration.POT_BROWNIE.get(), "Pot Brownie");
         add(Registration.RESIN.get(), "Resin");
-        add(Registration.BURLAP.get(), "Burlap");
+        add(Registration.BURLAP_ITEM.get(), "Burlap");
         add(Registration.SHOT_LEAF.get(), "Shot Leaf");
         add(Registration.ROLLING_PAPER.get(), "Rolling Paper");
-        add(Registration.RESIN_BURLAP.get(), "Resin Burlap");
-        add(Registration.OILY_BURLAP.get(), "Oily Burlap");
+        add(Registration.RESIN_BURLAP_ITEM.get(), "Resin Burlap");
+        add(Registration.OILY_BURLAP_ITEM.get(), "Oily Burlap");
         add(Registration.LEAF.get(), "Cannabis Leaf");
         add(Registration.HEMP_CROP.get(), "Hemp Seedling");
         add(Registration.SATIVA_CROP.get(), "Sativa Seedling");
@@ -91,6 +93,11 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.RESIN_DIRT.get(), "Resin Dirt");
         add(Registration.LIME_DIRT.get(), "Lime Dirt");
         add(Registration.VIOLET_DIRT.get(), "Violet Dirt");
+        add(Registration.BURLAP_CARPET_BLOCK.get(), "Burlap Carpet");
+        add(Registration.OILY_BURLAP_CARPET_BLOCK.get(), "Oily Burlap Carpet");
+        add(Registration.VIOLET_BURLAP_CARPET_BLOCK.get(), "Violet Burlap Carpet");
+        add(Registration.LIME_BURLAP_CARPET_BLOCK.get(), "Lime Burlap Carpet");
+        add(Registration.RESIN_CARPET_BLOCK.get(), "Resin Carpet");
 
     }
 }
