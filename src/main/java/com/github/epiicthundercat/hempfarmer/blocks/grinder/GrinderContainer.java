@@ -22,9 +22,9 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class GrinderContainer extends AbstractContainerMenu {
 
-    private BlockEntity blockEntity;
-    private Player playerEntity;
-    private IItemHandler playerInventory;
+    private final BlockEntity blockEntity;
+    private final Player playerEntity;
+    private final IItemHandler playerInventory;
 
     public GrinderContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
         super(Registration.GRINDER_CONTAINER.get(), windowId);

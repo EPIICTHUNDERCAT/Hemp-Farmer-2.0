@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hempfarmer",
+  "pattern": [
+    "xxx",
+    "   ",
+    "   "
+  ],
+  "key": {
+    "x": {
+      "item": "hempfarmer:burlap"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:burlap_carpet"
+  }
+}

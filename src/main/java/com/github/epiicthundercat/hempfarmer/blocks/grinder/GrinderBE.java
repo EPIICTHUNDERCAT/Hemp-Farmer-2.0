@@ -116,7 +116,7 @@ public class GrinderBE extends BlockEntity {
 
         boolean areWeGenerating = false;
         if (generating) {
-            areWeGenerating = generateOres();
+            areWeGenerating = generateBud();
         }
         if (areWeGenerating != actuallyGenerating) {
             actuallyGenerating = areWeGenerating;
@@ -149,7 +149,7 @@ public class GrinderBE extends BlockEntity {
         }
     }
 
-    private boolean generateOres() {
+    private boolean generateBud() {
         // The player didn't select anything to generate
         if (generatingBlock == null) {
             return false;

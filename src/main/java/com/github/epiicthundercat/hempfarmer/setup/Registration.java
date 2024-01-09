@@ -12,14 +12,17 @@ import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
 import com.github.epiicthundercat.hempfarmer.common.FoodValues;
-import com.github.epiicthundercat.hempfarmer.common.item.HempItem;
-import com.github.epiicthundercat.hempfarmer.common.item.HempMilkBucket;
-import com.github.epiicthundercat.hempfarmer.common.item.IndicaItem;
-import com.github.epiicthundercat.hempfarmer.common.item.SativaItem;
+import com.github.epiicthundercat.hempfarmer.common.effect.HighEffect;
+import com.github.epiicthundercat.hempfarmer.common.entity.ShotLeafEntity;
+import com.github.epiicthundercat.hempfarmer.common.item.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -27,7 +30,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,6 +38,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import javax.swing.text.html.parser.Entity;
 
 import static com.github.epiicthundercat.hempfarmer.HempFarmer.MODID;
 
@@ -45,6 +50,8 @@ public class Registration {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
     private static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    private static final DeferredRegister<MobEffect> EFFECT = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
+    private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -52,13 +59,20 @@ public class Registration {
         ITEMS.register(bus);
         BLOCK_ENTITIES.register(bus);
         MENU.register(bus);
-//        ENTITIES.register(bus);
+        EFFECT.register(bus);
+        ENTITY_TYPES.register(bus);
 //        STRUCTURES.register(bus);
 
     }
-
     public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModSetup.ITEM_GROUP);
     //   public static final BlockBehaviour.Properties BLOCK_PROPERTIES = new BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);// BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);
+
+
+    public static final RegistryObject<EntityType<ShotLeafEntity>> SHOT_LEAF_ENTITY = ENTITY_TYPES.register("shot_leaf_entity", () ->
+            EntityType.Builder.<ShotLeafEntity>of(ShotLeafEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(8).updateInterval(10).build("shot_leaf_entity"));
+
+    public static final RegistryObject<MobEffect> HIGH = EFFECT.register("high", () -> new HighEffect(MobEffectCategory.BENEFICIAL, 139453));
+
 
     //Items Here
 
@@ -81,7 +95,7 @@ public class Registration {
     public static final RegistryObject<Item> BOWL_HEMP_HEARTS = ITEMS.register("bowl_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
     public static final RegistryObject<Item> BOWL_LIME_HEMP_HEARTS = ITEMS.register("bowl_lime_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
     public static final RegistryObject<Item> BOWL_VIOLET_HEMP_HEARTS = ITEMS.register("bowl_violet_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
-    public static final RegistryObject<Item> HEMP_MILK_BUCKET = ITEMS.register("hemp_milk_bucket", () -> new HempMilkBucket((new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(ModSetup.ITEM_GROUP)));
+    public static final RegistryObject<Item> HEMP_MILK_BUCKET = ITEMS.register("hemp_milk_bucket", () -> new HempMilkBucketItem((new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> POT_BROWNIE = ITEMS.register("pot_brownie", () -> new Item((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.POT_BROWNIE)));
     public static final RegistryObject<Item> LIME_HEMP_HEARTS = ITEMS.register("lime_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_HEMP_HEARTS = ITEMS.register("violet_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
@@ -93,10 +107,12 @@ public class Registration {
     public static final RegistryObject<Item> VIOLET_DRY_HEMP = ITEMS.register("violet_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
 
-    public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
+
+    public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new LeafWandItem(new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1).defaultDurability(100)));
     public static final RegistryObject<Item> SHOT_LEAF = ITEMS.register("shot_leaf", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> ROLLING_PAPER = ITEMS.register("rolling_paper", () -> new Item(ITEM_PROPERTIES));
 
+ //Will just be crafting component. (can maybe add abnility to bonemeal/ start fires?
     public static final RegistryObject<Item> LEAF_WAND = ITEMS.register("leaf_wand", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_PAPER = ITEMS.register("hemp_paper", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_OIL = ITEMS.register("hemp_oil", () -> new Item(ITEM_PROPERTIES));
@@ -106,17 +122,17 @@ public class Registration {
     public static final RegistryObject<Item> BROKEN_SUPERIOR_LEAF_WAND = ITEMS.register("broken_superior_leaf_wand", () -> new Item(ITEM_PROPERTIES));
 
     //Seeds and Seed types
-    public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new SativaItem(Registration.SATIVA_CROP.get(), ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new SativaItem(Registration.SATIVA_CROP.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> SEEDS_SATIVA_CRUSHED = ITEMS.register("seeds_sativa_crushed", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new  Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
-    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(), ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
+    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(),  new Item.Properties().tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> SEEDS_INDICA_CRUSHED = ITEMS.register("seeds_indica_crushed", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new  Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
-    public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
+    public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> SEEDS_HEMP_CRUSHED = ITEMS.register("seeds_hemp_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_HEMP_TOASTED = ITEMS.register("seeds_hemp_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
 
-//BURLAPs (for armor and carpet crafting)
+    //BURLAPs (for armor and carpet crafting)
     public static final RegistryObject<Item> OILY_BURLAP_ITEM = ITEMS.register("oily_burlap", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> LIME_BURLAP_ITEM = ITEMS.register("lime_burlap", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> RESIN_BURLAP_ITEM = ITEMS.register("resin_burlap", () -> new Item(ITEM_PROPERTIES));
@@ -152,7 +168,7 @@ public class Registration {
     public static final RegistryObject<Block> RESIN_CARPET_BLOCK = BLOCKS.register("resin_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
     public static final RegistryObject<Item> RESIN_BURLAP_BLOCK_ITEM = fromBlock(RESIN_CARPET_BLOCK);
 
-     public static final RegistryObject<Block> OILY_BURLAP_CARPET_BLOCK = BLOCKS.register("oily_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
+    public static final RegistryObject<Block> OILY_BURLAP_CARPET_BLOCK = BLOCKS.register("oily_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> OILY_BURLAP_BLOCK_ITEM = fromBlock(OILY_BURLAP_CARPET_BLOCK);
 
     public static final RegistryObject<Block> LIME_BURLAP_CARPET_BLOCK = BLOCKS.register("lime_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
@@ -161,9 +177,6 @@ public class Registration {
 
     public static final RegistryObject<Block> VIOLET_BURLAP_CARPET_BLOCK = BLOCKS.register("violet_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
     public static final RegistryObject<Item> VIOLET_BURLAP_BLOCK_ITEM = fromBlock(VIOLET_BURLAP_CARPET_BLOCK);
-
-
-
 
 
     //Power Battery Registrations - Container, Block Entity, Block, and Item //
@@ -194,11 +207,17 @@ public class Registration {
     public static final TagKey<Block> OILY_DIRT_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(HempFarmer.MODID, "oily_dirt"));
     public static final TagKey<Item> MILK_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "milk"));
 
+    public static final TagKey<Item> OIL = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "oil"));
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {
 
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_PROPERTIES));
 
+    }
+
+    public static int getIdFromBlock(BlockState blockState) {
+        int id = Block.getId(blockState);
+        return id;
     }
 
 

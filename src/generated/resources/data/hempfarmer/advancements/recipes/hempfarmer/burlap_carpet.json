@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:hemp_oil"
+      "hempfarmer:burlap_carpet"
     ]
   },
   "criteria": {
-    "has_hemp_oil": {
+    "burlap_carpet": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:hemp_oil"
+              "hempfarmer:burlap"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:hemp_oil"
+        "recipe": "hempfarmer:burlap_carpet"
       }
     }
   },
   "requirements": [
     [
-      "has_hemp_oil",
+      "burlap_carpet",
       "has_the_recipe"
     ]
   ]

@@ -22,6 +22,9 @@ import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -95,6 +98,55 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         return LootTable.lootTable().withPool(builder);
     }
 
+
+    //TODO Change rolls to each item instead of one function with all items.
+    //.apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))) ::: dont need since it should always be one drop
+    protected LootTable.Builder createItemBlockLootTable(String name, Item lootItem1, Item lootItem2, Item lootItem3, float chance, int bonusMultiplier) {
+        LootPool.Builder builder = LootPool.lootPool()
+                .name(name)
+                .setRolls(ConstantValue.exactly(1.0f))
+                .add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(lootItem1)
+                                        .when(LootItemRandomChanceCondition.randomChance(chance))
+                                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, bonusMultiplier))
+                                        .apply(ApplyExplosionDecay.explosionDecay())
+
+
+                        )
+
+                );
+        LootPool.Builder builder1 = LootPool.lootPool()
+                .name(name)
+                .setRolls(ConstantValue.exactly(1.0f))
+                .add(AlternativesEntry.alternatives(
+
+                                LootItem.lootTableItem(lootItem2)
+                                        .when(LootItemRandomChanceCondition.randomChance(chance))
+                                       // .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
+                                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 1))
+                                        .apply(ApplyExplosionDecay.explosionDecay())
+
+
+                        )
+
+                );
+        LootPool.Builder builder2 = LootPool.lootPool()
+                .name(name)
+                .setRolls(ConstantValue.exactly(1.0f))
+                .add(AlternativesEntry.alternatives(
+
+                                LootItem.lootTableItem(lootItem3)
+                                        .when(LootItemRandomChanceCondition.randomChance(chance))
+                                       // .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
+                                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 1))
+                                        .apply(ApplyExplosionDecay.explosionDecay())
+
+                        )
+
+                );
+        return LootTable.lootTable().withPool(builder).withPool(builder1).withPool(builder2);
+
+    }
 
     @Override
     public void run(HashCache cache) {

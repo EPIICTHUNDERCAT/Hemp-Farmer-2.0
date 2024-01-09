@@ -24,12 +24,12 @@ public class HempFarmerRecipes extends RecipeProvider {
 
 
         //Pot Brownie
-        //ADD TAG FOR MILK
+
         ShapedRecipeBuilder.shaped(Registration.POT_BROWNIE.get())
                 .pattern("mxm")
                 .pattern("bsb")
                 .pattern("#x#")
-                .define('x', Registration.HEMP_MILK_BUCKET.get())
+                .define('x', Registration.MILK_ITEM)
                 .define('#', Tags.Items.EGGS)
                 .define('m', Items.COCOA_BEANS)
                 .define('s', Items.SUGAR)
@@ -135,7 +135,7 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .group("hempfarmer")
                 .unlockedBy("grinder", InventoryChangeTrigger.TriggerInstance.hasItems(Items.RAW_IRON))
                 .save(consumer);
-    //Leaf Wand
+        //Leaf Wand
         ShapedRecipeBuilder.shaped(Registration.LEAF_WAND.get())
                 .pattern(" x ")
                 .pattern("s  ")
@@ -233,14 +233,19 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .save(consumer);
 
 
-
-
         //lime dirt
         ShapelessRecipeBuilder.shapeless(Registration.LIME_DIRT.get())
                 .requires(Registration.LIME_OIL.get())
                 .requires(Registration.OILY_DIRT_ITEM_TAG)
                 .group("hempfarmer")
                 .unlockedBy("lime_dirt", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LIME_OIL.get()))
+                .save(consumer);
+        //Resin dirt
+        ShapelessRecipeBuilder.shapeless(Registration.RESIN_DIRT.get())
+                .requires(Registration.RESIN.get())
+                .requires(Registration.OILY_DIRT_ITEM_TAG)
+                .group("hempfarmer")
+                .unlockedBy("resin", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.RESIN.get()))
                 .save(consumer);
 
 
@@ -308,13 +313,79 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .unlockedBy("rolling_paper", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(Registration.PAPER_ITEM).build()))
                 .save(consumer);
 
+        //Resin Burlap
+
+        ShapelessRecipeBuilder.shapeless(Registration.RESIN_BURLAP_ITEM.get(), 1)
+                .requires(Registration.RESIN.get())
+                .requires(Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("resin", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(Registration.RESIN.get()).build()))
+                .save(consumer);
+
+        //Violet Carpet
+        ShapedRecipeBuilder.shaped(Registration.VIOLET_BURLAP_CARPET_BLOCK.get())
+                .pattern("xxx")
+                .pattern("   ")
+                .pattern("   ")
+                .define('x', Registration.VIOLET_BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("violet_burlap_carpet", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.VIOLET_BURLAP_ITEM.get()))
+                .save(consumer);
+        //Lime Carpet
+        ShapedRecipeBuilder.shaped(Registration.LIME_BURLAP_CARPET_BLOCK.get())
+                .pattern("xxx")
+                .pattern("   ")
+                .pattern("   ")
+                .define('x', Registration.LIME_BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("lime_burlap_carpet", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LIME_BURLAP_ITEM.get()))
+                .save(consumer);
+        //Burlap Carpet
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_CARPET_BLOCK.get())
+                .pattern("xxx")
+                .pattern("   ")
+                .pattern("   ")
+                .define('x', Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap_carpet", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BURLAP_ITEM.get()))
+                .save(consumer);
+        //Oily Carpet
+        ShapedRecipeBuilder.shaped(Registration.OILY_BURLAP_CARPET_BLOCK.get())
+                .pattern("xxx")
+                .pattern("   ")
+                .pattern("   ")
+                .define('x', Registration.OILY_BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("oily_burlap_carpet", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.OILY_BURLAP_ITEM.get()))
+                .save(consumer);
+        //Resin Carpet
+        ShapedRecipeBuilder.shaped(Registration.RESIN_CARPET_BLOCK.get())
+                .pattern("xxx")
+                .pattern("   ")
+                .pattern("   ")
+                .define('x', Registration.RESIN_BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("resin_burlap_carpet", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.RESIN_BURLAP_ITEM.get()))
+                .save(consumer);
+        //Resin Carpet
+        ShapedRecipeBuilder.shaped(Registration.SUPERIOR_LEAF_WAND.get())
+                .pattern(" x ")
+                .pattern("fsf")
+                .pattern("fff")
+                .define('f', Registration.LEAF.get())
+                .define('s', Items.STICK)
+                .define('x', Registration.LEAF_WAND.get())
+                .group("hempfarmer")
+                .unlockedBy("leaf", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LEAF.get()))
+                .save(consumer);
 
 
 
+/**
+ TODO Add Recipes for Armor and crushed seeds hemp milk'
 
 
-
-
+ */
 
 
         //Toasted Seeds
@@ -337,8 +408,8 @@ public class HempFarmerRecipes extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.VIOLET_RAW_HEMP.get()), Registration.VIOLET_DRY_HEMP.get(), 1.0f, 100)
                 .unlockedBy("has_raw_hemp", has(Registration.VIOLET_RAW_HEMP.get())).save(consumer, "violet_dry_hemp");
 
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.HEMP_OIL.get()), Registration.RESIN.get(), 1.0f, 100)
-                .unlockedBy("has_hemp_oil", has(Registration.HEMP_OIL.get())).save(consumer, "hemp_oil");
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.OIL), Registration.RESIN.get(), 1.0f, 100)
+                .unlockedBy("has_hemp_oil", has(Registration.OIL)).save(consumer, "resin");
 
 
         //ADDING COOK RECIPES TO CAMPFIRE

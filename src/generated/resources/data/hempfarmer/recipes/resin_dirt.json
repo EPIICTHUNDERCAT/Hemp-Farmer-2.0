@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "item": "hempfarmer:resin"
+    },
+    {
+      "tag": "hempfarmer:oily_dirt"
+    }
+  ],
+  "result": {
+    "item": "hempfarmer:resin_dirt"
+  }
+}

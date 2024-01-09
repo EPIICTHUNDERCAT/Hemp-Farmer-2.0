@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hempfarmer:lime_burlap_carpet"
+    ]
+  },
+  "criteria": {
+    "lime_burlap_carpet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:lime_burlap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hempfarmer:lime_burlap_carpet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lime_burlap_carpet",
+      "has_the_recipe"
+    ]
+  ]
+}

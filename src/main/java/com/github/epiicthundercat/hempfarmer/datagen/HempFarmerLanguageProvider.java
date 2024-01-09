@@ -12,6 +12,7 @@ import static com.github.epiicthundercat.hempfarmer.common.item.HempItem.HEMP_IT
 import static com.github.epiicthundercat.hempfarmer.common.item.IndicaItem.INDICA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.common.item.SativaItem.SATIVA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.setup.ModSetup.TAB_NAME;
+
 /*
 This is where we translate ITEMS, BLOCKS, or ingame name translation (eng_US file)
  */
@@ -98,6 +99,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.VIOLET_BURLAP_CARPET_BLOCK.get(), "Violet Burlap Carpet");
         add(Registration.LIME_BURLAP_CARPET_BLOCK.get(), "Lime Burlap Carpet");
         add(Registration.RESIN_CARPET_BLOCK.get(), "Resin Carpet");
-
+        add(Registration.SHOT_LEAF_ENTITY.get(), "Shot Leaf Entity");
+        add(Registration.HIGH.get(), "High");
     }
 }
