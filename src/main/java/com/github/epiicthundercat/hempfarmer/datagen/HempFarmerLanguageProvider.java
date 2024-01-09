@@ -1,6 +1,7 @@
 package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
+import com.github.epiicthundercat.hempfarmer.common.item.LeafWandItem;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -101,5 +102,9 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.RESIN_CARPET_BLOCK.get(), "Resin Carpet");
         add(Registration.SHOT_LEAF_ENTITY.get(), "Shot Leaf Entity");
         add(Registration.HIGH.get(), "High");
+        add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
+
+
+
     }
 }

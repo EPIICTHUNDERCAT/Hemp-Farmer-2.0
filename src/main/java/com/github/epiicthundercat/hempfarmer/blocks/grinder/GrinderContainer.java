@@ -5,10 +5,7 @@ import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,28 +16,39 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.antlr.runtime.misc.IntArray;
 
 public class GrinderContainer extends AbstractContainerMenu {
 
-    private final BlockEntity blockEntity;
+    private final GrinderBE blockEntity;
+    private final ContainerData data;
     private final Player playerEntity;
     private final IItemHandler playerInventory;
+    public GrinderContainer(int ID, BlockPos pos, Inventory playerInventory, Player playerIn) {
+        this(ID, pos, playerInventory, playerIn, new SimpleContainerData(2));
+    }
 
-    public GrinderContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(Registration.GRINDER_CONTAINER.get(), windowId);
-        blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
+    public GrinderContainer(int ID, BlockPos pos, Inventory playerInventory, Player player, ContainerData blockData) {
+        super(Registration.GRINDER_CONTAINER.get(), ID);
+        checkContainerDataCount(blockData, 2);
+        this.blockEntity = (GrinderBE) player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-
+        this.data = blockData;
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 64, 24));
-               // addSlot(new SlotItemHandler(h, 1, 64, 28));
+                addSlot(new SlotItemHandler(h, blockEntity.SLOT_INPUT_1, 56, 17));
+                addSlot(new SlotItemHandler(h, blockEntity.SLOT_OUTPUT_1, 80, 54));
+
             });
         }
         //tracks player inventory as well
         layoutPlayerInventorySlots(10, 70);
         trackPower();
+    }
+
+    public GrinderBE getBE() {
+        return this.blockEntity;
     }
 
     // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
@@ -57,7 +65,7 @@ public class GrinderContainer extends AbstractContainerMenu {
             public void set(int value) {
                 blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0xffff0000;
-                    ((HempFarmerEnergyStorage)h).setEnergy(energyStored + (value & 0xffff));
+                    ((HempFarmerEnergyStorage) h).setEnergy(energyStored + (value & 0xffff));
                 });
             }
         });
@@ -71,10 +79,19 @@ public class GrinderContainer extends AbstractContainerMenu {
             public void set(int value) {
                 blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0x0000ffff;
-                    ((HempFarmerEnergyStorage)h).setEnergy(energyStored | (value << 16));
+                    ((HempFarmerEnergyStorage) h).setEnergy(energyStored | (value << 16));
                 });
             }
         });
+    }
+
+
+    public int getGrindTime() {
+        return this.data.get(0);
+    }
+
+    public int getGrindLength() {
+        return this.data.get(1);
     }
 
     public int getEnergy() {
@@ -132,9 +149,8 @@ public class GrinderContainer extends AbstractContainerMenu {
     }
 
 
-
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-        for (int i = 0 ; i < amount ; i++) {
+        for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
             x += dx;
             index++;
@@ -143,7 +159,7 @@ public class GrinderContainer extends AbstractContainerMenu {
     }
 
     private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-        for (int j = 0 ; j < verAmount ; j++) {
+        for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }

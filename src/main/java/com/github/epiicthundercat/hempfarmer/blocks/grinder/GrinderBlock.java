@@ -38,10 +38,10 @@ import java.util.List;
 
 public class GrinderBlock extends Block implements EntityBlock {
 
+    public static final BooleanProperty IS_OPEN = BooleanProperty.create("is_open");
+    public static final BooleanProperty IS_ON = BooleanProperty.create("is_on");
     public static final String MESSAGE_GRINDER = "message.grinder";
     public static final String SCREEN_HEMP_FARMER_GRINDER = "screen.hempfarmer.grinder";
-    public static final BooleanProperty GRINDING = BooleanProperty.create("grinding");
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public GrinderBlock() {
         super(Properties.of(Material.METAL)
@@ -50,9 +50,11 @@ public class GrinderBlock extends Block implements EntityBlock {
                 .noOcclusion()
                 .requiresCorrectToolForDrops()
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
+        this.registerDefaultState(this.stateDefinition.any().setValue(IS_OPEN, Boolean.FALSE).setValue(IS_ON, Boolean.FALSE));
 
+      //  this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+//Keep
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
         list.add(new TranslatableComponent(MESSAGE_GRINDER).withStyle(ChatFormatting.BLUE));
@@ -77,7 +79,7 @@ public class GrinderBlock extends Block implements EntityBlock {
             }
         };
     }
-
+@SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (!level.isClientSide) {
@@ -92,7 +94,7 @@ public class GrinderBlock extends Block implements EntityBlock {
 
                     @Override
                     public AbstractContainerMenu createMenu(int windowId, Inventory playerInventory, Player playerEntity) {
-                        return new GrinderContainer(windowId, pos, playerInventory, playerEntity);
+                        return new GrinderContainer(windowId, pos, playerInventory, playerEntity, ((GrinderBE) be).blockData);
                     }
                 };
                 NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
@@ -106,11 +108,13 @@ public class GrinderBlock extends Block implements EntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection()).setValue(GRINDING, false);
+        return super.getStateForPlacement(context).setValue(IS_OPEN, false).setValue(IS_ON, false);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, GRINDING);
+        builder.add(IS_OPEN, IS_ON);
     }
+
+
 }

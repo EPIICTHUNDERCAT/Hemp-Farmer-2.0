@@ -65,7 +65,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
             BlockState blockstate = level.getBlockState(blockPos);
             if (entity instanceof ServerPlayer serverplayer) {
 
-                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && serverplayer.hasEffect(Registration.HIGH.get())) {
+                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level /*&& serverplayer.hasEffect(Registration.HIGH.get())*/) {
                     if (pResult.getType().equals(BlockHitResult.Type.BLOCK)) {
                         Block block = this.getBlockStateOn().getBlock();
 
