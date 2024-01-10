@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:resin"
+    ]
+  },
+  "criteria": {
+    "has_hemp_oil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "hempfarmer:oil"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:resin"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_hemp_oil",
+      "has_the_recipe"
+    ]
+  ]
+}

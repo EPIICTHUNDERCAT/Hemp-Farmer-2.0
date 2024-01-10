@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hempfarmer:resin_burlap"
+    ]
+  },
+  "criteria": {
+    "resin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:resin"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hempfarmer:resin_burlap"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "resin",
+      "has_the_recipe"
+    ]
+  ]
+}

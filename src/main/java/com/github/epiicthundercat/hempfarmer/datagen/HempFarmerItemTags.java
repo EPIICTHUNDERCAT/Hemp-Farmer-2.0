@@ -31,6 +31,7 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.BUD.get());
 
         tag(Tags.Items.SLIMEBALLS)
+                .add(Items.SLIME_BALL)
                 .add(Registration.RESIN.get());
 
         tag(Registration.PAPER_ITEM)
@@ -51,6 +52,11 @@ public class HempFarmerItemTags extends ItemTagsProvider {
         tag(Registration.MILK_ITEM)
                 .add(Registration.HEMP_MILK_BUCKET.get())
                 .add(Items.MILK_BUCKET);
+
+        tag(Registration.OIL)
+                .add(Registration.HEMP_OIL.get())
+                .add(Registration.LIME_OIL.get())
+                .add(Registration.VIOLET_OIL.get());
 
     }
 

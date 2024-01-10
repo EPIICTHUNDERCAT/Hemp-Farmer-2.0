@@ -8,7 +8,7 @@
   ],
   "key": {
     "x": {
-      "item": "hempfarmer:hemp_milk_bucket"
+      "tag": "hempfarmer:milk"
     },
     "#": {
       "tag": "forge:eggs"

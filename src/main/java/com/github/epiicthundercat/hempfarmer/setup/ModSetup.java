@@ -22,24 +22,13 @@ public class ModSetup {
 
     public static void setup() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
-//        bus.addListener(Ores::onBiomeLoadingEvent);
-//        bus.addGenericListener(Entity.class, ManaEvents::onAttachCapabilitiesPlayer);
-//        bus.addListener(ManaEvents::onPlayerCloned);
-//        bus.addListener(ManaEvents::onRegisterCapabilities);
-//        bus.addListener(ManaEvents::onWorldTick);
+
     }
 
     public static void init(FMLCommonSetupEvent event) {
-//        event.enqueueWork(() -> {
-//            Ores.registerConfiguredFeatures();
-//            Dimensions.register();
-//        });
+
         HFMessages.register();
 
     }
 
-//    @SubscribeEvent
-//    public static void onAttributeCreate(EntityAttributeCreationEvent event) {
-//        event.put(Registration.THIEF.get(), ThiefEntity.prepareAttributes().build());
-//    }
 }

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "hempfarmer:hemp_oil"
+    "tag": "hempfarmer:oil"
   },
   "result": "hempfarmer:resin",
   "experience": 1.0,

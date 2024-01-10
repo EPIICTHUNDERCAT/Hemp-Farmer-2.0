@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hempfarmer",
+  "pattern": [
+    " x ",
+    "fsf",
+    "fff"
+  ],
+  "key": {
+    "f": {
+      "item": "hempfarmer:leaf"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "x": {
+      "item": "hempfarmer:leaf_wand"
+    }
+  },
+  "result": {
+    "item": "hempfarmer:superior_leaf_wand"
+  }
+}
