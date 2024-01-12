@@ -41,6 +41,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         // SATIVA
         add(Registration.SATIVA_JOINT.get(), "Sativa Joint");
         add(Registration.SATIVA_BUD.get(), "Sativa Bud");
+        add(Registration.GROUND_SATIVA_BUD.get(), "Ground Sativa Bud");
         add(Registration.SEEDS_SATIVA.get(), "Sativa Seeds");
         add(Registration.SEEDS_SATIVA_CRUSHED.get(), "Crushed Sativa Seeds");
         add(Registration.SEEDS_SATIVA_TOASTED.get(), "Toasted Sativa Seeds");
@@ -56,6 +57,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SEEDS_HEMP_TOASTED.get(), "Toasted Hemp Seeds");
         add(Registration.HEMP_HEARTS.get(), "Hemp Hearts");
         add(Registration.BUD.get(), "Bud");
+        add(Registration.GROUND_BUD.get(), "Ground Bud");
         add(Registration.REGS_JOINT.get(), "Regs Joint");
         add(Registration.HEMP_OIL.get(), "Hemp Oil");
         add(Registration.HEMP_MILK_BUCKET.get(), "Hemp Milk");
@@ -76,6 +78,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.VIOLET_DRY_HEMP.get(), "Dry Violet Hemp");
         add(Registration.INDICA_JOINT.get(), "Indica Joint");
         add(Registration.INDICA_BUD.get(), "Indica Bud");
+        add(Registration.GROUND_INDICA_BUD.get(), "Ground Indica Bud");
         // RANDOM
         add(Registration.BROKEN_SUPERIOR_LEAF_WAND.get(), "Broken Superior Leaf Wand");
         add(Registration.LEAF_WAND.get(), "Leaf Wand");

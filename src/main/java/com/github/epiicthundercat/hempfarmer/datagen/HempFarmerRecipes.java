@@ -162,9 +162,9 @@ public class HempFarmerRecipes extends RecipeProvider {
         //Regs Joint
         ShapelessRecipeBuilder.shapeless(Registration.REGS_JOINT.get())
                 .requires(Registration.ROLLING_PAPER.get())
-                .requires(Registration.BUD.get())
-                .requires(Registration.BUD.get())
-                .requires(Registration.BUD.get())
+                .requires(Registration.GROUND_BUD.get())
+                .requires(Registration.GROUND_BUD.get())
+                .requires(Registration.GROUND_BUD.get())
                 .group("hempfarmer")
                 .unlockedBy("bud", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BUD.get()))
                 .save(consumer);
@@ -172,9 +172,9 @@ public class HempFarmerRecipes extends RecipeProvider {
         //Sativa Joint
         ShapelessRecipeBuilder.shapeless(Registration.SATIVA_JOINT.get())
                 .requires(Registration.ROLLING_PAPER.get())
-                .requires(Registration.SATIVA_BUD.get())
-                .requires(Registration.SATIVA_BUD.get())
-                .requires(Registration.SATIVA_BUD.get())
+                .requires(Registration.GROUND_SATIVA_BUD.get())
+                .requires(Registration.GROUND_SATIVA_BUD.get())
+                .requires(Registration.GROUND_SATIVA_BUD.get())
                 .group("hempfarmer")
                 .unlockedBy("sativa_bud", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SATIVA_BUD.get()))
                 .save(consumer);
@@ -182,9 +182,9 @@ public class HempFarmerRecipes extends RecipeProvider {
         //Indica Joint
         ShapelessRecipeBuilder.shapeless(Registration.INDICA_JOINT.get())
                 .requires(Registration.ROLLING_PAPER.get())
-                .requires(Registration.INDICA_BUD.get())
-                .requires(Registration.INDICA_BUD.get())
-                .requires(Registration.INDICA_BUD.get())
+                .requires(Registration.GROUND_INDICA_BUD.get())
+                .requires(Registration.GROUND_INDICA_BUD.get())
+                .requires(Registration.GROUND_INDICA_BUD.get())
                 .group("hempfarmer")
                 .unlockedBy("indica_bud", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.INDICA_BUD.get()))
                 .save(consumer);

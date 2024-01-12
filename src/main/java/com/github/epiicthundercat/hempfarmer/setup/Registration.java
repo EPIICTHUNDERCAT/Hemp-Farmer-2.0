@@ -96,6 +96,10 @@ public class Registration {
     public static final RegistryObject<Item> SATIVA_BUD = ITEMS.register("sativa_bud", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> INDICA_BUD = ITEMS.register("indica_bud", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> BUD = ITEMS.register("bud", () -> new Item(ITEM_PROPERTIES));
+    //Ground Bud
+    public static final RegistryObject<Item> GROUND_SATIVA_BUD = ITEMS.register("ground_sativa_bud", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> GROUND_INDICA_BUD = ITEMS.register("ground_indica_bud", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> GROUND_BUD = ITEMS.register("ground_bud", () -> new Item(ITEM_PROPERTIES));
 
     //Crop Drops
     public static final RegistryObject<Item> RAW_HEMP = ITEMS.register("raw_hemp", () -> new Item(ITEM_PROPERTIES));
@@ -117,6 +121,9 @@ public class Registration {
     public static final RegistryObject<Item> LIME_DRY_HEMP = ITEMS.register("lime_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_DRY_HEMP = ITEMS.register("violet_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
+
+
+
 
 
     public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new LeafWandItem(new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1).defaultDurability(100)));

@@ -14,7 +14,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
@@ -30,16 +29,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
  * BUGS:
- * -Proccessing without power
- * -Power Drain not smooth/Overtime
- * -Unable to shift Click into
- * -Items do not stack in output
- * -Breaking voids items!
- * -Visuals obiously
+ * Power drain when crafting recipe continues stopping craft process
+ * * -Power Drain not smooth/Overtime // May supplement with a progress bar using the cooktime value... // FIXED
+ * * -Running recipes TWICE, consuming twice as much power // FIXED!
+ * -Proccessing without power // FIXED ADDED CHECK
+ * -Unable to shift Click into // Kinda Fixed...
+ * -Items do not stack in output // FIXEDDDD FIXED SLOTs
+ * -Breaking voids items! // FIXED - Had to do with Data Tags being named wrong. inv is now saved via NBT
+ * -Visuals obviously // FIXED
  */
 
 public class GrinderBE extends BlockEntity {
@@ -52,6 +54,10 @@ public class GrinderBE extends BlockEntity {
     private int grindTime = -1;
     private int grindLength = -1;
     private float xp = 0f;
+
+    private int counter;
+
+
     protected final ContainerData blockData = new ContainerData() {
         public int get(int id) {
             switch (id) {
@@ -83,58 +89,74 @@ public class GrinderBE extends BlockEntity {
     };
 
 
+    /**
+     * This is the processing code for the recipes...
+     * This is where power is drained
+     * where recipe start is iniated and the methods to convert the items get called, now we should be able to add recipes manually and be good.
+     */
 
     public void tickServer() {
         this.setPlayersInside(this.getPlayersInside());
-        if (!this.level.isClientSide()) {
-            GrinderRecipeHandler recipe = canCraft();
-           // System.out.println(recipe + " is crafty?");
-            if (recipe != null) {
-                if (getGrindTime() > 0) {
+        AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
 
-                  //  System.out.println("recipe workie?");
+        if (!this.level.isClientSide()) {
+
+            GrinderRecipeHandler recipe = canCraft();
+            if (recipe != null && !(capacity.get() <= 0)) {
+                if (getGrindTime() > 0) {
+                    int consumedEnergy = GrinderConfig.ENERGY_NEED.get();
+                    capacity.addAndGet(-consumedEnergy);
+                    energy.consumeEnergy(consumedEnergy);
                     setGrindTime(getGrindTime() - 1);
+
                 } else {
                     if (getGrindTime() == 0) {
+
                         finishCraft(recipe);
+
                     }
                     if (getGrindTime() == -1 && getGrindLength() == -1) {
-                        energy.consumeEnergy(GrinderConfig.ENERGY_NEED.get());
+
                         startCraft(recipe);
+
                     }
                 }
+
             } else {
-                //System.out.println("null recipe?");
+
                 stopCrafting();
             }
         }
 
     }
 
-
-
-    /**
-     * Called when the craft needs to be halted. Sets values to default.
-     */
-    public void stopCrafting() {
-        this.getLevel().setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(GrinderBlock.IS_ON, false));
-        setGrindLength(-1);
-        setGrindTime(-1);
-    }
-
     /**
      * Returns a recipe that is ready to be crafted, returns null if nothing can be crafted.
      */
     public GrinderRecipeHandler canCraft() {
-
+        if (energy.getEnergyStored() < GrinderConfig.ENERGY_NEED.get()) {
+            return null;
+        }
         GrinderRecipeHandler recipe = getRecipeFromContents();
+        /**
+         * Checks to see if the recipe is not broken if its not proceed
+         */
+
         if (recipe != null) {
+
+            /**
+             *  checks if the item in the output slot is empty, process the recipe
+             */
             if (itemHandler.getStackInSlot(SLOT_OUTPUT_1).isEmpty()) {
                 return recipe;
             }
+            /**
+             * Checks the item in the recipe output, if the item in the output is the same, and its stackable, and the count is less than max stack size, it will att it.
+             */
 
             ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
             if (recipe.getResultItem().getItem() == output.getItem() && output.isStackable() && output.getCount() + recipe.getResultItem().getCount() <= output.getMaxStackSize()) {
+
                 return recipe;
             }
         }
@@ -145,49 +167,58 @@ public class GrinderBE extends BlockEntity {
      * Returns the recipe that can be crafted from this tile's input slots.
      */
     public GrinderRecipeHandler getRecipeFromContents() {
-        GrinderRecipeHandler tocraft = null;
+        GrinderRecipeHandler toCraft = null;
         for (final GrinderRecipeHandler recipe : level.getRecipeManager().getAllRecipesFor(GrinderRecipeHandler.TYPE)) {
             if (recipe.matches(itemHandler)) {
-                tocraft = recipe;
+                toCraft = recipe;
                 break;
             }
 
         }
-        return tocraft;
+        return toCraft;
     }
 
     /**
      * Called when the craft progress starts. Updates blockstate and sets cook length from recipe.
      */
     public void startCraft(GrinderRecipeHandler recipe) {
-
+        System.out.println("HOW MANY TIMES ARE WE RUNNING START CRAFT IN ONE ITERATION???");
         // Not enough energy, don't even try
         if (energy.getEnergyStored() < GrinderConfig.ENERGY_NEED.get()) {
+
             stopCrafting();
         }
         this.getLevel().setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(GrinderBlock.IS_ON, true));
-        setGrindLength((int) (recipe.getCraftTime() ));
+        setGrindLength(recipe.getCraftTime());
         setGrindTime(getGrindLength());
+    }
+
+    /**
+     * Called when the craft needs to be halted. Set values to default.
+     */
+    public void stopCrafting() {
+        this.getLevel().setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(GrinderBlock.IS_ON, false));
+        setGrindLength(-1);
+        setGrindTime(-1);
     }
 
 
     /**
-     * Called when the craft progress is complete. Shrinks inputs and places output item.
+     * Called when the craft progress is complete. Shrink inputs and places output item.
      */
     private void finishCraft(GrinderRecipeHandler recipe) {
         stopCrafting();
 
-        Map<ItemStack, Boolean> inventoryitems = new HashMap<>();
+        Map<ItemStack, Boolean> inventoryItems = new HashMap<>();
         for (int slot = 0; slot < 1; slot++) {
-            inventoryitems.put(itemHandler.getStackInSlot(slot), false);
+            inventoryItems.put(itemHandler.getStackInSlot(slot), false);
         }
         for (Ingredient ingredient : recipe.getIngredients()) {
             for (int slot = 0; slot < 1; slot++) {
                 if (ingredient.test(itemHandler.getStackInSlot(slot))) {
-                    if (!inventoryitems.get(itemHandler.getStackInSlot(slot))) {
-                        //energy.consumeEnergy(GrinderConfig.ENERGY_NEED.get());
-                        inventoryitems.remove(itemHandler.getStackInSlot(slot));
-                        inventoryitems.put(itemHandler.getStackInSlot(slot), true);
+                    if (!inventoryItems.get(itemHandler.getStackInSlot(slot))) {
+                        inventoryItems.remove(itemHandler.getStackInSlot(slot));
+                        inventoryItems.put(itemHandler.getStackInSlot(slot), true);
                         itemHandler.getStackInSlot(slot).shrink(ingredient.getItems()[0].getCount());
                     }
                 }
@@ -199,9 +230,9 @@ public class GrinderBE extends BlockEntity {
             itemHandler.setStackInSlot(SLOT_OUTPUT_1, recipe.getOutput());
         }
         if (output.isStackable()) {
-            ItemStack newoutput = recipe.getOutput();
-            newoutput.grow(output.getCount());
-            itemHandler.setStackInSlot(SLOT_OUTPUT_1, newoutput);
+            ItemStack newOutput = recipe.getOutput();
+            newOutput.grow(output.getCount());
+            itemHandler.setStackInSlot(SLOT_OUTPUT_1, newOutput);
         }
 
         this.setXP(this.getXP() + recipe.getXP());
@@ -244,15 +275,18 @@ public class GrinderBE extends BlockEntity {
     }
 
 
+    /**
+     * These are the data components that save to the block - how it maintains energy and items after being broken and placed!
+     */
     @Override
     public void load(CompoundTag tag) {
-        super.load(tag);
+
 
         if (tag.contains("Inventory")) {
-            itemHandler.deserializeNBT(tag.getCompound("Inventory"));
+            this.itemHandler.deserializeNBT(tag.getCompound("Inventory"));
         }
         if (tag.contains("Energy")) {
-            energy.deserializeNBT(tag.get("Energy"));
+            this.energy.deserializeNBT(tag.get("Energy"));
         }
         if (tag.contains("CookTime", IntTag.TAG_INT)) {
             this.grindTime = tag.getInt("CookTime");
@@ -263,13 +297,20 @@ public class GrinderBE extends BlockEntity {
         if (tag.contains("XP", IntTag.TAG_FLOAT)) {
             this.xp = tag.getFloat("XP");
         }
-
+        if (tag.contains("Info")) {
+            this.counter = tag.getCompound("Info").getInt("Counter");
+        }
+        super.load(tag);
     }
+
+    /**
+     * These are the data components that save to the block - how it maintains energy and items after being broken and placed!
+     */
 
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.put("inventory", itemHandler.serializeNBT());
+        tag.put("Inventory", itemHandler.serializeNBT());
         tag.put("Energy", energy.serializeNBT());
         if (this.getGrindTime() != -1) {
             tag.putInt("CookTime", this.getGrindTime());
@@ -280,6 +321,9 @@ public class GrinderBE extends BlockEntity {
         if (this.getXP() != 0) {
             tag.putFloat("XP", this.getXP());
         }
+        CompoundTag infoTag = new CompoundTag();
+        infoTag.putInt("Counter", counter);
+        tag.put("Info", infoTag);
 
     }
 
@@ -338,8 +382,13 @@ public class GrinderBE extends BlockEntity {
         return amt;
     }
 
+    /**
+     *   Changed from 4 to 2 since it only has two slots
+     */
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
+
+
+    protected final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -359,6 +408,7 @@ public class GrinderBE extends BlockEntity {
             }
             return super.extractItem(slot, amount, simulate);
         }
+
     };
 
     private final LazyOptional<IItemHandler> items = LazyOptional.of(() -> itemHandler);
@@ -415,48 +465,11 @@ public class GrinderBE extends BlockEntity {
     }
 
 
-
     public GrinderBE(BlockPos pos, BlockState state) {
         super(Registration.GRINDER_BE.get(), pos, state);
     }
 
 
-
-
-    /*  private boolean generateBud() {
-          // The player didn't select anything to generate
-          if (generatingBlock == null) {
-              return false;
-          }
-          // Not enough energy, don't even try
-          if (energy.getEnergyStored() < GrinderConfig.ENERGY_GENERATE.get()) {
-              return false;
-          }
-          boolean areWeGenerating = false;
-          for (int i = 0; i < inputItems.getSlots(); i++) {
-              ItemStack item = inputItems.getStackInSlot(i);
-              if (!item.isEmpty()) {
-                  energy.consumeEnergy(GrinderConfig.ENERGY_GENERATE.get());
-                  // The API documentation from getStackInSlot says you are not allowed to modify the itemstacks returned
-                  // by getStackInSlot. That's why we make a copy here
-                  item = item.copy();
-                  item.shrink(1);
-                  // Put back the item with one less (can be empty)
-                  inputItems.setStackInSlot(i, item);
-                  generatingCounter++;
-                  areWeGenerating = true;
-                  setChanged();
-                  if (generatingCounter >= GrinderConfig.HEMP_PER.get()) {
-                      generatingCounter = 0;
-                      // For each of these ores we try to insert it in the output buffer or else throw it on the ground
-                      ItemStack remaining = ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.getBlock().asItem()), false);
-                      UtilTools.spawnInWorld(level, worldPosition, remaining);
-                  }
-              }
-          }
-          return areWeGenerating;
-      }
-  */
     private HempFarmerEnergyStorage createEnergyStorage() {
         return new HempFarmerEnergyStorage(GrinderConfig.ENERGY_CAPACITY.get(), GrinderConfig.ENERGY_RECEIVE.get()) {
             @Override
@@ -466,9 +479,10 @@ public class GrinderBE extends BlockEntity {
         };
     }
 
-    // The getUpdateTag()/handleUpdateTag() pair is called whenever the client receives a new chunk
-    // it hasn't seen before. i.e. the chunk is loaded
-
+    /**
+     * The getUpdateTag()/handleUpdateTag() pair is called whenever the client receives a new chunk
+     * it hasn't seen before. i.e. the chunk is loaded
+     */
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
@@ -476,12 +490,13 @@ public class GrinderBE extends BlockEntity {
         return tag;
     }
 
-    @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        if (tag != null) {
-            //  loadClientData(tag);
-        }
-    }
+
+
+//    @Override
+//    public void handleUpdateTag(CompoundTag tag) {
+//        if (tag != null) {
+//        }
+//    }
 
 
 }

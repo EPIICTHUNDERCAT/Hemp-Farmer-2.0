@@ -1,32 +1,32 @@
 {
   "variants": {
-    "facing=east,grinding=true": {
-      "model": "hempfarmer:block/grinder_on",
+    "facing=east,is_on=true": {
+      "model": "hempfarmer:block/grinder_is_on",
       "y": 270
     },
-    "facing=north,grinding=true": {
-      "model": "hempfarmer:block/grinder_on",
+    "facing=north,is_on=true": {
+      "model": "hempfarmer:block/grinder_is_on",
       "y": 180
     },
-    "facing=south,grinding=true": {
-      "model": "hempfarmer:block/grinder_on"
+    "facing=south,is_on=true": {
+      "model": "hempfarmer:block/grinder_is_on"
     },
-    "facing=west,grinding=true": {
-      "model": "hempfarmer:block/grinder_on",
+    "facing=west,is_on=true": {
+      "model": "hempfarmer:block/grinder_is_on",
       "y": 90
     },
-    "facing=east,grinding=false": {
+    "facing=east,is_on=false": {
       "model": "hempfarmer:block/grinder",
       "y": 270
     },
-    "facing=north,grinding=false": {
+    "facing=north,is_on=false": {
       "model": "hempfarmer:block/grinder",
       "y": 180
     },
-    "facing=south,grinding=false": {
+    "facing=south,is_on=false": {
       "model": "hempfarmer:block/grinder"
     },
-    "facing=west,grinding=false": {
+    "facing=west,is_on=false": {
       "model": "hempfarmer:block/grinder",
       "y": 90
     }

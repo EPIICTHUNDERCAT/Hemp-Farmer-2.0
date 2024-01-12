@@ -2,28 +2,32 @@ package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
+import com.mojang.serialization.Decoder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import org.antlr.runtime.misc.IntArray;
 
 public class GrinderContainer extends AbstractContainerMenu {
 
     private final GrinderBE blockEntity;
+    protected final Level level;
     private final ContainerData data;
     private final Player playerEntity;
     private final IItemHandler playerInventory;
+
     public GrinderContainer(int ID, BlockPos pos, Inventory playerInventory, Player playerIn) {
         this(ID, pos, playerInventory, playerIn, new SimpleContainerData(2));
     }
@@ -33,12 +37,13 @@ public class GrinderContainer extends AbstractContainerMenu {
         checkContainerDataCount(blockData, 2);
         this.blockEntity = (GrinderBE) player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
+        this.level = playerInventory.player.level;
         this.playerInventory = new InvWrapper(playerInventory);
         this.data = blockData;
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, blockEntity.SLOT_INPUT_1, 56, 17));
-                addSlot(new SlotItemHandler(h, blockEntity.SLOT_OUTPUT_1, 80, 54));
+                addSlot(new SlotItemHandler(h, blockEntity.SLOT_INPUT_1, 46, 31));
+                addSlot(new SlotItemHandler(h, blockEntity.SLOT_OUTPUT_1, 118, 31));
 
             });
         }
@@ -103,8 +108,10 @@ public class GrinderContainer extends AbstractContainerMenu {
         return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.GRINDER.get());
     }
 
+
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
+
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
@@ -117,11 +124,14 @@ public class GrinderContainer extends AbstractContainerMenu {
                 }
                 slot.onQuickCraft(stack, itemstack);
             } else {
-                //if item is grindable, add it to our slot
-                if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0) {
-                    if (!this.moveItemStackTo(stack, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
+                //if item is grindable, add it to our slot // need to call recipe handler and pull item cook time // removed check, any item can be shift clicked, also, need to fix move from output to inv.
+                // GrinderRecipeHandler recipe = getBE().canCraft();
+
+                //  if (ForgeHooks.getBurnTime(stack, GrinderRecipeHandler.TYPE) > 0) {
+                //  if (this.level.getRecipeManager().getRecipeFor(GrinderRecipeHandler.TYPE, new SimpleContainer(itemstack) , level)) {
+                if (!this.moveItemStackTo(stack, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                    // }
                 } else if (index < 28) {
                     //if its in the inv keep it in the inv
                     if (!this.moveItemStackTo(stack, 28, 37, false)) {

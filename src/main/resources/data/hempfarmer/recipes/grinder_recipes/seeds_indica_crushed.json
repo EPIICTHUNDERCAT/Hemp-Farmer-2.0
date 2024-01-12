@@ -3,13 +3,13 @@
   "ingredients": [
     [
       {
-        "item": "hempfarmer:seeds_hemp"
+        "item": "hempfarmer:seeds_indica"
       }
     ]
 
   ],
   "output": {
-    "item": "hempfarmer:seeds_hemp_crushed"
+    "item": "hempfarmer:seeds_indica_crushed"
   },
   "xp": 0.5,
   "craft_time": 45

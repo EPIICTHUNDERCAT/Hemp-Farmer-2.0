@@ -51,12 +51,14 @@ public class PowerBatteryBE extends BlockEntity {
     }
 
     public void tickServer() {
+        //When the counter is set to burnTime, it will Tick and add energy based on the amount we set, being 60.
         if (counter > 0) {
             energyStorage.addEnergy(POWER_BATTERY_GENERATE);
             counter--;
             setChanged();
         }
-
+        //how to reduce energy by one
+        //This should just be setting the counter up to how long its going to cook for:
         if (counter <= 0) {
             ItemStack stack = itemHandler.getStackInSlot(0);
             int burnTime = ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
@@ -85,6 +87,7 @@ public class PowerBatteryBE extends BlockEntity {
                     boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                                 if (handler.canReceive()) {
                                     int received = handler.receiveEnergy(Math.min(capacity.get(), POWER_BATTERY_SEND), false);
+
                                     capacity.addAndGet(-received);
                                     energyStorage.consumeEnergy(received);
                                     setChanged();
