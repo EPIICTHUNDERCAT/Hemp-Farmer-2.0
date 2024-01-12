@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hempfarmer:hemp_milk_bucket"
+    ]
+  },
+  "criteria": {
+    "water_bucket_milk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hempfarmer:hemp_milk_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "water_bucket_milk",
+      "has_the_recipe"
+    ]
+  ]
+}

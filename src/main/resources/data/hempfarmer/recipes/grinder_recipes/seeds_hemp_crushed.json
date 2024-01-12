@@ -1,0 +1,16 @@
+{
+  "type": "hempfarmer:grinder_recipe",
+  "ingredients": [
+    [
+      {
+        "item": "hempfarmer:seeds_hemp"
+      }
+    ]
+
+  ],
+  "output": {
+    "item": "hempfarmer:seeds_hemp_crushed"
+  },
+  "xp": 0.5,
+  "craft_time": 300
+}

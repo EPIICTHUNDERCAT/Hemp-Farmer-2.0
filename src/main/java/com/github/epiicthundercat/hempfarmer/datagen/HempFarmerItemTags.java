@@ -19,6 +19,11 @@ public class HempFarmerItemTags extends ItemTagsProvider {
     @Override
     protected void addTags() {
 
+//FOR HEMP SEED RECIPES ONLY
+        tag(Registration.SEED_TRIAD)
+                .add(Registration.SEEDS_SATIVA.get())
+                .add(Registration.SEEDS_INDICA.get())
+                .add(Registration.SEEDS_HEMP.get());
 
         tag(Tags.Items.SEEDS)
                 .add(Registration.SEEDS_SATIVA.get())

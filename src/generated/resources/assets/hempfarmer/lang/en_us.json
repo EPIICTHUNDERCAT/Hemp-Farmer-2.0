@@ -64,6 +64,7 @@
   "message.grinder": "Grinding Hemp!",
   "message.hemp.invalid_placement": "Must Be Placed on Farmland",
   "message.indica.invalid_placement": "Must Be Placed on Farmland",
+  "message.nothigh": "You are...not...high enough..",
   "message.powerbattery": "Power battery generating %s per tick!",
   "message.sativa.invalid_placement": "Must Be Placed on Farmland",
   "screen.hempfarmer.powerbattery": "Power Battery"

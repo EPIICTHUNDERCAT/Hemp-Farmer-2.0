@@ -8,6 +8,7 @@ import com.github.epiicthundercat.hempfarmer.blocks.decoration.BurlapCarpetBlock
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBE;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderContainer;
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderRecipeHandler;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
@@ -15,6 +16,8 @@ import com.github.epiicthundercat.hempfarmer.common.FoodValues;
 import com.github.epiicthundercat.hempfarmer.common.effect.HighEffect;
 import com.github.epiicthundercat.hempfarmer.common.entity.ShotLeafEntity;
 import com.github.epiicthundercat.hempfarmer.common.item.*;
+import com.github.epiicthundercat.hempfarmer.common.item.food.PotBrownieItem;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -32,6 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -52,18 +57,24 @@ public class Registration {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     private static final DeferredRegister<MobEffect> EFFECT = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
     private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
+    private static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, HempFarmer.MODID);
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        EFFECT.register(bus);
         BLOCKS.register(bus);
         ITEMS.register(bus);
         BLOCK_ENTITIES.register(bus);
         MENU.register(bus);
-        EFFECT.register(bus);
         ENTITY_TYPES.register(bus);
-//        STRUCTURES.register(bus);
+        RECIPES.register(bus);
 
     }
+
+
+    public static final RegistryObject<RecipeSerializer<GrinderRecipeHandler>> GRINDER_RECIPE_HANDLER = RECIPES.register("grinder_recipe", () -> GrinderRecipeHandler.SERIALIZER);
+
+
     public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModSetup.ITEM_GROUP);
     //   public static final BlockBehaviour.Properties BLOCK_PROPERTIES = new BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);// BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).strength(0.5f);
 
@@ -71,7 +82,7 @@ public class Registration {
     public static final RegistryObject<EntityType<ShotLeafEntity>> SHOT_LEAF_ENTITY = ENTITY_TYPES.register("shot_leaf_entity", () ->
             EntityType.Builder.<ShotLeafEntity>of(ShotLeafEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(8).updateInterval(10).build("shot_leaf_entity"));
 
-    public static final RegistryObject<MobEffect> HIGH = EFFECT.register("high", () -> new HighEffect(MobEffectCategory.BENEFICIAL, 139453));
+    public static final RegistryObject<MobEffect> HIGH = EFFECT.register("high", () -> new HighEffect(MobEffectCategory.BENEFICIAL, 0xB77BAB));
 
 
     //Items Here
@@ -96,7 +107,7 @@ public class Registration {
     public static final RegistryObject<Item> BOWL_LIME_HEMP_HEARTS = ITEMS.register("bowl_lime_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
     public static final RegistryObject<Item> BOWL_VIOLET_HEMP_HEARTS = ITEMS.register("bowl_violet_hemp_hearts", () -> new BowlFoodItem((new Item.Properties()).stacksTo(1).tab(ModSetup.ITEM_GROUP).food(FoodValues.HEMP_BOWL)));
     public static final RegistryObject<Item> HEMP_MILK_BUCKET = ITEMS.register("hemp_milk_bucket", () -> new HempMilkBucketItem((new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(ModSetup.ITEM_GROUP)));
-    public static final RegistryObject<Item> POT_BROWNIE = ITEMS.register("pot_brownie", () -> new Item((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.POT_BROWNIE)));
+    public static final RegistryObject<Item> POT_BROWNIE = ITEMS.register("pot_brownie", () -> new PotBrownieItem((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.POT_BROWNIE)));
     public static final RegistryObject<Item> LIME_HEMP_HEARTS = ITEMS.register("lime_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_HEMP_HEARTS = ITEMS.register("violet_hemp_hearts", () -> new Item(ITEM_PROPERTIES));
 
@@ -112,7 +123,7 @@ public class Registration {
     public static final RegistryObject<Item> SHOT_LEAF = ITEMS.register("shot_leaf", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> ROLLING_PAPER = ITEMS.register("rolling_paper", () -> new Item(ITEM_PROPERTIES));
 
- //Will just be crafting component. (can maybe add abnility to bonemeal/ start fires?
+    //Will just be crafting component. (can maybe add abnility to bonemeal/ start fires?
     public static final RegistryObject<Item> LEAF_WAND = ITEMS.register("leaf_wand", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_PAPER = ITEMS.register("hemp_paper", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> HEMP_OIL = ITEMS.register("hemp_oil", () -> new Item(ITEM_PROPERTIES));
@@ -125,7 +136,7 @@ public class Registration {
     public static final RegistryObject<Item> SEEDS_SATIVA = ITEMS.register("seeds_sativa", () -> new SativaItem(Registration.SATIVA_CROP.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> SEEDS_SATIVA_CRUSHED = ITEMS.register("seeds_sativa_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_SATIVA_TOASTED = ITEMS.register("seeds_sativa_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
-    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(),  new Item.Properties().tab(ModSetup.ITEM_GROUP)));
+    public static final RegistryObject<Item> SEEDS_INDICA = ITEMS.register("seeds_indica", () -> new IndicaItem(Registration.INDICA_CROP.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> SEEDS_INDICA_CRUSHED = ITEMS.register("seeds_indica_crushed", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> SEEDS_INDICA_TOASTED = ITEMS.register("seeds_indica_toasted", () -> new Item(((new Item.Properties()).tab(ModSetup.ITEM_GROUP).food(FoodValues.TOASTED_SEEDS))));
     public static final RegistryObject<Item> SEEDS_HEMP = ITEMS.register("seeds_hemp", () -> new HempItem(Registration.HEMP_CROP.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
@@ -144,13 +155,13 @@ public class Registration {
 
 
     //Blocks Here
-    public static final RegistryObject<Block> LIME_DIRT = BLOCKS.register("lime_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Block> LIME_DIRT = BLOCKS.register("lime_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Item> LIME_DIRT_ITEM = fromBlock(LIME_DIRT);
-    public static final RegistryObject<Block> OILY_DIRT = BLOCKS.register("oily_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Block> OILY_DIRT = BLOCKS.register("oily_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.SLIME_BLOCK)));
     public static final RegistryObject<Item> OILY_DIRT_ITEM = fromBlock(OILY_DIRT);
-    public static final RegistryObject<Block> RESIN_DIRT = BLOCKS.register("resin_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Block> RESIN_DIRT = BLOCKS.register("resin_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Item> RESIN_DIRT_ITEM = fromBlock(RESIN_DIRT);
-    public static final RegistryObject<Block> VIOLET_DIRT = BLOCKS.register("violet_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT)));
+    public static final RegistryObject<Block> VIOLET_DIRT = BLOCKS.register("violet_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Item> VIOLET_DIRT_ITEM = fromBlock(VIOLET_DIRT);
     public static final RegistryObject<Block> INDICA_CROP = BLOCKS.register("indica_crop",
             () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
@@ -162,20 +173,20 @@ public class Registration {
             () -> new HempCrop(Block.Properties.copy(Blocks.WHEAT)));
     public static final RegistryObject<Item> HEMP_CROP_ITEM = fromBlock(HEMP_CROP);
 
-    public static final RegistryObject<Block> BURLAP_CARPET_BLOCK = BLOCKS.register("burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Block> BURLAP_CARPET_BLOCK = BLOCKS.register("burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> BURLAP_BLOCK_ITEM = fromBlock(BURLAP_CARPET_BLOCK);
 
-    public static final RegistryObject<Block> RESIN_CARPET_BLOCK = BLOCKS.register("resin_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Block> RESIN_CARPET_BLOCK = BLOCKS.register("resin_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.3f)));
     public static final RegistryObject<Item> RESIN_BURLAP_BLOCK_ITEM = fromBlock(RESIN_CARPET_BLOCK);
 
-    public static final RegistryObject<Block> OILY_BURLAP_CARPET_BLOCK = BLOCKS.register("oily_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
+    public static final RegistryObject<Block> OILY_BURLAP_CARPET_BLOCK = BLOCKS.register("oily_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.SLIME_BLOCK).strength(0.1f)));
     public static final RegistryObject<Item> OILY_BURLAP_BLOCK_ITEM = fromBlock(OILY_BURLAP_CARPET_BLOCK);
 
-    public static final RegistryObject<Block> LIME_BURLAP_CARPET_BLOCK = BLOCKS.register("lime_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Block> LIME_BURLAP_CARPET_BLOCK = BLOCKS.register("lime_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> LIME_BURLAP_BLOCK_ITEM = fromBlock(LIME_BURLAP_CARPET_BLOCK);
 
 
-    public static final RegistryObject<Block> VIOLET_BURLAP_CARPET_BLOCK = BLOCKS.register("violet_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION)));
+    public static final RegistryObject<Block> VIOLET_BURLAP_CARPET_BLOCK = BLOCKS.register("violet_burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> VIOLET_BURLAP_BLOCK_ITEM = fromBlock(VIOLET_BURLAP_CARPET_BLOCK);
 
 
@@ -194,7 +205,8 @@ public class Registration {
     public static final RegistryObject<BlockEntityType<GrinderBE>> GRINDER_BE = BLOCK_ENTITIES.register("grinder",
             () -> BlockEntityType.Builder.of(GrinderBE::new, GRINDER.get()).build(null));
     public static final RegistryObject<MenuType<GrinderContainer>> GRINDER_CONTAINER = MENU.register("grinder",
-            () -> IForgeMenuType.create((windowId, inv, data) -> new GrinderContainer(windowId, data.readBlockPos(), inv, inv.player)));
+            () -> IForgeMenuType.create((windowId, inv, data) ->
+                    new GrinderContainer(windowId, data.readBlockPos(), inv, inv.player)));
 
     //TAG KEYS ARE CREATED HERE AND THEN CALLED IN THE TAGS
     //BUD
@@ -206,6 +218,7 @@ public class Registration {
 
     public static final TagKey<Block> OILY_DIRT_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(HempFarmer.MODID, "oily_dirt"));
     public static final TagKey<Item> MILK_ITEM = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "milk"));
+    public static final TagKey<Item> SEED_TRIAD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(HempFarmer.MODID, "seed_triad"));
 
     public static final TagKey<Item> OIL = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "oil"));
 

@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
+import net.minecraftforge.common.extensions.IForgeRecipeSerializer;
 import net.minecraftforge.common.util.ITeleporter;
 
 import java.util.function.Function;
@@ -33,6 +34,20 @@ public class UtilTools {
             level.addFreshEntity(entityitem);
         }
     }
+
+    //Useful for items!
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+//        if (this.itemType.getInfo() != null) {
+//            if (!GuiScreen.isShiftKeyDown()) {
+//                tooltip.add(TextFormatting.ITALIC + I18n.format("string.mod.tooltip.shiftinfo") + TextFormatting.RESET);
+//            } else {
+//                tooltip.add(I18n.format(this.itemType.getInfo()));
+//            }
+//        }
+//    }
+
 
     public static void teleport(ServerPlayer entity, ServerLevel destination, BlockPos pos, boolean findTop) {
         entity.changeDimension(destination, new ITeleporter() {

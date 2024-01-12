@@ -1,5 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.datagen;
 
+import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderRecipeHandler;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -8,6 +9,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -38,6 +40,16 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .unlockedBy("cocoa", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_MILK_BUCKET.get()))
                 .save(consumer);
 
+        //Pot Brownie
+        ShapedRecipeBuilder.shaped(Registration.HEMP_MILK_BUCKET.get())
+                .pattern("sss")
+                .pattern("sss")
+                .pattern(" w ")
+                .define('s', Registration.SEED_TRIAD)
+                .define('w', Items.BUCKET)
+                .group("hempfarmer")
+                .unlockedBy("water_bucket_milk", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BUCKET))
+                .save(consumer);
 
         //Lime Hemp Hearts
         ShapedRecipeBuilder.shaped(Registration.LIME_HEMP_HEARTS.get())
