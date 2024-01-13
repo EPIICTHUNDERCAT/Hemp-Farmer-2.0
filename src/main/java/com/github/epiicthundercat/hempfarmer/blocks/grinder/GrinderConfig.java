@@ -25,7 +25,7 @@ public class GrinderConfig {
                 .defineInRange("receive", 1000, 1, Integer.MAX_VALUE);
         ENERGY_NEED = SERVER_BUILDER
                 .comment("How much energy is needed to process one hemp")
-                .defineInRange("grind", 250, 1, Integer.MAX_VALUE);
+                .defineInRange("grind", 100, 1, Integer.MAX_VALUE);
 
         SERVER_BUILDER.pop();
     }

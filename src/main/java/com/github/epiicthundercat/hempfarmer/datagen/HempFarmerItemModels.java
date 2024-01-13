@@ -28,6 +28,9 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.SATIVA_BUD.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/sativa_bud"));
+        singleTexture(Registration.GROUND_SATIVA_BUD.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/ground_sativa_bud"));
         singleTexture(Registration.SEEDS_SATIVA.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/seeds_sativa"));
@@ -70,6 +73,9 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.BUD.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/bud"));
+        singleTexture(Registration.GROUND_BUD.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/ground_bud"));
         singleTexture(Registration.REGS_JOINT.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/regs_joint"));
@@ -129,7 +135,9 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.INDICA_BUD.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/indica_bud"));
-
+        singleTexture(Registration.GROUND_INDICA_BUD.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/ground_indica_bud"));
 
         //RANDOM
         singleTexture(Registration.BROKEN_SUPERIOR_LEAF_WAND.get().getRegistryName().getPath(),

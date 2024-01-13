@@ -38,6 +38,7 @@ import java.util.List;
 
 public class GrinderBlock extends Block implements EntityBlock {
 
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty IS_OPEN = BooleanProperty.create("is_open");
     public static final BooleanProperty IS_ON = BooleanProperty.create("is_on");
     public static final String MESSAGE_GRINDER = "message.grinder";
@@ -50,9 +51,8 @@ public class GrinderBlock extends Block implements EntityBlock {
                 .noOcclusion()
                 .requiresCorrectToolForDrops()
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(IS_OPEN, Boolean.FALSE).setValue(IS_ON, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(IS_OPEN, Boolean.FALSE).setValue(IS_ON, Boolean.FALSE));
 
-      //  this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 //Keep
     @Override
@@ -108,12 +108,12 @@ public class GrinderBlock extends Block implements EntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(IS_OPEN, false).setValue(IS_ON, false);
+        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection()).setValue(IS_OPEN, false).setValue(IS_ON, false);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(IS_OPEN, IS_ON);
+        builder.add(FACING, IS_OPEN, IS_ON);
     }
 
 

@@ -26,7 +26,7 @@ import static java.lang.Boolean.TRUE;
 
 public class PowerBatteryRenderer implements BlockEntityRenderer<PowerBatteryBE> {
 
-    public static final ResourceLocation POWER_SMOKE = new ResourceLocation(HempFarmer.MODID, "effect/power_smoke");
+    public static final ResourceLocation POWER_SMOKE = new ResourceLocation(HempFarmer.MODID, "mob_effect/power_smoke");
 
     public PowerBatteryRenderer(BlockEntityRendererProvider.Context context) {
     }

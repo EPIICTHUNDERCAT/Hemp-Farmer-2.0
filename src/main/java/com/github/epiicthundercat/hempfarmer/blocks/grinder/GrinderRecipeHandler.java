@@ -9,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -24,15 +25,17 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
 
     public static final RecipeType<GrinderRecipeHandler> TYPE = RecipeType.register("grinder_recipe");
     public static final Serializer SERIALIZER = new Serializer();
-
+    // protected final Level level;
     private final ResourceLocation ID;
     private final NonNullList<Ingredient> INPUTS;
+    //private final Ingredient INPUTS;
     private final ItemStack OUTPUT;
     private final float XP;
-    private final int CRAFTTIME;
+    protected final int CRAFTTIME;
     private final boolean ISSIMPLE;
 
-    public GrinderRecipeHandler(ResourceLocation id, NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
+    public GrinderRecipeHandler(ResourceLocation id, /*Ingredient inputStacks*/NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
+
         this.ID = id;
         this.INPUTS = inputStacks;
         this.OUTPUT = outputStack;
@@ -48,7 +51,7 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < 3; ++j) {
+        for (int j = 0; j < 1; ++j) {
             ItemStack itemstack = inv.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
@@ -65,14 +68,15 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
 
     @Override
     public ItemStack assemble(CraftingContainer pContainer) {
-         return this.OUTPUT.copy();
+        return this.OUTPUT.copy();
     }
 
     public boolean matches(ItemStackHandler inv) {
         StackedContents recipeHelper = new StackedContents();
         java.util.List<ItemStack> inputStacks = new java.util.ArrayList<>();
         int count = 0;
-        for (int i = 0; i < 3; ++i) {
+        //how many slots? changed from 3-1 for 2 slots 0,1
+        for (int i = 0; i < 1; ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
             if (!itemstack.isEmpty()) {
                 ++count;
@@ -148,10 +152,10 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
                 }
 
                 if (inputStacks.isEmpty()) {
-                    throw new JsonParseException("No ingredients for forge furnace recipe.");
+                    throw new JsonParseException("No ingredients for Grinder recipe.");
                 } else {
                     if (inputStacks.size() > 3) {
-                        throw new JsonParseException("Too many ingredients for forge furnace recipe, the max is 1.");
+                        throw new JsonParseException("Too many ingredients for Grinder recipe, the max is 1.");
                     } else {
                         ItemStack outputStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
                         float xp = GsonHelper.getAsFloat(json, "xp");
@@ -163,6 +167,7 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
                 return null;
             }
         }
+
 
         @Override
         public GrinderRecipeHandler fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
