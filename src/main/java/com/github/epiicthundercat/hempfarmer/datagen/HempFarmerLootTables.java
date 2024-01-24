@@ -2,7 +2,6 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.block.Blocks;
 
 public class HempFarmerLootTables extends BaseLootTableProvider {
 
@@ -26,8 +25,7 @@ public class HempFarmerLootTables extends BaseLootTableProvider {
         lootTables.put(Registration.OILY_BURLAP_CARPET_BLOCK.get(), createSimpleTable("oily_burlap_carpet", Registration.OILY_BURLAP_CARPET_BLOCK.get()));
         lootTables.put(Registration.OILY_DIRT.get(), createSimpleTable("oily_dirt", Registration.OILY_DIRT.get()));
 
-        //rarity is set to wheat seed standards. bonus multipler is 1 default.
-        lootTables.put(Blocks.GRASS, createItemBlockLootTable("grass", Registration.SEEDS_HEMP.get(), Registration.SEEDS_INDICA.get(), Registration.SEEDS_SATIVA.get(), 0.025f, 1));
+
     }
 
 

@@ -188,19 +188,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/leaf"));
 
 
-        //BLOCK ITEMs
-
-//        singleTexture(Registration.INDICA_CROP_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/indica_crop"));
-//        singleTexture(Registration.SATIVA_CROP_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/sativa_crop"));
-//        singleTexture(Registration.HEMP_CROP_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", new ResourceLocation(HempFarmer.MODID, "block/hemp_crop"));
-
-        /*
+        /**
         Where block JSON are generated
          */
 

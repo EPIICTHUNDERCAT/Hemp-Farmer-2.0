@@ -24,7 +24,7 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(Registration.SATIVA_CROP.get(), RenderType.cutout());
             PowerBatteryRenderer.register();
             MenuScreens.register(Registration.GRINDER_CONTAINER.get(), GrinderScreen::new);
-           // ItemBlockRenderTypes.setRenderLayer(Registration.GRINDER.get(), RenderType.translucent());
+
 
         });
  }

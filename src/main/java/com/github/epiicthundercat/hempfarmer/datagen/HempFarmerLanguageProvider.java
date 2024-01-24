@@ -31,6 +31,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(SATIVA_ITEM_MESSAGE, "Must Be Placed on Farmland");
 
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
+
         add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
         add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
         add(Registration.POWER_BATTERY.get(), "Power Battery");

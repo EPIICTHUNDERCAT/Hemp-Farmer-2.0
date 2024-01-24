@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "entries": [
+    "hempfarmer:hemp_seeds_from_grass",
+    "hempfarmer:indica_seeds_from_grass",
+    "hempfarmer:sativa_seeds_from_grass",
+    "hempfarmer:hemp_seeds_from_fern",
+    "hempfarmer:indica_seeds_from_fern",
+    "hempfarmer:sativa_seeds_from_fern",
+    "hempfarmer:hemp_seeds_from_large_fern",
+    "hempfarmer:indica_seeds_from_large_fern",
+    "hempfarmer:sativa_seeds_from_large_fern",
+    "hempfarmer:hemp_seeds_from_tall_grass",
+    "hempfarmer:indica_seeds_from_tall_grass",
+    "hempfarmer:sativa_seeds_from_tall_grass"
+  ]
+}

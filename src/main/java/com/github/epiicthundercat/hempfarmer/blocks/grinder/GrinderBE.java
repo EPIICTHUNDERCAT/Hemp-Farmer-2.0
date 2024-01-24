@@ -35,8 +35,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * BUGS:
  * Power drain when crafting recipe continues stopping craft process
- * * -Power Drain not smooth/Overtime // May supplement with a progress bar using the cooktime value... // FIXED
- * * -Running recipes TWICE, consuming twice as much power // FIXED!
+ * shift clicking output = inut then inventory
+ * -Power Drain not smooth/Overtime // May supplement with a progress bar using the cooktime value... // FIXED
+ * -Running recipes TWICE, consuming twice as much power // FIXED!
  * -Proccessing without power // FIXED ADDED CHECK
  * -Unable to shift Click into // Kinda Fixed...
  * -Items do not stack in output // FIXEDDDD FIXED SLOTs
@@ -60,24 +61,17 @@ public class GrinderBE extends BlockEntity {
 
     protected final ContainerData blockData = new ContainerData() {
         public int get(int id) {
-            switch (id) {
-                case 0:
-                    return GrinderBE.this.grindTime;
-                case 1:
-                    return GrinderBE.this.grindLength;
-                default:
-                    return 0;
-            }
+            return switch (id) {
+                case 0 -> GrinderBE.this.grindTime;
+                case 1 -> GrinderBE.this.grindLength;
+                default -> 0;
+            };
         }
 
         public void set(int id, int value) {
             switch (id) {
-                case 0:
-                    GrinderBE.this.grindTime = value;
-                    break;
-                case 1:
-                    GrinderBE.this.grindLength = value;
-                    break;
+                case 0 -> GrinderBE.this.grindTime = value;
+                case 1 -> GrinderBE.this.grindLength = value;
             }
 
         }
@@ -151,7 +145,7 @@ public class GrinderBE extends BlockEntity {
                 return recipe;
             }
             /**
-             * Checks the item in the recipe output, if the item in the output is the same, and its stackable, and the count is less than max stack size, it will att it.
+             * Checks the item in the recipe output, if the item in the output is the same, and its stackable, and the count is less than max stack size, it will attach it.
              */
 
             ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
@@ -182,7 +176,7 @@ public class GrinderBE extends BlockEntity {
      * Called when the craft progress starts. Updates blockstate and sets cook length from recipe.
      */
     public void startCraft(GrinderRecipeHandler recipe) {
-        System.out.println("HOW MANY TIMES ARE WE RUNNING START CRAFT IN ONE ITERATION???");
+     //   System.out.println("HOW MANY TIMES ARE WE RUNNING START CRAFT IN ONE ITERATION???");
         // Not enough energy, don't even try
         if (energy.getEnergyStored() < GrinderConfig.ENERGY_NEED.get()) {
 
@@ -492,11 +486,6 @@ public class GrinderBE extends BlockEntity {
 
 
 
-//    @Override
-//    public void handleUpdateTag(CompoundTag tag) {
-//        if (tag != null) {
-//        }
-//    }
 
 
 }
