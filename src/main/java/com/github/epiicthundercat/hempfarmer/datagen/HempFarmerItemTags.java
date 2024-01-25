@@ -41,7 +41,6 @@ public class HempFarmerItemTags extends ItemTagsProvider {
 
         tag(Registration.PAPER_ITEM)
                 .add(Registration.HEMP_PAPER.get())
-                //.add(Registration.ROLLING_PAPER.get())
                 .add(Items.PAPER);
 
         tag(Registration.DRY_HEMP_ITEM)

@@ -22,8 +22,7 @@ public class DataGenerators {
             HempFarmerBlockTags blockTags = new HempFarmerBlockTags(generator, event.getExistingFileHelper());
             generator.addProvider(blockTags);
             generator.addProvider(new HempFarmerItemTags(generator, blockTags, event.getExistingFileHelper()));
-            //generator.addProvider(new TutBiomeTags(generator, event.getExistingFileHelper()));
-            //    generator.addProvider(new TutStructureSetTags(generator, event.getExistingFileHelper()));
+
         }
         if (event.includeClient()) {
             generator.addProvider(new HempFarmerBlockStates(generator, event.getExistingFileHelper()));

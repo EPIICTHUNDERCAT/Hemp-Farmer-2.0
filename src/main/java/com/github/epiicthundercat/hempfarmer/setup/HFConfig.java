@@ -5,7 +5,6 @@ import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryCon
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 
 public class HFConfig {
 

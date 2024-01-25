@@ -3,6 +3,7 @@ buildscript {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://maven.parchmentmc.org' }
+        maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
     dependencies {
@@ -22,7 +23,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '0.0.1'
-group = 'com.github.hempfarmer' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.github.epiicthundercat.hempfarmer' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'hempfarmer'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -66,7 +67,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'hempfarmer'
 
             mods {
                 hempfarmer {

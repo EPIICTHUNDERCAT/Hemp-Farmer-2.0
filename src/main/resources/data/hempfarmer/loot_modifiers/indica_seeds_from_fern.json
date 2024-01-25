@@ -1,0 +1,26 @@
+
+{
+  "type": "hempfarmer:indica_seeds_from_fern",
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.1
+    },
+    {
+      "condition": "minecraft:block_state_property",
+      "block": "minecraft:fern"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term":  {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": [
+            "minecraft:shears"
+          ]
+        }
+      }
+    }
+  ],
+  "addition": "hempfarmer:seeds_indica"
+}
