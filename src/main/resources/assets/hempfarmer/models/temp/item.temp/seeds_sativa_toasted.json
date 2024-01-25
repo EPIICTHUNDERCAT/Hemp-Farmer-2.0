@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "hempfarmer:items/seeds_sativa_toasted"
-    }
-}
