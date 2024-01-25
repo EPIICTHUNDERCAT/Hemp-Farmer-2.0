@@ -29,9 +29,9 @@ displayName="Hemp Farmer" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="hempfarmer.png" #optional
 # A text field displayed in the mod UI
-credits="Seqsee was the original creator" #optional
+credits="Seqsee was the original creator, now re-imagined by Cahleb and EPIIC_THUNDERCAT" #optional
 # A text field displayed in the mod UI
-authors="Love, Cheese and small house plants" #optional
+authors="EPIIC_THUNDERCAT, cahleb, and Legacy: SeqSee" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 Hemp Farmer 2.0 is a rewritten version of the older Hemp Farmer mod!

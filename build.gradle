@@ -154,6 +154,9 @@ repositories {
     maven { // JEI
         url "https://dvs1.progwml6.com/files/maven"
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
     maven { // TOP
         url "https://cursemaven.com"
     }
@@ -169,9 +172,11 @@ dependencies {
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
-    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
-    implementation fg.deobf("mezz.jei:jei-${jei_version}")
 
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("curse.maven:the-one-probe-245211:3550084")
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
