@@ -391,14 +391,42 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .unlockedBy("leaf", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.LEAF.get()))
                 .save(consumer);
 
+        //Burlap Armor
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_HELMET.get())
+                .pattern("xxx")
+                .pattern("x x")
+                .pattern("   ")
+                .define('x', Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BURLAP_ITEM.get()))
+                .save(consumer);
 
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_CHESTPLATE.get())
+                .pattern("x x")
+                .pattern("xxx")
+                .pattern("xxx")
+                .define('x', Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BURLAP_ITEM.get()))
+                .save(consumer);
 
-/**
- TODO Add Recipes for Armor and crushed seeds hemp milk'
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_LEGGINGS.get())
+                .pattern("xxx")
+                .pattern("x x")
+                .pattern("x x")
+                .define('x', Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BURLAP_ITEM.get()))
+                .save(consumer);
 
-
- */
-
+        ShapedRecipeBuilder.shaped(Registration.BURLAP_BOOTS.get())
+                .pattern("   ")
+                .pattern("x x")
+                .pattern("x x")
+                .define('x', Registration.BURLAP_ITEM.get())
+                .group("hempfarmer")
+                .unlockedBy("burlap", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.BURLAP_ITEM.get()))
+                .save(consumer);
 
         //Toasted Seeds
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Registration.SEEDS_HEMP.get()), Registration.SEEDS_HEMP_TOASTED.get(), 1.0f, 100)

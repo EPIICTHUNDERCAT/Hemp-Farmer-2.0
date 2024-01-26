@@ -21,6 +21,23 @@ public class HempFarmerItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        //BURLAP
+        singleTexture(Registration.BURLAP_HELMET.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/burlap_helmet"));
+
+        singleTexture(Registration.BURLAP_CHESTPLATE.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/burlap_chestplate"));
+
+        singleTexture(Registration.BURLAP_LEGGINGS.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/burlap_leggings"));
+
+        singleTexture(Registration.BURLAP_BOOTS.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/burlap_boots"));
+
         //SATIVA
         singleTexture(Registration.SATIVA_JOINT.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
