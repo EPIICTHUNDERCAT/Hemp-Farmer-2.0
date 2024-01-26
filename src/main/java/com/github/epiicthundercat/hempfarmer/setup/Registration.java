@@ -23,12 +23,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -156,9 +154,15 @@ public class Registration {
     public static final RegistryObject<Item> VIOLET_BURLAP_ITEM = ITEMS.register("violet_burlap", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> BURLAP_ITEM = ITEMS.register("burlap", () -> new Item(ITEM_PROPERTIES));
 
-
     public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(ITEM_PROPERTIES));
 
+    public static final RegistryObject<Item> BURLAP_HELMET = ITEMS.register("burlap_helmet", () -> new ArmorItem(HFArmorMaterials.BURLAP, EquipmentSlot.HEAD, new Item.Properties().tab(ModSetup.ITEM_GROUP)));
+
+    public static final RegistryObject<Item> BURLAP_CHESTPLATE = ITEMS.register("burlap_chestplate", () -> new ArmorItem(HFArmorMaterials.BURLAP, EquipmentSlot.CHEST, new Item.Properties().tab(ModSetup.ITEM_GROUP)));
+
+    public static final RegistryObject<Item> BURLAP_LEGGINGS = ITEMS.register("burlap_leggings", () -> new ArmorItem(HFArmorMaterials.BURLAP, EquipmentSlot.LEGS, new Item.Properties().tab(ModSetup.ITEM_GROUP)));
+
+    public static final RegistryObject<Item> BURLAP_BOOTS = ITEMS.register("burlap_boots", () -> new ArmorItem(HFArmorMaterials.BURLAP, EquipmentSlot.FEET, new Item.Properties().tab(ModSetup.ITEM_GROUP)));
 
     //Blocks Here
     public static final RegistryObject<Block> LIME_DIRT = BLOCKS.register("lime_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));

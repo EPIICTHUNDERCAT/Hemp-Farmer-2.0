@@ -39,6 +39,12 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(MESSAGE_GRINDER, "Grinding Hemp!");
         add(Registration.GRINDER.get(), "Hemp Grinder");
 
+        //BURLAP
+        add(Registration.BURLAP_HELMET.get(), "Burlap Helmet");
+        add(Registration.BURLAP_CHESTPLATE.get(), "Burlap Chestplate");
+        add(Registration.BURLAP_LEGGINGS.get(), "Burlap Leggings");
+        add(Registration.BURLAP_BOOTS.get(), "Burlap Boots");
+
         // SATIVA
         add(Registration.SATIVA_JOINT.get(), "Sativa Joint");
         add(Registration.SATIVA_BUD.get(), "Sativa Bud");
@@ -107,8 +113,5 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SHOT_LEAF_ENTITY.get(), "Shot Leaf Entity");
         add(Registration.HIGH.get(), "High");
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
-
-
-
     }
 }
