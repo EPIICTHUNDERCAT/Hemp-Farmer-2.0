@@ -3,10 +3,10 @@
   "group": "hempfarmer",
   "ingredients": [
     {
-      "item": "hempfarmer:seeds_sativa"
+      "item": "hempfarmer:seeds_indica"
     }
   ],
   "result": {
-    "item": "hempfarmer:sativa_crop"
+    "item": "hempfarmer:seeds_indica"
   }
 }

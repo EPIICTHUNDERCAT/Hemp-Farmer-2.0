@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:hemp_crop"
+      "hempfarmer:seeds_indica"
     ]
   },
   "criteria": {
@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [
-              "hempfarmer:seeds_hemp"
+              "hempfarmer:seeds_indica"
             ]
           }
         ]
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:hemp_crop"
+        "recipe": "hempfarmer:seeds_indica"
       }
     }
   },

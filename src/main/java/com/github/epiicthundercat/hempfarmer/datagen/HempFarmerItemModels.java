@@ -168,6 +168,10 @@ public class HempFarmerItemModels extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", new ResourceLocation(HempFarmer.MODID, "items/superior_leaf_wand"));
 
+        singleTexture(Registration.NELLY_SONG_MUSIC_DISC.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", new ResourceLocation(HempFarmer.MODID, "items/nelly_song_music_disc"));
+
 //        singleTexture(Registration.POT_BROWNIE.get().getRegistryName().getPath(),
 //                mcLoc("item/generated"),
 //                "layer0", new ResourceLocation(HempFarmer.MODID, "items/pot_brownie"));

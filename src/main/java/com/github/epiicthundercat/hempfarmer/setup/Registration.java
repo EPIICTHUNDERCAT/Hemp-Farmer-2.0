@@ -17,8 +17,10 @@ import com.github.epiicthundercat.hempfarmer.common.effect.HighEffect;
 import com.github.epiicthundercat.hempfarmer.common.entity.ShotLeafEntity;
 import com.github.epiicthundercat.hempfarmer.common.item.*;
 import com.github.epiicthundercat.hempfarmer.common.item.food.PotBrownieItem;
+import com.github.epiicthundercat.hempfarmer.common.item.joint.HempJointItem;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -37,11 +39,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.lang.ref.Reference;
 
 import static com.github.epiicthundercat.hempfarmer.HempFarmer.MODID;
 
@@ -55,6 +60,8 @@ public class Registration {
     private static final DeferredRegister<MobEffect> EFFECT = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
     private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
     private static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, HempFarmer.MODID);
+    private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, HempFarmer.MODID);
+
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -65,7 +72,7 @@ public class Registration {
         MENU.register(bus);
         ENTITY_TYPES.register(bus);
         RECIPES.register(bus);
-
+        SOUNDS.register(bus);
     }
 
 
@@ -81,12 +88,23 @@ public class Registration {
 
     public static final RegistryObject<MobEffect> HIGH = EFFECT.register("high", () -> new HighEffect(MobEffectCategory.BENEFICIAL, 0xB77BAB));
 
+    //Sounds
+    public static final Lazy<SoundEvent> NELLY_SONG_MUSIC = Lazy.of(() -> new SoundEvent(new ResourceLocation(MODID, "nelly_song")));
+    public static final RegistryObject<SoundEvent> SMOKE = SOUNDS.register("smoke", () -> new SoundEvent(new ResourceLocation(MODID, "smoke")));
+    public static final RegistryObject<SoundEvent> COUGH = SOUNDS.register("cough", () -> new SoundEvent(new ResourceLocation(MODID, "cough")));
+    public static final RegistryObject<SoundEvent> NELLY_SONG = SOUNDS.register("nelly_song", NELLY_SONG_MUSIC);
+
 
     //Items Here
 
+    //CD
+    public static final RegistryObject<Item> NELLY_SONG_MUSIC_DISC = ITEMS.register("nelly_song_music_disc",
+            () -> new RecordItem(4, Registration.NELLY_SONG,
+                    new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1)));
+
     //Joints
     public static final RegistryObject<Item> SATIVA_JOINT = ITEMS.register("sativa_joint", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> REGS_JOINT = ITEMS.register("regs_joint", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> REGS_JOINT = ITEMS.register("regs_joint", () -> new HempJointItem(new Item.Properties().stacksTo(1).tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> INDICA_JOINT = ITEMS.register("indica_joint", () -> new Item(ITEM_PROPERTIES));
 
     //Bud
@@ -118,9 +136,6 @@ public class Registration {
     public static final RegistryObject<Item> LIME_DRY_HEMP = ITEMS.register("lime_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_DRY_HEMP = ITEMS.register("violet_dry_hemp", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
-
-
-
 
 
     public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new LeafWandItem(new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1).defaultDurability(100)));
@@ -175,13 +190,13 @@ public class Registration {
     public static final RegistryObject<Item> VIOLET_DIRT_ITEM = fromBlock(VIOLET_DIRT);
     public static final RegistryObject<Block> INDICA_CROP = BLOCKS.register("indica_crop",
             () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
-    public static final RegistryObject<Item> INDICA_CROP_ITEM = fromBlock(INDICA_CROP);
+    //public static final RegistryObject<Item> INDICA_CROP_ITEM = fromBlock(INDICA_CROP);
     public static final RegistryObject<Block> SATIVA_CROP = BLOCKS.register("sativa_crop",
             () -> new SativaCrop(Block.Properties.copy(Blocks.WHEAT)));
-    public static final RegistryObject<Item> SATIVA_CROP_ITEM = fromBlock(SATIVA_CROP);
+    //public static final RegistryObject<Item> SATIVA_CROP_ITEM = fromBlock(SATIVA_CROP);
     public static final RegistryObject<Block> HEMP_CROP = BLOCKS.register("hemp_crop",
             () -> new HempCrop(Block.Properties.copy(Blocks.WHEAT)));
-    public static final RegistryObject<Item> HEMP_CROP_ITEM = fromBlock(HEMP_CROP);
+    // public static final RegistryObject<Item> HEMP_CROP_ITEM = fromBlock(HEMP_CROP);
 
     public static final RegistryObject<Block> BURLAP_CARPET_BLOCK = BLOCKS.register("burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> BURLAP_BLOCK_ITEM = fromBlock(BURLAP_CARPET_BLOCK);

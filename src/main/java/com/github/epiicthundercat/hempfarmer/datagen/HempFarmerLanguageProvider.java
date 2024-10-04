@@ -2,6 +2,7 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.common.item.LeafWandItem;
+import com.github.epiicthundercat.hempfarmer.setup.ModSetup;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -31,7 +32,8 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(SATIVA_ITEM_MESSAGE, "Must Be Placed on Farmland");
 
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
-
+        add("sounds.cough."+ HempFarmer.MODID, "Cough Sound");
+        add("sounds.smoke." + HempFarmer.MODID, "Smoke Sound");
         add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
         add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
         add(Registration.POWER_BATTERY.get(), "Power Battery");
@@ -113,5 +115,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SHOT_LEAF_ENTITY.get(), "Shot Leaf Entity");
         add(Registration.HIGH.get(), "High");
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
+        add(Registration.NELLY_SONG_MUSIC_DISC.get(), "Music Disc");
+        add(Registration.NELLY_SONG_MUSIC_DISC.get() + ".desc", "Nelly - Insane Riff");
     }
 }

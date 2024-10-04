@@ -1,0 +1,23 @@
+{
+  "smoke": {
+    "subtitle": "sounds.hempfarmer.smoke",
+    "sounds": [
+      "hempfarmer:smoke"
+    ]
+  },
+"cough": {
+    "subtitle": "sounds.hempfarmer.cough",
+    "sounds": [
+      "hempfarmer:cough"
+    ]
+  },
+  "nelly_song": {
+    "category": "disc",
+    "sounds": [
+      {
+        "name": "hempfarmer:nelly_song",
+        "stream": true
+      }
+    ]
+  }
+}

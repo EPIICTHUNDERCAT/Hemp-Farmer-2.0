@@ -57,6 +57,7 @@ public class GrinderContainer extends AbstractContainerMenu {
     }
 
     // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
+    //MCJTY!
     private void trackPower() {
         // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
         // to split our integer here (split our 32 bit integer into two 16 bit integers)
@@ -131,7 +132,7 @@ public class GrinderContainer extends AbstractContainerMenu {
                 //  if (this.level.getRecipeManager().getRecipeFor(GrinderRecipeHandler.TYPE, new SimpleContainer(itemstack) , level)) {
                 if (!this.moveItemStackTo(stack, 0, 1, false)) {
                     return ItemStack.EMPTY;
-                    // }
+
                 } else if (index < 28) {
                     //if its in the inv keep it in the inv
                     if (!this.moveItemStackTo(stack, 28, 37, false)) {

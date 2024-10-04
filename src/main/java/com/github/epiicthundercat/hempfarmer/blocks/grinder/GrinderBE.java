@@ -1,5 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
+import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
@@ -92,30 +93,38 @@ public class GrinderBE extends BlockEntity {
     public void tickServer() {
         this.setPlayersInside(this.getPlayersInside());
         AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
-
+        // HempFarmer.LOGGER.info("ENergy: " + capacity + " same test: " + energy.getEnergyStored());
         if (!this.level.isClientSide()) {
 
             GrinderRecipeHandler recipe = canCraft();
-            if (recipe != null && !(capacity.get() <= 0)) {
-                if (getGrindTime() > 0) {
-                    int consumedEnergy = GrinderConfig.ENERGY_NEED.get();
-                    capacity.addAndGet(-consumedEnergy);
-                    energy.consumeEnergy(consumedEnergy);
-                    setGrindTime(getGrindTime() - 1);
+            if (recipe != null) {
+                int craftTimeXenergy = GrinderConfig.ENERGY_NEED.get() * recipe.getCraftTime();
+                if (!(capacity.get() <= GrinderConfig.ENERGY_NEED.get())) {
 
-                } else {
-                    if (getGrindTime() == 0) {
+                    if (getGrindTime() > 0) {
+                        int consumedEnergy = GrinderConfig.ENERGY_NEED.get();
+                        capacity.addAndGet(-consumedEnergy);
+                        energy.consumeEnergy(consumedEnergy);
 
-                        finishCraft(recipe);
+                        setGrindTime(getGrindTime() - 1);
 
+                    } else {
+                        if (getGrindTime() == 0) {
+
+                            finishCraft(recipe);
+
+                        }
+
+
+                        if (getGrindTime() == -1 && getGrindLength() == -1) {
+                            if (capacity.get() >= craftTimeXenergy) {
+
+                                startCraft(recipe);
+                            }
+                        }
                     }
-                    if (getGrindTime() == -1 && getGrindLength() == -1) {
 
-                        startCraft(recipe);
-
-                    }
                 }
-
             } else {
 
                 stopCrafting();
@@ -128,32 +137,34 @@ public class GrinderBE extends BlockEntity {
      * Returns a recipe that is ready to be crafted, returns null if nothing can be crafted.
      */
     public GrinderRecipeHandler canCraft() {
+        GrinderRecipeHandler recipe = getRecipeFromContents();
+
         if (energy.getEnergyStored() < GrinderConfig.ENERGY_NEED.get()) {
             return null;
-        }
-        GrinderRecipeHandler recipe = getRecipeFromContents();
+        } else
+
         /**
          * Checks to see if the recipe is not broken if its not proceed
          */
 
-        if (recipe != null) {
+            if (recipe != null) {
 
-            /**
-             *  checks if the item in the output slot is empty, process the recipe
-             */
-            if (itemHandler.getStackInSlot(SLOT_OUTPUT_1).isEmpty()) {
-                return recipe;
+                /**
+                 *  checks if the item in the output slot is empty, process the recipe
+                 */
+                if (itemHandler.getStackInSlot(SLOT_OUTPUT_1).isEmpty()) {
+                    return recipe;
+                }
+                /**
+                 * Checks the item in the recipe output, if the item in the output is the same, and its stackable, and the count is less than max stack size, it will attach it.
+                 */
+
+                ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
+                if (recipe.getResultItem().getItem() == output.getItem() && output.isStackable() && output.getCount() + recipe.getResultItem().getCount() <= output.getMaxStackSize()) {
+
+                    return recipe;
+                }
             }
-            /**
-             * Checks the item in the recipe output, if the item in the output is the same, and its stackable, and the count is less than max stack size, it will attach it.
-             */
-
-            ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
-            if (recipe.getResultItem().getItem() == output.getItem() && output.isStackable() && output.getCount() + recipe.getResultItem().getCount() <= output.getMaxStackSize()) {
-
-                return recipe;
-            }
-        }
         return null;
     }
 
@@ -176,9 +187,9 @@ public class GrinderBE extends BlockEntity {
      * Called when the craft progress starts. Updates blockstate and sets cook length from recipe.
      */
     public void startCraft(GrinderRecipeHandler recipe) {
-     //   System.out.println("HOW MANY TIMES ARE WE RUNNING START CRAFT IN ONE ITERATION???");
-        // Not enough energy, don't even try
-        if (energy.getEnergyStored() < GrinderConfig.ENERGY_NEED.get()) {
+
+        int totalEnergyForCraft = GrinderConfig.ENERGY_NEED.get() * recipe.getCraftTime();
+        if (energy.getEnergyStored() < totalEnergyForCraft) {
 
             stopCrafting();
         }
@@ -377,9 +388,8 @@ public class GrinderBE extends BlockEntity {
     }
 
     /**
-     *   Changed from 4 to 2 since it only has two slots
+     * Changed from 4 to 2 since it only has two slots
      */
-
 
 
     protected final ItemStackHandler itemHandler = new ItemStackHandler(2) {
@@ -483,9 +493,6 @@ public class GrinderBE extends BlockEntity {
         this.saveAdditional(tag);
         return tag;
     }
-
-
-
 
 
 }

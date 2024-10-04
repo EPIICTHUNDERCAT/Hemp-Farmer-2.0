@@ -1,9 +1,6 @@
 package com.github.epiicthundercat.hempfarmer;
 
-import com.github.epiicthundercat.hempfarmer.setup.ClientSetup;
-import com.github.epiicthundercat.hempfarmer.setup.HFConfig;
-import com.github.epiicthundercat.hempfarmer.setup.ModSetup;
-import com.github.epiicthundercat.hempfarmer.setup.Registration;
+import com.github.epiicthundercat.hempfarmer.setup.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -31,7 +28,6 @@ public class HempFarmer {
         IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
         modbus.addListener(ModSetup::init);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modbus.addListener(ClientSetup::init));
-
 
     }
 

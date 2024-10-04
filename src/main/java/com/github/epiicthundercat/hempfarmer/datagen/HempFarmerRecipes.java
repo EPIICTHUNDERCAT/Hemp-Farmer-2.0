@@ -7,6 +7,8 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -189,25 +191,48 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .unlockedBy("indica_bud", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.INDICA_BUD.get()))
                 .save(consumer);
 
+//        //Hemp Seedling
+//        ShapelessRecipeBuilder.shapeless(Registration.HEMP_CROP_ITEM.get())
+//                .requires(Registration.SEEDS_HEMP.get())
+//                .group("hempfarmer")
+//                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_HEMP.get()))
+//                .save(consumer);
+//        //Indica Seedling
+//        ShapelessRecipeBuilder.shapeless(Registration.INDICA_CROP_ITEM.get())
+//                .requires(Registration.SEEDS_INDICA.get())
+//                .group("hempfarmer")
+//                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_INDICA.get()))
+//                .save(consumer);
+//
+//        //Sativa Seedling
+//        ShapelessRecipeBuilder.shapeless(Registration.SATIVA_CROP_ITEM.get())
+//                .requires(Registration.SEEDS_SATIVA.get())
+//                .group("hempfarmer")
+//                .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_SATIVA.get()))
+//                .save(consumer);
+//
+
+
         //Hemp Seedling
-        ShapelessRecipeBuilder.shapeless(Registration.HEMP_CROP_ITEM.get())
+        ShapelessRecipeBuilder.shapeless(Registration.HEMP_CROP.get())
                 .requires(Registration.SEEDS_HEMP.get())
                 .group("hempfarmer")
                 .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_HEMP.get()))
                 .save(consumer);
         //Indica Seedling
-        ShapelessRecipeBuilder.shapeless(Registration.INDICA_CROP_ITEM.get())
+        ShapelessRecipeBuilder.shapeless(Registration.INDICA_CROP.get())
                 .requires(Registration.SEEDS_INDICA.get())
                 .group("hempfarmer")
                 .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_INDICA.get()))
                 .save(consumer);
 
         //Sativa Seedling
-        ShapelessRecipeBuilder.shapeless(Registration.SATIVA_CROP_ITEM.get())
+        ShapelessRecipeBuilder.shapeless(Registration.SATIVA_CROP.get())
                 .requires(Registration.SEEDS_SATIVA.get())
                 .group("hempfarmer")
                 .unlockedBy("seedlings", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.SEEDS_SATIVA.get()))
                 .save(consumer);
+
 
 
         //Hemp Paper

@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hempfarmer:sativa_crop"
+      "hempfarmer:burlap_leggings"
     ]
   },
   "criteria": {
-    "seedlings": {
+    "burlap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "hempfarmer:seeds_sativa"
+              "hempfarmer:burlap"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hempfarmer:sativa_crop"
+        "recipe": "hempfarmer:burlap_leggings"
       }
     }
   },
   "requirements": [
     [
-      "seedlings",
+      "burlap",
       "has_the_recipe"
     ]
   ]
