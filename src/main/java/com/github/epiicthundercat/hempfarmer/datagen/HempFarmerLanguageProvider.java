@@ -116,6 +116,6 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.HIGH.get(), "High");
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
         add(Registration.NELLY_SONG_MUSIC_DISC.get(), "Music Disc");
-        add(Registration.NELLY_SONG_MUSIC_DISC.get() + ".desc", "Nelly - Insane Riff");
+        add("item.hempfarmer." + Registration.NELLY_SONG_MUSIC_DISC.get() + ".desc", "Nelly - Insane Riff");
     }
 }

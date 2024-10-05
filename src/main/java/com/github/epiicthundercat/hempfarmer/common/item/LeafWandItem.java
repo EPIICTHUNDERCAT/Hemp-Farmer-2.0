@@ -49,7 +49,7 @@ public class LeafWandItem extends Item {
         }
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
-        if (!pPlayer.getAbilities().instabuild) {
+        if (!pPlayer.getAbilities().instabuild && pPlayer.hasEffect(Registration.HIGH.get())) {
             itemstack.hurtAndBreak(1, pPlayer, (p_41303_) -> {
                 p_41303_.broadcastBreakEvent(pHand);
             });

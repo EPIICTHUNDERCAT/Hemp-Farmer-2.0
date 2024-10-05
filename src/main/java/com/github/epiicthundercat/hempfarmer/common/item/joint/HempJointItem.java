@@ -39,33 +39,12 @@ public class HempJointItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack p_40680_) {
-        return 40;
+        return 140;
 
     }
 
 
-    //    @Override
-//    public InteractionResultHolder<ItemStack> use(Level level, Player pPlayer, InteractionHand interactionHand) {
-//        ItemStack itemstack = pPlayer.getOffhandItem();
-//
-//        System.out.println("offhand item: " + itemstack);
-//        // itemstack = new ItemStack(Items.FLINT_AND_STEEL);
-//        boolean flag = !interactionHand.equals(this);
-//        boolean flintFlag = !pPlayer.getOffhandItem().equals(Items.FLINT_AND_STEEL);
-//        System.out.println("what is this: " + flag);
-//        //InteractionResultHolder<ItemStack> ret = new InteractionResultHolder<>(InteractionResult.PASS, new ItemStack(Items.FLINT_AND_STEEL));
-//        if (!pPlayer.getAbilities().instabuild && !flag && !flintFlag) {
-//            return InteractionResultHolder.fail(itemstack);
-//
-//        }else {
-//            pPlayer.startUsingItem(interactionHand);
-//            itemstack.hurtAndBreak(1, pPlayer, (p_40665_) -> {
-//                p_40665_.broadcastBreakEvent(pPlayer.getUsedItemHand());
-//            });
-//            return InteractionResultHolder.consume(itemstack);
-//        }
-//
-//    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player pPlayer, InteractionHand interactionHand) {
         ItemStack itemstack = pPlayer.getItemInHand(interactionHand);
@@ -73,17 +52,15 @@ public class HempJointItem extends Item {
         ItemStack flintItem = pPlayer.getOffhandItem();
 
         if (!itemstack.is(Registration.REGS_JOINT.get()) && !flintItem.is(Items.FLINT_AND_STEEL)) {
-            System.out.println("Failing Checks");
             return InteractionResultHolder.fail(itemstack);
 
         } else if (itemstack.is(Registration.REGS_JOINT.get()) && flintItem.is(Items.FLINT_AND_STEEL)) {
             spawnFoundParticles(pPlayer);
-
             pPlayer.startUsingItem(interactionHand);
-            flintItem.hurtAndBreak(1, pPlayer, (e) -> {
-                e.broadcastBreakEvent(pPlayer.getUsedItemHand());
-
-            });
+//            flintItem.hurtAndBreak(1, pPlayer, (e) -> {
+//                e.broadcastBreakEvent(pPlayer.getUsedItemHand());
+//
+//            });
             pPlayer.playSound(Registration.SMOKE.get(), 1f, 1f);
 
         }
@@ -94,6 +71,8 @@ public class HempJointItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
         super.finishUsingItem(itemStack, level, livingEntity);
+        ItemStack flintItem = livingEntity.getOffhandItem();
+
         if (livingEntity instanceof ServerPlayer) {
             ServerPlayer serverplayer = (ServerPlayer) livingEntity;
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, itemStack);
@@ -105,6 +84,13 @@ public class HempJointItem extends Item {
             livingEntity.addEffect(new MobEffectInstance(Registration.HIGH.get(), 2500, 1));
 
             itemStack.shrink(1);
+            if (flintItem.is(Items.FLINT_AND_STEEL)){
+                flintItem.hurtAndBreak(1, livingEntity, (e) -> {
+                    e.broadcastBreakEvent(livingEntity.getUsedItemHand());
+
+                });
+            }
+
         }else {
             livingEntity.playSound(Registration.COUGH.get(), 1f, 1f);
         }
@@ -120,33 +106,17 @@ public class HempJointItem extends Item {
         return UseAnim.SPYGLASS;
     }
 
-    @Override
-    public SoundEvent getDrinkingSound() {
-        return new SoundEvent(SoundEvents.BLAZE_BURN.getLocation());
-    }
 
     private void spawnFoundParticles(LivingEntity positionClicked) {
-        for (int i = 0; i < 360; i++) {
+        for (int i = 0; i < 980; i++) {
             if (i % 20 == 0) {
                 positionClicked.getLevel().addParticle(ParticleTypes.SMOKE,
-                        positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
-                        Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
+                        positionClicked.getX() /*+ -0.5d*/, positionClicked.getY() + 1.5d, positionClicked.getZ() /*+ 0.5d*/,
+                        Math.cos(i) * 0.15d, 0.5d, Math.sin(i) * 0.15d);
+
             }
         }
     }
 
-//
-//    @Override
-//    public void initializeClient(Consumer<IItemRenderProperties> consumer)
-//    {
-//        consumer.accept(new IItemRenderProperties() {
-//
-//            @Override
-//                  public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-//                    return ShieldBlockEntityWithoutLevelRenderer.instance;
-//                  }
-//                });
-//
-//
-//    }
+
 }

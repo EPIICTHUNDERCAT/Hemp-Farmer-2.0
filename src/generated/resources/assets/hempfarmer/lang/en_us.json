@@ -43,6 +43,7 @@
   "item.hempfarmer.lime_oil": "Lime Oil",
   "item.hempfarmer.lime_raw_hemp": "Raw Lime Hemp",
   "item.hempfarmer.nelly_song_music_disc": "Music Disc",
+  "item.hempfarmer.nelly_song_music_disc.desc": "Nelly - Insane Riff",
   "item.hempfarmer.oily_burlap": "Oily Burlap",
   "item.hempfarmer.pot_brownie": "Pot Brownie",
   "item.hempfarmer.raw_hemp": "Raw Hemp",
@@ -75,7 +76,6 @@
   "message.nothing": "You are...not...high enough..",
   "message.powerbattery": "Power battery generating %s per tick!",
   "message.sativa_invalid_placement": "Must Be Placed on Farmland",
-  "nelly_song_music_disc.desc": "Nelly - Insane Riff",
   "screen.hempfarmer.powerbattery": "Power Battery",
   "sounds.cough.hempfarmer": "Cough Sound",
   "sounds.smoke.hempfarmer": "Smoke Sound"
