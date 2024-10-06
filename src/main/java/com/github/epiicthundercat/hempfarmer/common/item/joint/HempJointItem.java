@@ -1,48 +1,37 @@
 package com.github.epiicthundercat.hempfarmer.common.item.joint;
 
-import com.github.epiicthundercat.hempfarmer.common.effect.HighEffect;
-import com.github.epiicthundercat.hempfarmer.setup.HFSounds;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
+import com.github.epiicthundercat.hempfarmer.util.UtilTools;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.particle.FireworkParticles;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.IItemRenderProperties;
 
-import java.util.function.Consumer;
 
 public class HempJointItem extends Item {
-    public static final int SMOKE_DURATION = 20;
-
-    public HempJointItem(Item.Properties p_40660_) {
-        super(p_40660_);
+    public static final String MESSAGE_NEED_LIGHT = "message.need_light";
+    public HempJointItem(Item.Properties itemProperties) {
+        super(itemProperties);
     }
 
 
     @Override
-    public int getUseDuration(ItemStack p_40680_) {
-        return 140;
+    public int getUseDuration(ItemStack itemStack) {
+        return 40;
 
     }
-
 
 
     @Override
@@ -51,16 +40,13 @@ public class HempJointItem extends Item {
 
         ItemStack flintItem = pPlayer.getOffhandItem();
 
-        if (!itemstack.is(Registration.REGS_JOINT.get()) && !flintItem.is(Items.FLINT_AND_STEEL)) {
+        if (itemstack.is(Registration.REGS_JOINT.get()) && !flintItem.is(Registration.LIGHTER.get())) {
+            pPlayer.displayClientMessage(UtilTools.translate(MESSAGE_NEED_LIGHT).withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC), true);
             return InteractionResultHolder.fail(itemstack);
 
-        } else if (itemstack.is(Registration.REGS_JOINT.get()) && flintItem.is(Items.FLINT_AND_STEEL)) {
+        } else if (itemstack.is(Registration.REGS_JOINT.get()) && flintItem.is(Registration.LIGHTER.get())) {
             spawnFoundParticles(pPlayer);
             pPlayer.startUsingItem(interactionHand);
-//            flintItem.hurtAndBreak(1, pPlayer, (e) -> {
-//                e.broadcastBreakEvent(pPlayer.getUsedItemHand());
-//
-//            });
             pPlayer.playSound(Registration.SMOKE.get(), 1f, 1f);
 
         }
@@ -84,14 +70,14 @@ public class HempJointItem extends Item {
             livingEntity.addEffect(new MobEffectInstance(Registration.HIGH.get(), 2500, 1));
 
             itemStack.shrink(1);
-            if (flintItem.is(Items.FLINT_AND_STEEL)){
+            if (flintItem.is(Registration.LIGHTER.get())) {
                 flintItem.hurtAndBreak(1, livingEntity, (e) -> {
                     e.broadcastBreakEvent(livingEntity.getUsedItemHand());
 
                 });
             }
 
-        }else {
+        } else {
             livingEntity.playSound(Registration.COUGH.get(), 1f, 1f);
         }
 
@@ -107,16 +93,27 @@ public class HempJointItem extends Item {
     }
 
 
-    private void spawnFoundParticles(LivingEntity positionClicked) {
-        for (int i = 0; i < 980; i++) {
+   /* private void spawnFoundParticles(LivingEntity positionClicked) {
+        for (int i = 0; i < 360; i++) {
             if (i % 20 == 0) {
+                System.out.println("I output: " + i);
                 positionClicked.getLevel().addParticle(ParticleTypes.SMOKE,
-                        positionClicked.getX() /*+ -0.5d*/, positionClicked.getY() + 1.5d, positionClicked.getZ() /*+ 0.5d*/,
-                        Math.cos(i) * 0.15d, 0.5d, Math.sin(i) * 0.15d);
+                        positionClicked.getX() , positionClicked.getY() + 1.5d, positionClicked.getZ() ,
+                         0.03d, 0.05d, *//*Math.sin(i)*//* 0.03d);
+
+            }
+        }
+    }*/
+
+    private void spawnFoundParticles(LivingEntity positionClicked) {
+        for (int i = 0; i < 720; i++) {
+            if (i % 20 == 0) {
+
+                positionClicked.getLevel().addParticle(ParticleTypes.SMOKE,
+                        positionClicked.getX() , positionClicked.getY() + 1.5d, positionClicked.getZ() ,
+                        Math.random() * 0.03d, 0.05d, Math.random() * 0.03d);
 
             }
         }
     }
-
-
 }

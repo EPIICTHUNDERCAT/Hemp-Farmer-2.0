@@ -2,6 +2,7 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.common.item.LeafWandItem;
+import com.github.epiicthundercat.hempfarmer.common.item.joint.HempJointItem;
 import com.github.epiicthundercat.hempfarmer.setup.ModSetup;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.data.DataGenerator;
@@ -32,7 +33,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(SATIVA_ITEM_MESSAGE, "Must Be Placed on Farmland");
 
         add("itemGroup." + TAB_NAME, "Hemp Farmer");
-        add("sounds.cough."+ HempFarmer.MODID, "Cough Sound");
+        add("sounds.cough." + HempFarmer.MODID, "Cough Sound");
         add("sounds.smoke." + HempFarmer.MODID, "Smoke Sound");
         add(MESSAGE_POWER_BATTERY, "Power battery generating %s per tick!");
         add(SCREEN_HEMP_FARMER_POWER_BATTERY, "Power Battery");
@@ -40,7 +41,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
 
         add(MESSAGE_GRINDER, "Grinding Hemp!");
         add(Registration.GRINDER.get(), "Hemp Grinder");
-
+        add(Registration.LIGHTER.get(), "Lighter");
         //BURLAP
         add(Registration.BURLAP_HELMET.get(), "Burlap Helmet");
         add(Registration.BURLAP_CHESTPLATE.get(), "Burlap Chestplate");
@@ -83,7 +84,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.SEEDS_INDICA_CRUSHED.get(), "Crushed Indica Seeds");
         add(Registration.SEEDS_INDICA_TOASTED.get(), "Toasted Indica Seeds");
         add(Registration.VIOLET_BURLAP_ITEM.get(), "Violet Burlap");
-        add(Registration.VIOLET_OIL.get(), "Violet oil");
+        add(Registration.VIOLET_OIL.get(), "Violet Oil");
         add(Registration.VIOLET_DRY_HEMP.get(), "Dry Violet Hemp");
         add(Registration.INDICA_JOINT.get(), "Indica Joint");
         add(Registration.INDICA_BUD.get(), "Indica Bud");
@@ -117,5 +118,6 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
         add(Registration.NELLY_SONG_MUSIC_DISC.get(), "Music Disc");
         add("item.hempfarmer." + Registration.NELLY_SONG_MUSIC_DISC.get() + ".desc", "Nelly - Insane Riff");
+        add(HempJointItem.MESSAGE_NEED_LIGHT, "You need a light.. Maybe a Lighter?");
     }
 }

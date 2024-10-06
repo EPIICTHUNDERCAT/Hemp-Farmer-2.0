@@ -93,7 +93,6 @@ public class GrinderBE extends BlockEntity {
     public void tickServer() {
         this.setPlayersInside(this.getPlayersInside());
         AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
-        // HempFarmer.LOGGER.info("ENergy: " + capacity + " same test: " + energy.getEnergyStored());
         if (!this.level.isClientSide()) {
 
             GrinderRecipeHandler recipe = canCraft();

@@ -40,68 +40,6 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         super(Registration.SHOT_LEAF_ENTITY.get(), entity, world);
     }
 
-    //TODO - Implement Villager Heal/Transfusion
-//    public void thunderHit(ServerLevel serverLevel, LightningBolt lightningBolt) {
-//        if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && ForgeEventFactory.canLivingConvert(this, EntityType.ZOMBIFIED_PIGLIN, (timer) -> {
-//        })) {
-//            ZombifiedPiglin zombifiedpiglin = (ZombifiedPiglin)EntityType.ZOMBIFIED_PIGLIN.create(serverLevel);
-//            zombifiedpiglin.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-//            zombifiedpiglin.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-//            zombifiedpiglin.setNoAi(this.isNoAi());
-//            zombifiedpiglin.setBaby(this.isBaby());
-//            if (this.hasCustomName()) {
-//                zombifiedpiglin.setCustomName(this.getCustomName());
-//                zombifiedpiglin.setCustomNameVisible(this.isCustomNameVisible());
-//            }
-//
-//            zombifiedpiglin.setPersistenceRequired();
-//            ForgeEventFactory.onLivingConvert(this, zombifiedpiglin);
-//            serverLevel.addFreshEntity(zombifiedpiglin);
-//            this.discard();
-//        } else {
-//            super.thunderHit(serverLevel, lightningBolt);
-//        }
-//
-//    }
-//    @Override
-//    protected void onHitEntity(EntityHitResult pResult) {
-//        super.onHitEntity(pResult);
-//        if (!this.level.isClientSide && !this.isRemoved()) {
-//            Entity entity = this.getOwner();
-//            System.out.println("test2");
-//            if (entity instanceof ServerPlayer serverplayer) {
-//                System.out.println("test");
-//                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level /*&& serverplayer.hasEffect(Registration.HIGH.get())*/) {
-//                    if (pResult.getType().equals(EntityHitResult.Type.ENTITY)) {
-//                        System.out.println("test3");
-//                        LivingEntity livingEntity = (LivingEntity) pResult.getEntity();
-//                        Mob deadEntity = ((Mob) livingEntity).convertTo(EntityType.ZOMBIE, false);
-//                       // if (deadEntity instanceof Zombie zombie) {
-//                            System.out.println("entity being hit");
-//                            Villager villager = (Villager) EntityType.VILLAGER.create(this.level);
-//                            villager.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-//                            villager.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-//                            villager.setNoAi(villager.isNoAi());
-//                            if (this.hasCustomName()) {
-//                                villager.setCustomName(this.getCustomName());
-//                                villager.setCustomNameVisible(this.isCustomNameVisible());
-//                            }
-//
-//                            villager.setPersistenceRequired();
-//                            ForgeEventFactory.onLivingConvert(deadEntity, villager);
-//                            // p_35409_.addFreshEntityWithPassengers(villager);
-//                            //this.releaseAllPois();
-//                            this.discard();
-//                       // }
-//
-//
-//                    }
-//                }
-//            }
-//            this.discard();
-//        }
-//
-//    }
 
 
     @Override
@@ -116,7 +54,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
                 particleSpawn();
             }
             if (entityHit instanceof Zombie zombie) {
-                // result.getEntity().hurt(DamageSource.indirectMobAttack(this, livingEntity).setProjectile(), 1.0f);
+
                 transfuseZombie(zombie);
                 particleSpawn();
 

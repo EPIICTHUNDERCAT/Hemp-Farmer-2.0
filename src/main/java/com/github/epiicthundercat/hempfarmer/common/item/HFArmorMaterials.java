@@ -13,7 +13,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.function.Supplier;
 
 public enum HFArmorMaterials implements ArmorMaterial {
-    BURLAP("burlap", 5, new int[]{1, 1, 1, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    BURLAP("burlap", 5, new int[]{1, 2, 2, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
         return Ingredient.of(new ItemLike[]{Registration.BURLAP_ITEM.get()});
     });
 

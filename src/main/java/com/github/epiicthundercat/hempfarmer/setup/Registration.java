@@ -18,6 +18,8 @@ import com.github.epiicthundercat.hempfarmer.common.entity.ShotLeafEntity;
 import com.github.epiicthundercat.hempfarmer.common.item.*;
 import com.github.epiicthundercat.hempfarmer.common.item.food.PotBrownieItem;
 import com.github.epiicthundercat.hempfarmer.common.item.joint.HempJointItem;
+import com.github.epiicthundercat.hempfarmer.common.item.joint.IndicaJointItem;
+import com.github.epiicthundercat.hempfarmer.common.item.joint.SativaJointItem;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -101,11 +103,15 @@ public class Registration {
     public static final RegistryObject<Item> NELLY_SONG_MUSIC_DISC = ITEMS.register("nelly_song_music_disc",
             () -> new RecordItem(4, Registration.NELLY_SONG,
                     new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1)));
+    //Lighter
+
+    public static final RegistryObject<Item> LIGHTER = ITEMS.register("lighter", () -> new LighterItem(new Item.Properties().stacksTo(1).tab(ModSetup.ITEM_GROUP).durability(100)));
+
 
     //Joints
-    public static final RegistryObject<Item> SATIVA_JOINT = ITEMS.register("sativa_joint", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SATIVA_JOINT = ITEMS.register("sativa_joint", () -> new SativaJointItem(new Item.Properties().stacksTo(1).tab(ModSetup.ITEM_GROUP)));
     public static final RegistryObject<Item> REGS_JOINT = ITEMS.register("regs_joint", () -> new HempJointItem(new Item.Properties().stacksTo(1).tab(ModSetup.ITEM_GROUP)));
-    public static final RegistryObject<Item> INDICA_JOINT = ITEMS.register("indica_joint", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> INDICA_JOINT = ITEMS.register("indica_joint", () -> new IndicaJointItem(new Item.Properties().stacksTo(1).tab(ModSetup.ITEM_GROUP)));
 
     //Bud
     public static final RegistryObject<Item> SATIVA_BUD = ITEMS.register("sativa_bud", () -> new Item(ITEM_PROPERTIES));

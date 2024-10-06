@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GrinderRecipeWrapper {
 
-    private final List<List<ItemStack>>  INPUTS;
+    private final List<List<ItemStack>> INPUTS;
     private final ItemStack OUTPUT;
 
     public GrinderRecipeWrapper(List<List<ItemStack>> input, ItemStack output) {

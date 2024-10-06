@@ -41,6 +41,17 @@ public class HempFarmerRecipes extends RecipeProvider {
                 .group("hempfarmer")
                 .unlockedBy("cocoa", InventoryChangeTrigger.TriggerInstance.hasItems(Registration.HEMP_MILK_BUCKET.get()))
                 .save(consumer);
+        //Lighter
+
+        ShapedRecipeBuilder.shaped(Registration.LIGHTER.get())
+                .pattern(" i ")
+                .pattern("ifi")
+                .pattern("iii")
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('f', Items.FLINT)
+                .group("hempfarmer")
+                .unlockedBy("iron", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
+                .save(consumer);
 
         //Pot Brownie
         ShapedRecipeBuilder.shaped(Registration.HEMP_MILK_BUCKET.get())
