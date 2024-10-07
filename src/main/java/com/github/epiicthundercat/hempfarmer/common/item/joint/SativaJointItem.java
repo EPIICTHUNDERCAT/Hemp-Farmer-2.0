@@ -57,7 +57,7 @@ public class SativaJointItem extends Item {
 
         }
 
-        return InteractionResultHolder.consume(itemstack);  
+        return InteractionResultHolder.consume(itemstack);
     }
 
     @Override
