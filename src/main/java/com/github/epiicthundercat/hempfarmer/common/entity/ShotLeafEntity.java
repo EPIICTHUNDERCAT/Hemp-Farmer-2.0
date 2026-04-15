@@ -359,9 +359,10 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 //
 //    }
 
+
     @Override
     protected void defineSynchedData() {
-
+        super.defineSynchedData();
     }
 
 

@@ -3,7 +3,7 @@
   "group": "hempfarmer",
   "pattern": [
     "mxm",
-    "x#x",
+    "xox",
     "#x#"
   ],
   "key": {
@@ -15,6 +15,9 @@
     },
     "m": {
       "tag": "forge:ingots/gold"
+    },
+    "o": {
+      "item": "minecraft:redstone_torch"
     }
   },
   "result": {

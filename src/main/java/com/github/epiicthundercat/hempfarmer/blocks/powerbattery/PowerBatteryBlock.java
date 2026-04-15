@@ -51,7 +51,10 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
                 .requiresCorrectToolForDrops()
 
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(BlockStateProperties.POWERED, false)
+        );
     }
 
     @SuppressWarnings("deprecation")

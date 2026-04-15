@@ -3,21 +3,16 @@ package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.mojang.realmsclient.util.JsonUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.RecipeMatcher;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -154,7 +149,7 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
                 if (inputStacks.isEmpty()) {
                     throw new JsonParseException("No ingredients for Grinder recipe.");
                 } else {
-                    if (inputStacks.size() > 3) {
+                    if (inputStacks.size() > 1) {
                         throw new JsonParseException("Too many ingredients for Grinder recipe, the max is 1.");
                     } else {
                         ItemStack outputStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));

@@ -294,7 +294,7 @@
 		},
 		"firstperson_righthand": {
 			"translation": [0, 1.25, 0],
-			"scale": [0.365, 10.1365, 0.365]
+			"scale": [0.365, 0.365, 0.365]
 		},
 		"firstperson_lefthand": {
 			"translation": [0, 1.25, 0],

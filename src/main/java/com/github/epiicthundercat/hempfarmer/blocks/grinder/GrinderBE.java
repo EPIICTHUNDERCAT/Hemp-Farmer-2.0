@@ -213,27 +213,21 @@ public class GrinderBE extends BlockEntity {
     private void finishCraft(GrinderRecipeHandler recipe) {
         stopCrafting();
 
-        Map<ItemStack, Boolean> inventoryItems = new HashMap<>();
-        for (int slot = 0; slot < 1; slot++) {
-            inventoryItems.put(itemHandler.getStackInSlot(slot), false);
-        }
+        ItemStack inputStack = itemHandler.getStackInSlot(SLOT_INPUT_1);
         for (Ingredient ingredient : recipe.getIngredients()) {
-            for (int slot = 0; slot < 1; slot++) {
-                if (ingredient.test(itemHandler.getStackInSlot(slot))) {
-                    if (!inventoryItems.get(itemHandler.getStackInSlot(slot))) {
-                        inventoryItems.remove(itemHandler.getStackInSlot(slot));
-                        inventoryItems.put(itemHandler.getStackInSlot(slot), true);
-                        itemHandler.getStackInSlot(slot).shrink(ingredient.getItems()[0].getCount());
-                    }
+            if (ingredient.test(inputStack)) {
+                ItemStack[] items = ingredient.getItems();
+                if (items.length > 0 && !items[0].isEmpty()) {
+                    inputStack.shrink(items[0].getCount());
                 }
+                break; // 1-slot machine, stop after first match
             }
         }
 
         ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
         if (output.isEmpty()) {
             itemHandler.setStackInSlot(SLOT_OUTPUT_1, recipe.getOutput());
-        }
-        if (output.isStackable()) {
+        } else if (output.isStackable()) {
             ItemStack newOutput = recipe.getOutput();
             newOutput.grow(output.getCount());
             itemHandler.setStackInSlot(SLOT_OUTPUT_1, newOutput);
@@ -320,7 +314,7 @@ public class GrinderBE extends BlockEntity {
             tag.putInt("CookTime", this.getGrindTime());
         }
         if (this.getGrindLength() != -1) {
-            tag.putInt("CookLength", this.getGrindTime());
+            tag.putInt("CookLength", this.getGrindLength());
         }
         if (this.getXP() != 0) {
             tag.putFloat("XP", this.getXP());

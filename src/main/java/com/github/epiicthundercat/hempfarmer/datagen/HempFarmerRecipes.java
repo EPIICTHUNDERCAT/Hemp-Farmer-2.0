@@ -139,11 +139,12 @@ public class HempFarmerRecipes extends RecipeProvider {
         //Power Battery
         ShapedRecipeBuilder.shaped(Registration.POWER_BATTERY.get())
                 .pattern("mxm")
-                .pattern("x#x")
+                .pattern("xox")
                 .pattern("#x#")
                 .define('x', Tags.Items.INGOTS_IRON)
                 .define('#', Tags.Items.DUSTS_REDSTONE)
                 .define('m', Tags.Items.INGOTS_GOLD)
+                .define('o', Items.REDSTONE_TORCH)
                 .group("hempfarmer")
                 .unlockedBy("powah", InventoryChangeTrigger.TriggerInstance.hasItems(Items.RAW_IRON))
                 .save(consumer);
