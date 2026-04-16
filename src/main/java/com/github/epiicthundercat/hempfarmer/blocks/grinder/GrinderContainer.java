@@ -112,34 +112,39 @@ public class GrinderContainer extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
+        // Slot layout:
+        //   0        = INPUT
+        //   1        = OUTPUT
+        //   2 – 28   = player main inventory (27 slots)
+        //   29 – 37  = player hotbar (9 slots)
 
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
             ItemStack stack = slot.getItem();
             itemstack = stack.copy();
-            //If is in our Block Slot, move to inventory
-            if (index == 0) {
-                if (!this.moveItemStackTo(stack, 1, 37, true)) {
+
+            if (index == 0 || index == 1) {
+                // Block slot (input or output) → push to player inventory
+                if (!this.moveItemStackTo(stack, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot.onQuickCraft(stack, itemstack);
-            } else {
-                //if item is grindable, add it to our slot // need to call recipe handler and pull item cook time // removed check, any item can be shift clicked, also, need to fix move from output to inv.
-                // GrinderRecipeHandler recipe = getBE().canCraft();
-
-                //  if (ForgeHooks.getBurnTime(stack, GrinderRecipeHandler.TYPE) > 0) {
-                //  if (this.level.getRecipeManager().getRecipeFor(GrinderRecipeHandler.TYPE, new SimpleContainer(itemstack) , level)) {
+                if (index == 0) {
+                    slot.onQuickCraft(stack, itemstack);
+                }
+            } else if (index < 29) {
+                // Main inventory → try input, then overflow to hotbar
                 if (!this.moveItemStackTo(stack, 0, 1, false)) {
-                    return ItemStack.EMPTY;
-
-                } else if (index < 28) {
-                    //if its in the inv keep it in the inv
-                    if (!this.moveItemStackTo(stack, 28, 37, false)) {
+                    if (!this.moveItemStackTo(stack, 29, 38, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index < 37 && !this.moveItemStackTo(stack, 1, 28, false)) {
-                    return ItemStack.EMPTY;
+                }
+            } else {
+                // Hotbar → try input, then overflow to main inventory
+                if (!this.moveItemStackTo(stack, 0, 1, false)) {
+                    if (!this.moveItemStackTo(stack, 2, 29, false)) {
+                        return ItemStack.EMPTY;
+                    }
                 }
             }
 

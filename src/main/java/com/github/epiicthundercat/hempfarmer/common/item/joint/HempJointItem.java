@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 
 public class HempJointItem extends Item {
@@ -45,9 +46,8 @@ public class HempJointItem extends Item {
             return InteractionResultHolder.fail(itemstack);
 
         } else if (itemstack.is(Registration.REGS_JOINT.get()) && flintItem.is(Registration.LIGHTER.get())) {
-            spawnFoundParticles(pPlayer);
             pPlayer.startUsingItem(interactionHand);
-            pPlayer.playSound(Registration.SMOKE.get(), 1f, 1f);
+            pPlayer.getCooldowns().addCooldown(this, getUseDuration(itemstack));
 
         }
 
@@ -86,34 +86,34 @@ public class HempJointItem extends Item {
     }
 
 
-    public UseAnim getUseAnimation(ItemStack itemStack) {
+    @Override
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        // onUseTick fires client-side only in Forge 1.18.2
+        if (!pLevel.isClientSide) return;
 
-
-        return UseAnim.SPYGLASS;
+        // First tick: play smoke sound once
+        if (pRemainingUseDuration == getUseDuration(pStack) - 1) {
+            pLivingEntity.playSound(Registration.SMOKE.get(), 1f, 1f);
+        }
+        // Every 2 ticks: emit particles from in front of the player's face
+        if (pRemainingUseDuration % 2 == 0) {
+            Vec3 look = pLivingEntity.getLookAngle();
+            double mouthX = pLivingEntity.getX() + look.x * 0.5;
+            double mouthY = pLivingEntity.getY() + pLivingEntity.getEyeHeight() - 0.1;
+            double mouthZ = pLivingEntity.getZ() + look.z * 0.5;
+            for (int i = 0; i < 3; i++) {
+                pLevel.addParticle(ParticleTypes.SMOKE,
+                        mouthX + (Math.random() - 0.5) * 0.1,
+                        mouthY + (Math.random() - 0.5) * 0.1,
+                        mouthZ + (Math.random() - 0.5) * 0.1,
+                        look.x * 0.04 + (Math.random() - 0.5) * 0.01,
+                        0.03 + Math.random() * 0.02,
+                        look.z * 0.04 + (Math.random() - 0.5) * 0.01);
+            }
+        }
     }
 
-
-   /* private void spawnFoundParticles(LivingEntity positionClicked) {
-        for (int i = 0; i < 360; i++) {
-            if (i % 20 == 0) {
-                System.out.println("I output: " + i);
-                positionClicked.getLevel().addParticle(ParticleTypes.SMOKE,
-                        positionClicked.getX() , positionClicked.getY() + 1.5d, positionClicked.getZ() ,
-                         0.03d, 0.05d, *//*Math.sin(i)*//* 0.03d);
-
-            }
-        }
-    }*/
-
-    private void spawnFoundParticles(LivingEntity positionClicked) {
-        for (int i = 0; i < 720; i++) {
-            if (i % 20 == 0) {
-
-                positionClicked.getLevel().addParticle(ParticleTypes.SMOKE,
-                        positionClicked.getX() , positionClicked.getY() + 1.5d, positionClicked.getZ() ,
-                        Math.random() * 0.03d, 0.05d, Math.random() * 0.03d);
-
-            }
-        }
+    public UseAnim getUseAnimation(ItemStack itemStack) {
+        return UseAnim.SPYGLASS;
     }
 }

@@ -3,7 +3,6 @@ package com.github.epiicthundercat.hempfarmer.setup;
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;

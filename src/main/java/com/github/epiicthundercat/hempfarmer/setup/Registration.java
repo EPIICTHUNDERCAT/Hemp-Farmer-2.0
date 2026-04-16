@@ -48,7 +48,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.lang.ref.Reference;
 
 import static com.github.epiicthundercat.hempfarmer.HempFarmer.MODID;
 

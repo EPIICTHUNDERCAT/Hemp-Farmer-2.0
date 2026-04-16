@@ -26,15 +26,14 @@ public class LeafWandItem extends Item {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
         pPlayer.getCooldowns().addCooldown(this, 10);
-        if (!pLevel.isClientSide && pPlayer.hasEffect(Registration.HIGH.get())) {
-            ShotLeafEntity shotLeafEntity = new ShotLeafEntity(pPlayer, pLevel);
-            shotLeafEntity.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.5F, 1.0F);
-            pLevel.addFreshEntity(shotLeafEntity);
-        } else {
-
-            pPlayer.displayClientMessage(UtilTools.translate(MESSAGE_NOT_HIGH).withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC), true);
-
-
+        if (!pLevel.isClientSide) {
+            if (pPlayer.hasEffect(Registration.HIGH.get())) {
+                ShotLeafEntity shotLeafEntity = new ShotLeafEntity(pPlayer, pLevel);
+                shotLeafEntity.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.5F, 1.0F);
+                pLevel.addFreshEntity(shotLeafEntity);
+            } else {
+                pPlayer.displayClientMessage(UtilTools.translate(MESSAGE_NOT_HIGH).withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC), true);
+            }
         }
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
