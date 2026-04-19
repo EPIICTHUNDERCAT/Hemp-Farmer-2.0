@@ -18,7 +18,7 @@ public class HFMessages {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(HempFarmer.MODID, "messages"))
+                .named(ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)

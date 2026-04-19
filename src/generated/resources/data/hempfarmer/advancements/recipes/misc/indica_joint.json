@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:indica_joint"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "indica_bud": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:indica_bud"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "indica_bud",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:indica_joint"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hempfarmer:items/nelly_song_music_disc"
+    "layer0": "hempfarmer:item/nelly_song_music_disc"
   }
 }

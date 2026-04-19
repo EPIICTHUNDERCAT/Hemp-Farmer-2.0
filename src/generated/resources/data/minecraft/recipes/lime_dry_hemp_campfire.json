@@ -1,9 +1,10 @@
 {
   "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 1.0,
   "ingredient": {
     "item": "hempfarmer:lime_raw_hemp"
   },
-  "result": "hempfarmer:lime_dry_hemp",
-  "experience": 1.0,
-  "cookingtime": 100
+  "result": "hempfarmer:lime_dry_hemp"
 }

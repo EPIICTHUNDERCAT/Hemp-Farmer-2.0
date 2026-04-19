@@ -1,11 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "hempfarmer",
-  "pattern": [
-    "sss",
-    "sss",
-    " w "
-  ],
   "key": {
     "s": {
       "tag": "hempfarmer:seed_triad"
@@ -14,7 +10,13 @@
       "item": "minecraft:bucket"
     }
   },
+  "pattern": [
+    "sss",
+    "sss",
+    " w "
+  ],
   "result": {
     "item": "hempfarmer:hemp_milk_bucket"
-  }
+  },
+  "show_notification": true
 }

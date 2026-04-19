@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -44,12 +43,10 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
     private static final VoxelShape RENDER_SHAPE = Shapes.box(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
 
     public PowerBatteryBlock() {
-        super(Properties.of(Material.METAL).sound(SoundType.METAL)
+        super(Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL)
                 .strength(2.0f)
                 .lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
-
                 .requiresCorrectToolForDrops()
-
         );
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
@@ -66,7 +63,7 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
-        list.add(new TranslatableComponent(MESSAGE_POWER_BATTERY, Integer.toString(PowerBatteryConfig.POWER_BATTERY_GENERATE.get())).withStyle(ChatFormatting.BLUE));
+        list.add(Component.translatable(MESSAGE_POWER_BATTERY, Integer.toString(PowerBatteryConfig.POWER_BATTERY_GENERATE.get())).withStyle(ChatFormatting.BLUE));
     }
 
     @Nullable
@@ -98,7 +95,7 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
                 MenuProvider containerProvider = new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
-                        return new TranslatableComponent(SCREEN_HEMP_FARMER_POWER_BATTERY);
+                        return Component.translatable(SCREEN_HEMP_FARMER_POWER_BATTERY);
                     }
 
                     @Override
@@ -106,7 +103,7 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
                         return new PowerBatteryContainer(windowId, pos, playerInventory, playerEntity);
                     }
                 };
-                NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
+                NetworkHooks.openScreen((ServerPlayer) player, containerProvider, be.getBlockPos());
             } else {
                 throw new IllegalStateException("Our named container provider is missing!");
             }
@@ -118,15 +115,11 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-
         return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection()).setValue(BlockStateProperties.POWERED, false);
-
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-
         builder.add(FACING, BlockStateProperties.POWERED);
-
     }
 }

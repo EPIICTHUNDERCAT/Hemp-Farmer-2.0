@@ -2,15 +2,16 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "lime_burlap_carpet",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "hempfarmer:lime_burlap_carpet"
         }
-      ]
+      ],
+      "name": "lime_burlap_carpet",
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "hempfarmer:blocks/lime_burlap_carpet"
 }

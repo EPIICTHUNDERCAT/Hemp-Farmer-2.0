@@ -16,7 +16,8 @@ out
 # gradle
 build
 .gradle
-
+.cache
+run-data
 # other
 eclipse
 run

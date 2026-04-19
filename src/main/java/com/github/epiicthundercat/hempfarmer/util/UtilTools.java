@@ -1,8 +1,8 @@
 package com.github.epiicthundercat.hempfarmer.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -63,7 +63,7 @@ public class UtilTools {
     }
 
     public static MutableComponent translate(String key, Object... args) {
-        return new TranslatableComponent(/*HempFarmer.MODID + "." + */key, args);
+        return Component.translatable(/*HempFarmer.MODID + "." + */key, args);
     }
 
 

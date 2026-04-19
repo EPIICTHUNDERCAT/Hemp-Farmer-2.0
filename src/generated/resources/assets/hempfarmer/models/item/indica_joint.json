@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hempfarmer:items/indica_joint"
+    "layer0": "hempfarmer:item/indica_joint"
   }
 }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:oily_dirt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "oily_burlap": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:hemp_oil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "oily_burlap",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:oily_dirt"
+    ]
+  },
+  "sends_telemetry_event": false
+}

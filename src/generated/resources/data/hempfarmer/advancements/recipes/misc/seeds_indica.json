@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:seeds_indica"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "seedlings": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:seeds_indica"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "seedlings",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:seeds_indica"
+    ]
+  },
+  "sends_telemetry_event": false
+}

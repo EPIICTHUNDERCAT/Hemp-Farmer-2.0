@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hempfarmer:items/lime_dry_hemp"
+    "layer0": "hempfarmer:item/lime_dry_hemp"
   }
 }

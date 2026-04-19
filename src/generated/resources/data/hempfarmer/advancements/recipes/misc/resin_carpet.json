@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:resin_carpet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "resin_burlap_carpet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:resin_burlap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "resin_burlap_carpet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:resin_carpet"
+    ]
+  },
+  "sends_telemetry_event": false
+}

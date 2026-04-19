@@ -1,11 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "group": "hempfarmer",
-  "pattern": [
-    " x ",
-    "fsf",
-    "fff"
-  ],
   "key": {
     "f": {
       "item": "hempfarmer:leaf"
@@ -17,7 +13,13 @@
       "item": "hempfarmer:leaf_wand"
     }
   },
+  "pattern": [
+    " x ",
+    "fsf",
+    "fff"
+  ],
   "result": {
     "item": "hempfarmer:superior_leaf_wand"
-  }
+  },
+  "show_notification": true
 }

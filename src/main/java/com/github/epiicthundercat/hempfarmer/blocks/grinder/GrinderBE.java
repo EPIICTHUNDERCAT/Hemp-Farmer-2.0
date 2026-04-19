@@ -1,6 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
-import com.github.epiicthundercat.hempfarmer.HempFarmer;
+
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
@@ -19,32 +19,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-/**
- * BUGS:
- * Power drain when crafting recipe continues stopping craft process
- * shift clicking output = inut then inventory
- * -Power Drain not smooth/Overtime // May supplement with a progress bar using the cooktime value... // FIXED
- * -Running recipes TWICE, consuming twice as much power // FIXED!
- * -Proccessing without power // FIXED ADDED CHECK
- * -Unable to shift Click into // Kinda Fixed...
- * -Items do not stack in output // FIXEDDDD FIXED SLOTs
- * -Breaking voids items! // FIXED - Had to do with Data Tags being named wrong. inv is now saved via NBT
- * -Visuals obviously // FIXED
- */
+
 
 public class GrinderBE extends BlockEntity {
 
@@ -159,7 +144,7 @@ public class GrinderBE extends BlockEntity {
                  */
 
                 ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT_1);
-                if (recipe.getResultItem().getItem() == output.getItem() && output.isStackable() && output.getCount() + recipe.getResultItem().getCount() <= output.getMaxStackSize()) {
+                if (recipe.getOutput().getItem() == output.getItem() && output.isStackable() && output.getCount() + recipe.getOutput().getCount() <= output.getMaxStackSize()) {
 
                     return recipe;
                 }
@@ -172,7 +157,7 @@ public class GrinderBE extends BlockEntity {
      */
     public GrinderRecipeHandler getRecipeFromContents() {
         GrinderRecipeHandler toCraft = null;
-        for (final GrinderRecipeHandler recipe : level.getRecipeManager().getAllRecipesFor(GrinderRecipeHandler.TYPE)) {
+        for (final GrinderRecipeHandler recipe : level.getRecipeManager().getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get())) {
             if (recipe.matches(itemHandler)) {
                 toCraft = recipe;
                 break;
@@ -449,12 +434,12 @@ public class GrinderBE extends BlockEntity {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == Direction.DOWN) {
                 return hopper.cast();
             }
             return items.cast();
-        } else if (cap == CapabilityEnergy.ENERGY) {
+        } else if (cap == ForgeCapabilities.ENERGY) {
             return energyHandler.cast();
         } else {
             return super.getCapability(cap, side);

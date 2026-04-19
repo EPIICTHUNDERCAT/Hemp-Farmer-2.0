@@ -58,7 +58,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         Entity entityHit = result.getEntity();
         Entity entity = this.getOwner();
         LivingEntity livingEntity = entity instanceof LivingEntity ? (LivingEntity) entity : null;
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide) {
             if (entityHit instanceof ZombifiedPiglin piglin) {
                 transfusePigMan(piglin);
                 particleSpawn();
@@ -109,7 +109,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (villager != null) {
             villager.moveTo(zombie.getX(), zombie.getY(), zombie.getZ(), zombie.getYRot(), zombie.getXRot());
-            villager.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
             villager.setVillagerXp(villager.getVillagerXp());
             if (zombie.hasCustomName()) {
                 villager.setCustomName(zombie.getCustomName());
@@ -127,7 +127,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (villager != null) {
             villager.moveTo(witch.getX(), witch.getY(), witch.getZ(), witch.getYRot(), witch.getXRot());
-            villager.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
             villager.setVillagerXp(villager.getVillagerXp());
             if (witch.hasCustomName()) {
                 villager.setCustomName(witch.getCustomName());
@@ -145,7 +145,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (pig != null) {
             pig.moveTo(piglin.getX(), piglin.getY(), piglin.getZ(), piglin.getYRot(), piglin.getXRot());
-            pig.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(pig.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            pig.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(pig.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
             if (piglin.hasCustomName()) {
                 pig.setCustomName(piglin.getCustomName());
                 pig.setCustomNameVisible(piglin.isCustomNameVisible());
@@ -161,7 +161,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (zombie != null) {
             zombie.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-            zombie.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            zombie.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
             if (skeleton.hasCustomName()) {
                 zombie.setCustomName(skeleton.getCustomName());
                 zombie.setCustomNameVisible(skeleton.isCustomNameVisible());
@@ -183,7 +183,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         MagmaCube magmaCube = slime.convertTo(EntityType.MAGMA_CUBE, false);
         if (magmaCube != null) {
             magmaCube.moveTo(slime.getX(), slime.getY(), slime.getZ(), slime.getYRot(), slime.getXRot());
-            magmaCube.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(magmaCube.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            magmaCube.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(magmaCube.blockPosition()), MobSpawnType.CONVERSION, null, null);
             if (slime.hasCustomName()) {
                 magmaCube.setCustomName(slime.getCustomName());
                 magmaCube.setCustomNameVisible(slime.isCustomNameVisible());
@@ -198,7 +198,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         Slime slime = magmaCube.convertTo(EntityType.SLIME, false);
         if (slime != null) {
             slime.moveTo(magmaCube.getX(), magmaCube.getY(), magmaCube.getZ(), magmaCube.getYRot(), magmaCube.getXRot());
-            slime.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(slime.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            slime.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(slime.blockPosition()), MobSpawnType.CONVERSION, null, null);
             if (magmaCube.hasCustomName()) {
                 slime.setCustomName(magmaCube.getCustomName());
                 slime.setCustomNameVisible(magmaCube.isCustomNameVisible());
@@ -213,7 +213,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         Horse horse = zombieHorse.convertTo(EntityType.HORSE, false);
         if (horse != null) {
             horse.moveTo(zombieHorse.getX(), zombieHorse.getY(), zombieHorse.getZ(), zombieHorse.getYRot(), zombieHorse.getXRot());
-            horse.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(horse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            horse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(horse.blockPosition()), MobSpawnType.CONVERSION, null, null);
             if (zombieHorse.hasCustomName()) {
                 horse.setCustomName(zombieHorse.getCustomName());
                 horse.setCustomNameVisible(zombieHorse.isCustomNameVisible());
@@ -228,7 +228,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         ZombieHorse zombieHorse = skeletonHorse.convertTo(EntityType.ZOMBIE_HORSE, false);
         if (zombieHorse != null) {
             zombieHorse.moveTo(skeletonHorse.getX(), skeletonHorse.getY(), skeletonHorse.getZ(), skeletonHorse.getYRot(), skeletonHorse.getXRot());
-            zombieHorse.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(zombieHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            zombieHorse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombieHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
             if (skeletonHorse.hasCustomName()) {
                 zombieHorse.setCustomName(skeletonHorse.getCustomName());
                 zombieHorse.setCustomNameVisible(skeletonHorse.isCustomNameVisible());
@@ -253,7 +253,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
     // Uses ServerLevel.sendParticles() because this is always called from server-side code;
     // level.addParticle() on the server has no effect — only the client renders particles.
     protected void particleSpawn() {
-        if (this.level instanceof ServerLevel serverLevel) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.POOF,
                     this.getX(), this.getY(), this.getZ(),
                     8, 0.4, 0.4, 0.4, 0.05);
@@ -263,7 +263,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
     // Used by block transmutations — spawns a scattered burst around the block center.
     // ServerLevel.sendParticles() broadcasts a packet to nearby clients; count=12, spread=0.6
     protected void particleSpawn(BlockPos pos) {
-        if (this.level instanceof ServerLevel serverLevel) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             double cx = pos.getX() + 0.5;  // center X of the block
             double cy = pos.getY() + 0.5;  // center Y of the block
             double cz = pos.getZ() + 0.5;  // center Z of the block
@@ -275,17 +275,17 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
-        if (!this.level.isClientSide && !this.isRemoved()) {
+        if (!this.level().isClientSide && !this.isRemoved()) {
             Entity entity = this.getOwner();
             BlockPos blockPos = new BlockPos(pResult.getBlockPos());
-            BlockState blockstate = level.getBlockState(blockPos);
+            BlockState blockstate = level().getBlockState(blockPos);
 //            System.out.println("onHitBlock: " + blockstate.getBlock().getRegistryName()
 //                    + " isLeaves=" + blockstate.is(BlockTags.LEAVES)
 //                    + " isSmallFlower=" + blockstate.is(BlockTags.SMALL_FLOWERS)
 //                    + " hitType=" + pResult.getType());
             if (entity instanceof ServerPlayer serverplayer) {
 
-                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level /*&& serverplayer.hasEffect(Registration.HIGH.get())*/) {
+                if (serverplayer.level() == this.level() /*&& serverplayer.hasEffect(Registration.HIGH.get())*/) {
                     if (pResult.getType().equals(BlockHitResult.Type.BLOCK)) {
 
                         // Use the actual hit blockstate for the guard, not getBlockStateOn()
@@ -306,7 +306,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
                                 CropBlock crop = (CropBlock) cropBlock;          // cast to access CropBlock methods
                                 newState = crop.defaultBlockState()              // start from default (age 0)
                                         .setValue(CropBlock.AGE, crop.getMaxAge()); // set to fully grown (age 7)
-                                level.setBlockAndUpdate(blockPos.below(), Blocks.FARMLAND.defaultBlockState()); // convert soil to farmland
+                                level().setBlockAndUpdate(blockPos.below(), Blocks.FARMLAND.defaultBlockState()); // convert soil to farmland
                                 particleSpawn(blockPos);
                             } else if (blockstate.is(Blocks.COBBLESTONE)) {
                                 newState = Blocks.GRAVEL.defaultBlockState();
@@ -338,9 +338,9 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
                             }
 
                             if (newState != null) {
-                                level.destroyBlock(blockPos, false);
-                                level.setBlockAndUpdate(blockPos, newState);
-                                level.playSound(null, blockPos, SoundEvents.ENCHANTMENT_TABLE_USE,
+                                level().destroyBlock(blockPos, false);
+                                level().setBlockAndUpdate(blockPos, newState);
+                                level().playSound(null, blockPos, SoundEvents.ENCHANTMENT_TABLE_USE,
                                         SoundSource.BLOCKS, 0.02f, 0.8f + random.nextFloat() * 0.4f);
                             }
 
@@ -372,9 +372,9 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         // Flowers (dandelion, poppy) use noCollission() so the ray-cast in super.tick()
         // never registers a block hit on them. Check by position overlap before moving.
-        if (!level.isClientSide && !this.isRemoved()) {
+        if (!level().isClientSide && !this.isRemoved()) {
             BlockPos currentPos = this.blockPosition();
-            BlockState currentState = level.getBlockState(currentPos);
+            BlockState currentState = level().getBlockState(currentPos);
             //System.out.println("tick pos=" + currentPos + " block=" + currentState.getBlock().getRegistryName());
             if (currentState.is(BlockTags.SMALL_FLOWERS)) {
                // System.out.println("flower overlap detected, triggering transmutation");

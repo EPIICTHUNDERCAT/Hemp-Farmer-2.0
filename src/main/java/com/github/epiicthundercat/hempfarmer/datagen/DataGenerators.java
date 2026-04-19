@@ -2,36 +2,32 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.effect.MobEffect;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod.EventBusSubscriber(modid = HempFarmer.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
+        var generator = event.getGenerator();
+        var output = generator.getPackOutput();
+        var lookupProvider = event.getLookupProvider();
+        var existingFileHelper = event.getExistingFileHelper();
 
-
-        DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
-            generator.addProvider(new HempFarmerRecipes(generator));
-            generator.addProvider(new HempFarmerLootTables(generator));
-            HempFarmerBlockTags blockTags = new HempFarmerBlockTags(generator, event.getExistingFileHelper());
-            generator.addProvider(blockTags);
-            generator.addProvider(new HempFarmerItemTags(generator, blockTags, event.getExistingFileHelper()));
-
+            generator.addProvider(true, new HempFarmerRecipes(output));
+            generator.addProvider(true, new HempFarmerLootTables(output));
+            generator.addProvider(true, new HempFarmerGlobalLootModifiers(output));
+            HempFarmerBlockTags blockTags = new HempFarmerBlockTags(output, lookupProvider, existingFileHelper);
+            generator.addProvider(true, blockTags);
+            generator.addProvider(true, new HempFarmerItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
         }
         if (event.includeClient()) {
-            generator.addProvider(new HempFarmerBlockStates(generator, event.getExistingFileHelper()));
-            generator.addProvider(new HempFarmerItemModels(generator, event.getExistingFileHelper()));
-            generator.addProvider(new HempFarmerLanguageProvider(generator, "en_us"));
-
-
+            generator.addProvider(true, new HempFarmerBlockStates(output, existingFileHelper));
+            generator.addProvider(true, new HempFarmerItemModels(output, existingFileHelper));
+            generator.addProvider(true, new HempFarmerLanguageProvider(output, "en_us"));
         }
-
-
     }
 }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:leaf_wand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "leaf": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:leaf"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "leaf",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:leaf_wand"
+    ]
+  },
+  "sends_telemetry_event": false
+}

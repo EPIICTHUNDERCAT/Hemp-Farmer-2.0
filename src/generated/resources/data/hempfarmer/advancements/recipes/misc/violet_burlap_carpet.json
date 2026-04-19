@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:violet_burlap_carpet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "violet_burlap_carpet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:violet_burlap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "violet_burlap_carpet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:violet_burlap_carpet"
+    ]
+  },
+  "sends_telemetry_event": false
+}

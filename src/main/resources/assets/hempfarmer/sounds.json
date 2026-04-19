@@ -12,7 +12,8 @@
     ]
   },
   "nelly_song": {
-    "category": "disc",
+    "subtitle": "sounds.hempfarmer.nelly_song",
+    "category": "record",
     "sounds": [
       {
         "name": "hempfarmer:nelly_song",

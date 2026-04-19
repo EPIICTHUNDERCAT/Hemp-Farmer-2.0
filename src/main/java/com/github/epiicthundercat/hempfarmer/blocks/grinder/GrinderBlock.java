@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,7 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -45,7 +44,7 @@ public class GrinderBlock extends Block implements EntityBlock {
     public static final String SCREEN_HEMP_FARMER_GRINDER = "screen.hempfarmer.grinder";
 
     public GrinderBlock() {
-        super(Properties.of(Material.METAL)
+        super(Properties.of().mapColor(MapColor.METAL)
                 .sound(SoundType.METAL)
                 .strength(2.0f)
                 .noOcclusion()
@@ -57,7 +56,7 @@ public class GrinderBlock extends Block implements EntityBlock {
 //Keep
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
-        list.add(new TranslatableComponent(MESSAGE_GRINDER).withStyle(ChatFormatting.BLUE));
+        list.add(Component.translatable(MESSAGE_GRINDER).withStyle(ChatFormatting.BLUE));
     }
 
 
@@ -88,8 +87,7 @@ public class GrinderBlock extends Block implements EntityBlock {
                 MenuProvider containerProvider = new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
-                        //CHANGE
-                        return new TranslatableComponent(SCREEN_HEMP_FARMER_GRINDER);
+                        return Component.translatable(SCREEN_HEMP_FARMER_GRINDER);
                     }
 
                     @Override
@@ -97,7 +95,7 @@ public class GrinderBlock extends Block implements EntityBlock {
                         return new GrinderContainer(windowId, pos, playerInventory, playerEntity, ((GrinderBE) be).blockData);
                     }
                 };
-                NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
+                NetworkHooks.openScreen((ServerPlayer) player, containerProvider, be.getBlockPos());
             } else {
                 throw new IllegalStateException("Our named container provider is missing!");
             }

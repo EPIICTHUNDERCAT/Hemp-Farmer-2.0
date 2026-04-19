@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hempfarmer:items/resin_burlap"
+    "layer0": "hempfarmer:item/resin_burlap"
   }
 }

@@ -2,15 +2,16 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "violet_dirt",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "hempfarmer:violet_dirt"
         }
-      ]
+      ],
+      "name": "violet_dirt",
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "hempfarmer:blocks/violet_dirt"
 }

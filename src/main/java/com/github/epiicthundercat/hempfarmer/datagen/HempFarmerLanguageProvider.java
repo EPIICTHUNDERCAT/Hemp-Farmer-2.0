@@ -5,7 +5,7 @@ import com.github.epiicthundercat.hempfarmer.common.item.LeafWandItem;
 import com.github.epiicthundercat.hempfarmer.common.item.joint.HempJointItem;
 import com.github.epiicthundercat.hempfarmer.setup.ModSetup;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import static com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock.MESSAGE_GRINDER;
@@ -16,18 +16,14 @@ import static com.github.epiicthundercat.hempfarmer.common.item.IndicaItem.INDIC
 import static com.github.epiicthundercat.hempfarmer.common.item.SativaItem.SATIVA_ITEM_MESSAGE;
 import static com.github.epiicthundercat.hempfarmer.setup.ModSetup.TAB_NAME;
 
-/*
-This is where we translate ITEMS, BLOCKS, or ingame name translation (eng_US file)
- */
 public class HempFarmerLanguageProvider extends LanguageProvider {
 
-    public HempFarmerLanguageProvider(DataGenerator gen, String locale) {
-        super(gen, HempFarmer.MODID, locale);
+    public HempFarmerLanguageProvider(PackOutput output, String locale) {
+        super(output, HempFarmer.MODID, locale);
     }
 
     @Override
     protected void addTranslations() {
-
         add(INDICA_ITEM_MESSAGE, "Must Be Placed on Farmland");
         add(HEMP_ITEM_MESSAGE, "Must Be Placed on Farmland");
         add(SATIVA_ITEM_MESSAGE, "Must Be Placed on Farmland");
@@ -42,27 +38,22 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(MESSAGE_GRINDER, "Grinding Hemp!");
         add(Registration.GRINDER.get(), "Hemp Grinder");
         add(Registration.LIGHTER.get(), "Lighter");
-        //BURLAP
         add(Registration.BURLAP_HELMET.get(), "Burlap Helmet");
         add(Registration.BURLAP_CHESTPLATE.get(), "Burlap Chestplate");
         add(Registration.BURLAP_LEGGINGS.get(), "Burlap Leggings");
         add(Registration.BURLAP_BOOTS.get(), "Burlap Boots");
-
-        // SATIVA
         add(Registration.SATIVA_JOINT.get(), "Sativa Joint");
         add(Registration.SATIVA_BUD.get(), "Sativa Bud");
         add(Registration.GROUND_SATIVA_BUD.get(), "Ground Sativa Bud");
         add(Registration.SEEDS_SATIVA.get(), "Sativa Seeds");
         add(Registration.SEEDS_SATIVA_CRUSHED.get(), "Crushed Sativa Seeds");
         add(Registration.SEEDS_SATIVA_TOASTED.get(), "Toasted Sativa Seeds");
-        // LIME
         add(Registration.LIME_BURLAP_ITEM.get(), "Lime Burlap");
         add(Registration.LIME_DRY_HEMP.get(), "Dry Lime Hemp");
         add(Registration.LIME_HEMP_HEARTS.get(), "Lime Hemp Hearts");
         add(Registration.LIME_OIL.get(), "Lime Oil");
         add(Registration.LIME_RAW_HEMP.get(), "Raw Lime Hemp");
         add(Registration.BOWL_LIME_HEMP_HEARTS.get(), "Bowl of Lime Hearts");
-        // HEMP
         add(Registration.SEEDS_HEMP_CRUSHED.get(), "Crushed Hemp Seeds");
         add(Registration.SEEDS_HEMP_TOASTED.get(), "Toasted Hemp Seeds");
         add(Registration.HEMP_HEARTS.get(), "Hemp Hearts");
@@ -76,7 +67,6 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.DRY_HEMP.get(), "Dry hemp");
         add(Registration.RAW_HEMP.get(), "Raw Hemp");
         add(Registration.SEEDS_HEMP.get(), "Hemp Seeds");
-        // VIOLET / INDICA
         add(Registration.VIOLET_RAW_HEMP.get(), "Raw Violet Hemp");
         add(Registration.VIOLET_HEMP_HEARTS.get(), "Violet Hemp Hearts");
         add(Registration.BOWL_VIOLET_HEMP_HEARTS.get(), "Bowl of Violet Hemp Hearts");
@@ -89,7 +79,6 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.INDICA_JOINT.get(), "Indica Joint");
         add(Registration.INDICA_BUD.get(), "Indica Bud");
         add(Registration.GROUND_INDICA_BUD.get(), "Ground Indica Bud");
-        // RANDOM
         add(Registration.BROKEN_SUPERIOR_LEAF_WAND.get(), "Broken Superior Leaf Wand");
         add(Registration.LEAF_WAND.get(), "Leaf Wand");
         add(Registration.SUPERIOR_LEAF_WAND.get(), "Superior Leaf Wand");

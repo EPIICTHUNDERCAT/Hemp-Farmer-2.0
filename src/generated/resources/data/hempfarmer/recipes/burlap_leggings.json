@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "group": "hempfarmer",
-  "pattern": [
-    "xxx",
-    "x x",
-    "x x"
-  ],
   "key": {
     "x": {
       "item": "hempfarmer:burlap"
     }
   },
+  "pattern": [
+    "xxx",
+    "x x",
+    "x x"
+  ],
   "result": {
     "item": "hempfarmer:burlap_leggings"
-  }
+  },
+  "show_notification": true
 }

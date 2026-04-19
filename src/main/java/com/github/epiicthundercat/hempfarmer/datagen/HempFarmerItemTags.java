@@ -2,24 +2,28 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.concurrent.CompletableFuture;
+
 public class HempFarmerItemTags extends ItemTagsProvider {
 
-
-    public HempFarmerItemTags(DataGenerator generator, BlockTagsProvider blockTags, ExistingFileHelper existingFileHelper) {
-        super(generator, blockTags, HempFarmer.MODID, existingFileHelper);
+    public HempFarmerItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+                               CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProvider,
+                               ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, blockTagsProvider, HempFarmer.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
-
-//FOR HEMP SEED RECIPES ONLY
+    protected void addTags(HolderLookup.Provider pProvider) {
         tag(Registration.SEED_TRIAD)
                 .add(Registration.SEEDS_SATIVA.get())
                 .add(Registration.SEEDS_INDICA.get())
@@ -53,6 +57,7 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.RESIN_DIRT_ITEM.get())
                 .add(Registration.LIME_DIRT_ITEM.get())
                 .add(Registration.VIOLET_DIRT_ITEM.get());
+
         tag(Registration.MILK_ITEM)
                 .add(Registration.HEMP_MILK_BUCKET.get())
                 .add(Items.MILK_BUCKET);
@@ -62,11 +67,12 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.LIME_OIL.get())
                 .add(Registration.VIOLET_OIL.get());
 
+        tag(ItemTags.MUSIC_DISCS)
+                .add(Registration.NELLY_SONG_MUSIC_DISC.get());
     }
-
 
     @Override
     public String getName() {
-        return "Hemp Farmer Tags";
+        return "Hemp Farmer Item Tags";
     }
 }

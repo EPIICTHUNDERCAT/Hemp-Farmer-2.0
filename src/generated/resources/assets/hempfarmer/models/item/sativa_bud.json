@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hempfarmer:items/sativa_bud"
+    "layer0": "hempfarmer:item/sativa_bud"
   }
 }

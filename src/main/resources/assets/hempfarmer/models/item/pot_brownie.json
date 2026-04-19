@@ -1,7 +1,7 @@
 {   
 	"parent": "item/generated",
     "textures": {
-        "layer0": "hempfarmer:items/pot_brownie"
+        "layer0": "hempfarmer:item/pot_brownie"
 		},
     "display": {
         "thirdperson_righthand": {

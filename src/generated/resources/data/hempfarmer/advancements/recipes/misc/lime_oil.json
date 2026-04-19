@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:lime_oil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "oily": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hempfarmer:seeds_sativa"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "oily",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:lime_oil"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,9 +1,11 @@
 package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
+import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -14,23 +16,19 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
 
-    public static final RecipeType<GrinderRecipeHandler> TYPE = RecipeType.register("grinder_recipe");
     public static final Serializer SERIALIZER = new Serializer();
-    // protected final Level level;
+
     private final ResourceLocation ID;
     private final NonNullList<Ingredient> INPUTS;
-    //private final Ingredient INPUTS;
     private final ItemStack OUTPUT;
     private final float XP;
     protected final int CRAFTTIME;
     private final boolean ISSIMPLE;
 
-    public GrinderRecipeHandler(ResourceLocation id, /*Ingredient inputStacks*/NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
-
+    public GrinderRecipeHandler(ResourceLocation id, NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
         this.ID = id;
         this.INPUTS = inputStacks;
         this.OUTPUT = outputStack;
@@ -62,7 +60,7 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pContainer) {
+    public ItemStack assemble(CraftingContainer pContainer, RegistryAccess registryAccess) {
         return this.OUTPUT.copy();
     }
 
@@ -70,7 +68,6 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
         StackedContents recipeHelper = new StackedContents();
         java.util.List<ItemStack> inputStacks = new java.util.ArrayList<>();
         int count = 0;
-        //how many slots? changed from 3-1 for 2 slots 0,1
         for (int i = 0; i < 1; ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
             if (!itemstack.isEmpty()) {
@@ -103,14 +100,13 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
         return this.ISSIMPLE;
     }
 
-
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.OUTPUT;
     }
 
@@ -126,14 +122,14 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return TYPE;
+        return Registration.GRINDER_RECIPE_TYPE.get();
     }
 
     public int getCraftTime() {
         return this.CRAFTTIME;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<GrinderRecipeHandler> {
+    public static class Serializer implements RecipeSerializer<GrinderRecipeHandler> {
 
         @Override
         public GrinderRecipeHandler fromJson(ResourceLocation recipeId, JsonObject json) {

@@ -1,9 +1,10 @@
 {
   "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.0,
   "ingredient": {
     "tag": "hempfarmer:oil"
   },
-  "result": "hempfarmer:resin",
-  "experience": 1.0,
-  "cookingtime": 100
+  "result": "hempfarmer:resin"
 }

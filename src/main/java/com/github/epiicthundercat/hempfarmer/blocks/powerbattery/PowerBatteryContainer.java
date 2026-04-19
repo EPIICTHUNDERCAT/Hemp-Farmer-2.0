@@ -13,9 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -33,7 +32,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
         this.playerInventory = new InvWrapper(playerInventory);
 
         if (blockEntity != null) {
-            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
             });
         }
@@ -54,7 +53,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
 
             @Override
             public void set(int value) {
-                blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
+                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0xffff0000;
                     ((HempFarmerEnergyStorage)h).setEnergy(energyStored + (value & 0xffff));
                 });
@@ -68,7 +67,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
 
             @Override
             public void set(int value) {
-                blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
+                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0x0000ffff;
                     ((HempFarmerEnergyStorage)h).setEnergy(energyStored | (value << 16));
                 });
@@ -77,7 +76,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
     }
 
     public int getEnergy() {
-        return blockEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+        return blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
 
     @Override
