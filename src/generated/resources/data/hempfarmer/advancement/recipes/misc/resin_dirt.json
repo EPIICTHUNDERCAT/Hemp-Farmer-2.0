@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:resin_dirt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "resin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:resin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "resin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:resin_dirt"
+    ]
+  }
+}

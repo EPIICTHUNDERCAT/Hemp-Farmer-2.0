@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "tag": "hempfarmer:paper"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "hempfarmer:rolling_paper"
+  }
+}

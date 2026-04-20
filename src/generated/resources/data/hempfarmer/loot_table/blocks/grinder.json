@@ -1,0 +1,55 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_custom_data",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "Inventory",
+                  "target": "Inventory"
+                },
+                {
+                  "op": "replace",
+                  "source": "Energy",
+                  "target": "Energy"
+                },
+                {
+                  "op": "replace",
+                  "source": "Info",
+                  "target": "Info"
+                },
+                {
+                  "op": "replace",
+                  "source": "CookTime",
+                  "target": "CookTime"
+                },
+                {
+                  "op": "replace",
+                  "source": "CookLength",
+                  "target": "CookLength"
+                },
+                {
+                  "op": "replace",
+                  "source": "XP",
+                  "target": "XP"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "hempfarmer:grinder"
+        }
+      ],
+      "name": "grinder",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "hempfarmer:blocks/grinder"
+}

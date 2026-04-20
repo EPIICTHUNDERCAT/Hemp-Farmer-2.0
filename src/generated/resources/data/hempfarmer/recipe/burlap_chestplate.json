@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "hempfarmer",
+  "key": {
+    "x": {
+      "item": "hempfarmer:burlap"
+    }
+  },
+  "pattern": [
+    "x x",
+    "xxx",
+    "xxx"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:burlap_chestplate"
+  }
+}

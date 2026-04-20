@@ -9,10 +9,12 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @JeiPlugin
 public class JEITutorialModPlugin implements IModPlugin {
@@ -29,7 +31,8 @@ public class JEITutorialModPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<GrinderRecipeHandler> recipes = rm.getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get());
+        List<GrinderRecipeHandler> recipes = rm.getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get())
+                .stream().map(RecipeHolder::value).collect(Collectors.toList());
         registration.addRecipes(GrinderRecipeCategory.RECIPE_TYPE, recipes);
     }
 }

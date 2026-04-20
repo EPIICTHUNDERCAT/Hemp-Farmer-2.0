@@ -1,103 +1,62 @@
 package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
+import java.util.List;
+
+public class GrinderRecipeHandler implements Recipe<SingleRecipeInput> {
 
     public static final Serializer SERIALIZER = new Serializer();
 
-    private final ResourceLocation ID;
     private final NonNullList<Ingredient> INPUTS;
     private final ItemStack OUTPUT;
     private final float XP;
     protected final int CRAFTTIME;
-    private final boolean ISSIMPLE;
 
-    public GrinderRecipeHandler(ResourceLocation id, NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
-        this.ID = id;
+    public GrinderRecipeHandler(NonNullList<Ingredient> inputStacks, ItemStack outputStack, float xp, int craftTime) {
         this.INPUTS = inputStacks;
         this.OUTPUT = outputStack;
         this.XP = xp;
         this.CRAFTTIME = craftTime;
-        this.ISSIMPLE = inputStacks.stream().allMatch(Ingredient::isSimple);
-    }
-
-
-    @Override
-    public boolean matches(CraftingContainer inv, Level world) {
-        StackedContents recipeItemHelper = new StackedContents();
-        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
-
-        for (int j = 0; j < 1; ++j) {
-            ItemStack itemstack = inv.getItem(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                if (ISSIMPLE) {
-                    recipeItemHelper.accountStack(itemstack, 1);
-                } else {
-                    inputs.add(itemstack);
-                }
-            }
-        }
-
-        return i == this.INPUTS.size() && (ISSIMPLE ? recipeItemHelper.canCraft(this, null) : RecipeMatcher.findMatches(inputs, this.INPUTS) != null);
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pContainer, RegistryAccess registryAccess) {
-        return this.OUTPUT.copy();
+    public boolean matches(SingleRecipeInput input, Level level) {
+        return !INPUTS.isEmpty() && INPUTS.get(0).test(input.item());
+    }
+
+    @Override
+    public ItemStack assemble(SingleRecipeInput input, HolderLookup.Provider registries) {
+        return OUTPUT.copy();
     }
 
     public boolean matches(ItemStackHandler inv) {
-        StackedContents recipeHelper = new StackedContents();
-        java.util.List<ItemStack> inputStacks = new java.util.ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < 1; ++i) {
-            ItemStack itemstack = inv.getStackInSlot(i);
-            if (!itemstack.isEmpty()) {
-                ++count;
-                if (ISSIMPLE) {
-                    recipeHelper.accountStack(itemstack, 1);
-                } else {
-                    inputStacks.add(itemstack);
-                }
-            }
-        }
-        return count == this.INPUTS.size() && (ISSIMPLE ? recipeHelper.canCraft(this, null) : RecipeMatcher.findMatches(inputStacks, this.INPUTS) != null);
+        ItemStack stack = inv.getStackInSlot(0);
+        return !stack.isEmpty() && !INPUTS.isEmpty() && INPUTS.get(0).test(stack);
     }
 
     public ItemStack getOutput() {
-        return this.OUTPUT.copy();
+        return OUTPUT.copy();
     }
 
     public float getXP() {
-        return this.XP;
+        return XP;
     }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return this.INPUTS;
-    }
-
-    @Override
-    public boolean isSpecial() {
-        return this.ISSIMPLE;
+        return INPUTS;
     }
 
     @Override
@@ -106,13 +65,8 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
-        return this.OUTPUT;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.ID;
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return OUTPUT;
     }
 
     @Override
@@ -126,62 +80,49 @@ public class GrinderRecipeHandler implements Recipe<CraftingContainer> {
     }
 
     public int getCraftTime() {
-        return this.CRAFTTIME;
+        return CRAFTTIME;
     }
 
     public static class Serializer implements RecipeSerializer<GrinderRecipeHandler> {
 
-        @Override
-        public GrinderRecipeHandler fromJson(ResourceLocation recipeId, JsonObject json) {
-            try {
-                NonNullList<Ingredient> inputStacks = NonNullList.create();
-                for (int i = 0; i < GsonHelper.getAsJsonArray(json, "ingredients").size(); ++i) {
-                    Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonArray(json, "ingredients").get(i));
-                    if (!ingredient.isEmpty()) {
-                        inputStacks.add(ingredient);
-                    }
+        public static final MapCodec<GrinderRecipeHandler> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+                Ingredient.CODEC_NONEMPTY.listOf()
+                        .xmap(list -> {
+                            NonNullList<Ingredient> r = NonNullList.create();
+                            r.addAll(list);
+                            return r;
+                        }, list -> list)
+                        .fieldOf("ingredients")
+                        .forGetter(r -> r.INPUTS),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.OUTPUT),
+                com.mojang.serialization.Codec.FLOAT.fieldOf("xp").forGetter(r -> r.XP),
+                com.mojang.serialization.Codec.INT.fieldOf("craft_time").forGetter(r -> r.CRAFTTIME)
+        ).apply(inst, GrinderRecipeHandler::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, GrinderRecipeHandler> STREAM_CODEC = StreamCodec.composite(
+                Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+                r -> (List<Ingredient>) (List<?>) r.INPUTS,
+                ItemStack.STREAM_CODEC,
+                r -> r.OUTPUT,
+                ByteBufCodecs.FLOAT,
+                r -> r.XP,
+                ByteBufCodecs.INT,
+                r -> r.CRAFTTIME,
+                (inputs, output, xp, craftTime) -> {
+                    NonNullList<Ingredient> list = NonNullList.create();
+                    list.addAll(inputs);
+                    return new GrinderRecipeHandler(list, output, xp, craftTime);
                 }
-
-                if (inputStacks.isEmpty()) {
-                    throw new JsonParseException("No ingredients for Grinder recipe.");
-                } else {
-                    if (inputStacks.size() > 1) {
-                        throw new JsonParseException("Too many ingredients for Grinder recipe, the max is 1.");
-                    } else {
-                        ItemStack outputStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-                        float xp = GsonHelper.getAsFloat(json, "xp");
-                        int craftTime = GsonHelper.getAsInt(json, "craft_time");
-                        return new GrinderRecipeHandler(recipeId, inputStacks, outputStack, xp, craftTime);
-                    }
-                }
-            } catch (JsonSyntaxException e) {
-                return null;
-            }
-        }
-
+        );
 
         @Override
-        public GrinderRecipeHandler fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int inputSize = buffer.readVarInt();
-            NonNullList<Ingredient> inputStacks = NonNullList.withSize(inputSize, Ingredient.EMPTY);
-            for (int i = 0; i < inputStacks.size(); ++i) {
-                inputStacks.set(i, Ingredient.fromNetwork(buffer));
-            }
-            float xp = buffer.readFloat();
-            int craftTime = buffer.readInt();
-            ItemStack outputStack = buffer.readItem();
-            return new GrinderRecipeHandler(recipeId, inputStacks, outputStack, xp, craftTime);
+        public MapCodec<GrinderRecipeHandler> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, GrinderRecipeHandler recipe) {
-            buffer.writeVarInt(recipe.INPUTS.size());
-            for (Ingredient ingredient : recipe.INPUTS) {
-                ingredient.toNetwork(buffer);
-            }
-            buffer.writeFloat(recipe.XP);
-            buffer.writeInt(recipe.CRAFTTIME);
-            buffer.writeItem(recipe.OUTPUT);
+        public StreamCodec<RegistryFriendlyByteBuf, GrinderRecipeHandler> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

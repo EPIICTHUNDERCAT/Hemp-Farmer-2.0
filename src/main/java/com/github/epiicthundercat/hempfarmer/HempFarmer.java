@@ -9,26 +9,19 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(HempFarmer.MODID)
 public class HempFarmer {
 
-
     public static final Logger LOGGER = LogManager.getLogger();
-
     public static final String MODID = "hempfarmer";
 
-
-    public HempFarmer() {
-
-        Registration.init();
+    public HempFarmer(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
+        Registration.init(modEventBus);
         ModSetup.setup();
-        HFConfig.register();
+        HFConfig.register(context.getContainer());
 
-        IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
-        modbus.addListener(ModSetup::init);
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modbus.addListener(ClientSetup::init));
-
+        modEventBus.addListener(ModSetup::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientSetup::init));
     }
-
 }

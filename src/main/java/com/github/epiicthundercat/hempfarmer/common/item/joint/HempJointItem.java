@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
@@ -29,9 +30,8 @@ public class HempJointItem extends Item {
 
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(ItemStack itemStack, LivingEntity pEntity) {
         return 40;
-
     }
 
 
@@ -47,7 +47,7 @@ public class HempJointItem extends Item {
 
         } else if (itemstack.is(Registration.REGS_JOINT.get()) && flintItem.is(Registration.LIGHTER.get())) {
             pPlayer.startUsingItem(interactionHand);
-            pPlayer.getCooldowns().addCooldown(this, getUseDuration(itemstack));
+            pPlayer.getCooldowns().addCooldown(this, getUseDuration(itemstack, pPlayer));
 
         }
 
@@ -67,14 +67,11 @@ public class HempJointItem extends Item {
 
         if (!level.isClientSide) {
             livingEntity.removeEffect(MobEffects.POISON);
-            livingEntity.addEffect(new MobEffectInstance(Registration.HIGH.get(), 2500, 1));
+            livingEntity.addEffect(new MobEffectInstance(Registration.HIGH.getHolder().orElseThrow(), 2500, 1));
 
             itemStack.shrink(1);
             if (flintItem.is(Registration.LIGHTER.get())) {
-                flintItem.hurtAndBreak(1, livingEntity, (e) -> {
-                    e.broadcastBreakEvent(livingEntity.getUsedItemHand());
-
-                });
+                flintItem.hurtAndBreak(1, livingEntity, EquipmentSlot.OFFHAND);
             }
 
         } else {
@@ -92,7 +89,7 @@ public class HempJointItem extends Item {
         if (!pLevel.isClientSide) return;
 
         // First tick: play smoke sound once
-        if (pRemainingUseDuration == getUseDuration(pStack) - 1) {
+        if (pRemainingUseDuration == getUseDuration(pStack, pLivingEntity) - 1) {
             pLivingEntity.playSound(Registration.SMOKE.get(), 1f, 1f);
         }
         // Every 2 ticks: emit particles from in front of the player's face

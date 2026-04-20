@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_hemp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:violet_raw_hemp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:violet_dry_hemp_campfire"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_hemp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:violet_dry_hemp_campfire"
+    ]
+  }
+}

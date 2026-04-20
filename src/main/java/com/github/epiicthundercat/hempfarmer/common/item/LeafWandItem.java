@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +28,7 @@ public class LeafWandItem extends Item {
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
         pPlayer.getCooldowns().addCooldown(this, 10);
         if (!pLevel.isClientSide) {
-            if (pPlayer.hasEffect(Registration.HIGH.get())) {
+            if (pPlayer.hasEffect(Registration.HIGH.getHolder().orElseThrow())) {
                 ShotLeafEntity shotLeafEntity = new ShotLeafEntity(pPlayer, pLevel);
                 shotLeafEntity.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.5F, 1.0F);
                 pLevel.addFreshEntity(shotLeafEntity);
@@ -37,10 +38,8 @@ public class LeafWandItem extends Item {
         }
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
-        if (!pPlayer.getAbilities().instabuild && pPlayer.hasEffect(Registration.HIGH.get())) {
-            itemstack.hurtAndBreak(1, pPlayer, (p_41303_) -> {
-                p_41303_.broadcastBreakEvent(pHand);
-            });
+        if (!pPlayer.getAbilities().instabuild && pPlayer.hasEffect(Registration.HIGH.getHolder().orElseThrow())) {
+            itemstack.hurtAndBreak(1, pPlayer, pHand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         }
 
         return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());

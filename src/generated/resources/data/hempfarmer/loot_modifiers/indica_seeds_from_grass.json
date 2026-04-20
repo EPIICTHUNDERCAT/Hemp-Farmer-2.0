@@ -7,7 +7,7 @@
       "condition": "minecraft:random_chance"
     },
     {
-      "block": "minecraft:grass",
+      "block": "minecraft:short_grass",
       "condition": "minecraft:block_state_property"
     },
     {
@@ -15,9 +15,7 @@
       "term": {
         "condition": "minecraft:match_tool",
         "predicate": {
-          "items": [
-            "minecraft:shears"
-          ]
+          "items": "minecraft:shears"
         }
       }
     }

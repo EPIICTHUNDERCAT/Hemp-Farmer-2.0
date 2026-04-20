@@ -31,7 +31,7 @@ public class SativaItem extends ItemNameBlockItem {
                 player.displayClientMessage(UtilTools.translate(SATIVA_ITEM_MESSAGE).withStyle(ChatFormatting.GREEN), true);
             }
         }
-        return !result.consumesAction() && this.isEdible() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult() : result;
+        return result;
     }
 
 

@@ -78,6 +78,7 @@ public class HempFarmerItemModels extends ItemModelProvider {
         singleTexture(Registration.RESIN_BURLAP_ITEM.getId().getPath(), mcLoc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID,"item/resin_burlap"));
         singleTexture(Registration.OILY_BURLAP_ITEM.getId().getPath(), mcLoc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID,"item/oily_burlap"));
         singleTexture(Registration.LEAF.getId().getPath(), mcLoc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID,"item/leaf"));
+        singleTexture(Registration.CANNABIS_TEA.getId().getPath(), mcLoc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID,"item/cannabis_tea"));
 
         // Block item models
         withExistingParent(Registration.GRINDER_ITEM.getId().getPath(), modLoc("block/grinder"));

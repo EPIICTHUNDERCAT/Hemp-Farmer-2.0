@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "tag": "hempfarmer:dry_hemp"
+    },
+    {
+      "tag": "hempfarmer:dry_hemp"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:hemp_paper"
+  }
+}

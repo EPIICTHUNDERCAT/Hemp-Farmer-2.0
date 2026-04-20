@@ -6,7 +6,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -39,7 +38,7 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.INDICA_BUD.get())
                 .add(Registration.BUD.get());
 
-        tag(Tags.Items.SLIMEBALLS)
+        tag(Tags.Items.SLIME_BALLS)
                 .add(Items.SLIME_BALL)
                 .add(Registration.RESIN.get());
 
@@ -67,8 +66,6 @@ public class HempFarmerItemTags extends ItemTagsProvider {
                 .add(Registration.LIME_OIL.get())
                 .add(Registration.VIOLET_OIL.get());
 
-        tag(ItemTags.MUSIC_DISCS)
-                .add(Registration.NELLY_SONG_MUSIC_DISC.get());
     }
 
     @Override

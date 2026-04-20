@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hempfarmer",
+  "key": {
+    "x": {
+      "item": "hempfarmer:dry_hemp"
+    }
+  },
+  "pattern": [
+    "xx ",
+    "xx ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:burlap"
+  }
+}

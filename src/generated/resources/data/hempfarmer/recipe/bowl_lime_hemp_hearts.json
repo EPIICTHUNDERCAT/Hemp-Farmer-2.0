@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "item": "hempfarmer:lime_hemp_hearts"
+    },
+    {
+      "tag": "hempfarmer:milk"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:bowl_lime_hemp_hearts"
+  }
+}

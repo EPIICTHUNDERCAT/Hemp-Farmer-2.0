@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "hempfarmer",
+  "ingredients": [
+    {
+      "item": "hempfarmer:rolling_paper"
+    },
+    {
+      "item": "hempfarmer:ground_indica_bud"
+    },
+    {
+      "item": "hempfarmer:ground_indica_bud"
+    },
+    {
+      "item": "hempfarmer:ground_indica_bud"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:indica_joint"
+  }
+}

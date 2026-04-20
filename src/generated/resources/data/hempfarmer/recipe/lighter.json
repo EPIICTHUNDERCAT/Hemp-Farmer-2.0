@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hempfarmer",
+  "key": {
+    "f": {
+      "item": "minecraft:flint"
+    },
+    "i": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "pattern": [
+    " i ",
+    "ifi",
+    "iii"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:lighter"
+  }
+}

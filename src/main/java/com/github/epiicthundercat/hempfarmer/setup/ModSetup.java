@@ -26,6 +26,7 @@ public class ModSetup {
         if (event.getTabKey() == Registration.HEMP_FARMER_TAB.getKey()) {
             event.accept(Registration.SHOT_LEAF);
             event.accept(Registration.LEAF);
+            event.accept(Registration.CANNABIS_TEA);
             event.accept(Registration.LIGHTER);
             event.accept(Registration.NELLY_SONG_MUSIC_DISC);
             event.accept(Registration.SATIVA_JOINT);

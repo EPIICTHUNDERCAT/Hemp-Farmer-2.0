@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_seed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:seeds_hemp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:toasted_hemp_seed_campfire"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_seed"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:toasted_hemp_seed_campfire"
+    ]
+  }
+}

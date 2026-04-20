@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hempfarmer",
+  "key": {
+    "#": {
+      "tag": "forge:eggs"
+    },
+    "b": {
+      "tag": "hempfarmer:bud"
+    },
+    "m": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "x": {
+      "tag": "hempfarmer:milk"
+    }
+  },
+  "pattern": [
+    "mxm",
+    "bsb",
+    "#x#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:pot_brownie"
+  }
+}

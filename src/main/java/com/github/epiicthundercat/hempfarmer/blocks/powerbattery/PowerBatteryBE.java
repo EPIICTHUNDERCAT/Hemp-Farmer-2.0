@@ -4,7 +4,9 @@ import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -24,9 +26,6 @@ import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PowerBatteryBE extends BlockEntity {
-    public static final int POWER_BATTERY_CAPACITY = 50000; // Max capacity
-    public static final int POWER_BATTERY_GENERATE = 60;    // Generation per tick
-    public static final int POWER_BATTERY_SEND = 200;       // Power to send out per tick
 
     // Never create lazy optionals in getCapability. Always place them as fields in the tile entity:
     private final ItemStackHandler itemHandler = createHandler();
@@ -50,9 +49,9 @@ public class PowerBatteryBE extends BlockEntity {
     }
 
     public void tickServer() {
-        //When the counter is set to burnTime, it will Tick and add energy based on the amount we set, being 60.
+        //When the counter is set to burnTime, it will Tick and add energy based on the amount we set, being 10--was 60 too powerful.
         if (counter > 0) {
-            energyStorage.addEnergy(POWER_BATTERY_GENERATE);
+            energyStorage.addEnergy(PowerBatteryConfig.POWER_BATTERY_GENERATE.get());
             counter--;
             setChanged();
         }
@@ -85,7 +84,7 @@ public class PowerBatteryBE extends BlockEntity {
                 if (blockEntity != null) {
                     boolean doContinue = blockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).map(handler -> {
                                 if (handler.canReceive()) {
-                                    int received = handler.receiveEnergy(Math.min(capacity.get(), POWER_BATTERY_SEND), false);
+                                    int received = handler.receiveEnergy(Math.min(capacity.get(), PowerBatteryConfig.POWER_BATTERY_SEND.get()), false);
 
                                     capacity.addAndGet(-received);
                                     energyStorage.consumeEnergy(received);
@@ -105,23 +104,23 @@ public class PowerBatteryBE extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         if (tag.contains("Inventory")) {
-            itemHandler.deserializeNBT(tag.getCompound("Inventory"));
+            itemHandler.deserializeNBT(registries, tag.getCompound("Inventory"));
         }
         if (tag.contains("Energy")) {
-            energyStorage.deserializeNBT(tag.get("Energy"));
+            energyStorage.deserializeNBT(registries, (IntTag) tag.get("Energy"));
         }
         if (tag.contains("Info")) {
             counter = tag.getCompound("Info").getInt("Counter");
         }
-        super.load(tag);
+        super.loadAdditional(tag, registries);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        tag.put("Inventory", itemHandler.serializeNBT());
-        tag.put("Energy", energyStorage.serializeNBT());
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        tag.put("Inventory", itemHandler.serializeNBT(registries));
+        tag.put("Energy", energyStorage.serializeNBT(registries));
 
         CompoundTag infoTag = new CompoundTag();
         infoTag.putInt("Counter", counter);
@@ -155,12 +154,16 @@ public class PowerBatteryBE extends BlockEntity {
     }
 
     private HempFarmerEnergyStorage createEnergy() {
-        return new HempFarmerEnergyStorage(POWER_BATTERY_CAPACITY, 0) {
+        return new HempFarmerEnergyStorage(PowerBatteryConfig.POWER_BATTERY_CAPACITY.get(), 0) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
             }
         };
+    }
+
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
     }
 
     @Nonnull

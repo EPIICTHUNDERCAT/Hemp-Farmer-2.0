@@ -90,6 +90,8 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.RESIN_BURLAP_ITEM.get(), "Resin Burlap");
         add(Registration.OILY_BURLAP_ITEM.get(), "Oily Burlap");
         add(Registration.LEAF.get(), "Cannabis Leaf");
+        add(Registration.CANNABIS_TEA.get(), "Cannabis Tea");
+        add("item.hempfarmer.cannabis_tea.tooltip", "While Calm, No Blindness or Darkness Effect!");
         add(Registration.HEMP_CROP.get(), "Hemp Seedling");
         add(Registration.SATIVA_CROP.get(), "Sativa Seedling");
         add(Registration.INDICA_CROP.get(), "Indica Seedling");
@@ -104,9 +106,10 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.RESIN_CARPET_BLOCK.get(), "Resin Carpet");
         add(Registration.SHOT_LEAF_ENTITY.get(), "Shot Leaf Entity");
         add(Registration.HIGH.get(), "High");
+        add(Registration.CALM.get(), "Calm");
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
         add(Registration.NELLY_SONG_MUSIC_DISC.get(), "Music Disc");
-        add("item.hempfarmer." + Registration.NELLY_SONG_MUSIC_DISC.get() + ".desc", "Nelly - Insane Riff");
+        add("jukebox_song." + Registration.NELLY_SONG_KEY.location().getNamespace() + "." + Registration.NELLY_SONG_KEY.location().getPath(), "Nelly - Insane Riff");
         add(HempJointItem.MESSAGE_NEED_LIGHT, "You need a light.. Maybe a Lighter?");
     }
 }

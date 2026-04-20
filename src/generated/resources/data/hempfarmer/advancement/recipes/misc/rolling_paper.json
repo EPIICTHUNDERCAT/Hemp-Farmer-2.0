@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:rolling_paper"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "rolling_paper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#hempfarmer:paper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "rolling_paper"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:rolling_paper"
+    ]
+  }
+}

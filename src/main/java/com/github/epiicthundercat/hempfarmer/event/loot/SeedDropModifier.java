@@ -2,6 +2,7 @@ package com.github.epiicthundercat.hempfarmer.event.loot;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.Item;
@@ -16,8 +17,8 @@ import java.util.function.Supplier;
 
 public class SeedDropModifier extends LootModifier {
 
-    public static final Supplier<Codec<SeedDropModifier>> CODEC = Suppliers.memoize(() ->
-            RecordCodecBuilder.<SeedDropModifier>create(inst ->
+    public static final Supplier<MapCodec<SeedDropModifier>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.<SeedDropModifier>mapCodec(inst ->
                     LootModifier.codecStart(inst)
                             .and(ForgeRegistries.ITEMS.getCodec().fieldOf("addition").forGetter(m -> m.addition))
                             .and(Codec.INT.optionalFieldOf("count", 1).forGetter(m -> m.count))
@@ -41,7 +42,7 @@ public class SeedDropModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

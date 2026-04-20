@@ -1,19 +1,16 @@
 package com.github.epiicthundercat.hempfarmer.datagen;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
-import net.minecraft.world.level.storage.loot.functions.SetContainerContents;
+import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -25,11 +22,10 @@ public abstract class BaseLootTableProvider implements net.minecraft.data.loot.L
     protected abstract void addTables();
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> writer) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> writer) {
         addTables();
         for (Map.Entry<Block, LootTable.Builder> entry : lootTables.entrySet()) {
-            writer.accept(entry.getKey().getLootTable(),
-                    entry.getValue().setParamSet(LootContextParamSets.BLOCK));
+            writer.accept(entry.getKey().getLootTable(), entry.getValue().setParamSet(LootContextParamSets.BLOCK));
         }
     }
 
@@ -38,14 +34,13 @@ public abstract class BaseLootTableProvider implements net.minecraft.data.loot.L
                 .name(name)
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(block)
-                        .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-                        .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
-                                .copy("Info", "BlockEntityTag.Info", CopyNbtFunction.MergeStrategy.REPLACE)
-                                .copy("Inventory", "BlockEntityTag.Inventory", CopyNbtFunction.MergeStrategy.REPLACE)
-                                .copy("Energy", "BlockEntityTag.Energy", CopyNbtFunction.MergeStrategy.REPLACE))
-                        .apply(SetContainerContents.setContents(type)
-                                .withEntry(DynamicLoot.dynamicEntry(ResourceLocation.fromNamespaceAndPath("minecraft", "contents"))))
-                );
+                        .apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                                .copy("Inventory", "Inventory", CopyCustomDataFunction.MergeStrategy.REPLACE)
+                                .copy("Energy", "Energy", CopyCustomDataFunction.MergeStrategy.REPLACE)
+                                .copy("Info", "Info", CopyCustomDataFunction.MergeStrategy.REPLACE)
+                                .copy("CookTime", "CookTime", CopyCustomDataFunction.MergeStrategy.REPLACE)
+                                .copy("CookLength", "CookLength", CopyCustomDataFunction.MergeStrategy.REPLACE)
+                                .copy("XP", "XP", CopyCustomDataFunction.MergeStrategy.REPLACE)));
         return LootTable.lootTable().withPool(builder);
     }
 

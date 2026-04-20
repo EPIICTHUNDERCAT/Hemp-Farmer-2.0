@@ -1,42 +1,25 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
-import com.github.epiicthundercat.hempfarmer.HempFarmer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraft.world.entity.decoration.Painting;
 
+// TODO (1.21.1): Forge 52 replaced NetworkRegistry.ChannelBuilder / SimpleChannel with
+// RegisterPayloadsEvent + IPayloadRegistrar. Implement packets here when needed using:
+//   @SubscribeEvent public static void register(RegisterPayloadsEvent event) { ... }
+// For now this is a no-op stub since no packets are currently active.
 public class HFMessages {
 
-    private static SimpleChannel INSTANCE;
-
-    private static int packetId = 0;
-    private static int id() {
-        return packetId++;
-    }
-
     public static void register() {
-        SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID, "messages"))
-                .networkProtocolVersion(() -> "1.0")
-                .clientAcceptedVersions(s -> true)
-                .serverAcceptedVersions(s -> true)
-                .simpleChannel();
-
-        INSTANCE = net;
-
-
+        // No packets registered yet
     }
 
     public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.sendToServer(message);
+        // stub — wire up when packets are implemented
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+        // stub — wire up when packets are implemented
     }
-
 
 
 }

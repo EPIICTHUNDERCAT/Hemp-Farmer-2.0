@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hempfarmer",
+  "key": {
+    "m": {
+      "item": "hempfarmer:seeds_hemp"
+    },
+    "x": {
+      "tag": "c:glass_blocks"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "xmx",
+    " x "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:hemp_oil"
+  }
+}

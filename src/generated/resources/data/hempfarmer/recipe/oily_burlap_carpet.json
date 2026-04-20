@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hempfarmer",
+  "key": {
+    "x": {
+      "item": "hempfarmer:oily_burlap"
+    }
+  },
+  "pattern": [
+    "xxx",
+    "   ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:oily_burlap_carpet"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "hempfarmer:lime_raw_hemp"
+  },
+  "result": {
+    "id": "hempfarmer:lime_dry_hemp"
+  }
+}

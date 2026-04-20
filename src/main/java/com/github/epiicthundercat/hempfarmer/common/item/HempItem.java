@@ -30,7 +30,7 @@ public class HempItem extends ItemNameBlockItem {
                 player.displayClientMessage(UtilTools.translate(HEMP_ITEM_MESSAGE).withStyle(ChatFormatting.DARK_GREEN), true);
             }
         }
-        return !result.consumesAction() && this.isEdible() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult() : result;
+        return result;
     }
 
 

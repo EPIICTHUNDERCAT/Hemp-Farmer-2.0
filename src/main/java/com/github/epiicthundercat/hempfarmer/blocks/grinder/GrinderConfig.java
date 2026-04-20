@@ -15,14 +15,14 @@ public class GrinderConfig {
 
 
         HEMP_PER = SERVER_BUILDER
-                .comment("How much hemp you get from one ore")
+                .comment("How much hemp you get from one raw")
                 .defineInRange("groundHempPerRaw", 2, 1, Integer.MAX_VALUE);
         ENERGY_CAPACITY = SERVER_BUILDER
                 .comment("How much energy fits into the grinder")
-                .defineInRange("capacity", 100000, 1, Integer.MAX_VALUE);
+                .defineInRange("capacity", 50000, 1, Integer.MAX_VALUE);
         ENERGY_RECEIVE = SERVER_BUILDER
                 .comment("How much energy the grinder can receive per side")
-                .defineInRange("receive", 1000, 1, Integer.MAX_VALUE);
+                .defineInRange("receive", 500, 1, Integer.MAX_VALUE);
         ENERGY_NEED = SERVER_BUILDER
                 .comment("How much energy is needed to process one hemp")
                 .defineInRange("grind", 100, 1, Integer.MAX_VALUE);

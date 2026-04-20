@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:sativa_joint"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "sativa_bud": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:sativa_bud"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "sativa_bud"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:sativa_joint"
+    ]
+  }
+}

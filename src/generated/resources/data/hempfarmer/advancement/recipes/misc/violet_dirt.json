@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:violet_dirt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "violet_dirt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:violet_oil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "violet_dirt"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:violet_dirt"
+    ]
+  }
+}

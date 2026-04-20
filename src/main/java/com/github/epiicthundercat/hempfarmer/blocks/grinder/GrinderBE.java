@@ -5,6 +5,7 @@ import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.sounds.SoundEvents;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -157,12 +159,12 @@ public class GrinderBE extends BlockEntity {
      */
     public GrinderRecipeHandler getRecipeFromContents() {
         GrinderRecipeHandler toCraft = null;
-        for (final GrinderRecipeHandler recipe : level.getRecipeManager().getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get())) {
+        for (final RecipeHolder<GrinderRecipeHandler> holder : level.getRecipeManager().getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get())) {
+            GrinderRecipeHandler recipe = holder.value();
             if (recipe.matches(itemHandler)) {
                 toCraft = recipe;
                 break;
             }
-
         }
         return toCraft;
     }
@@ -262,14 +264,12 @@ public class GrinderBE extends BlockEntity {
      * These are the data components that save to the block - how it maintains energy and items after being broken and placed!
      */
     @Override
-    public void load(CompoundTag tag) {
-
-
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         if (tag.contains("Inventory")) {
-            this.itemHandler.deserializeNBT(tag.getCompound("Inventory"));
+            this.itemHandler.deserializeNBT(registries, tag.getCompound("Inventory"));
         }
         if (tag.contains("Energy")) {
-            this.energy.deserializeNBT(tag.get("Energy"));
+            this.energy.deserializeNBT(registries, (IntTag) tag.get("Energy"));
         }
         if (tag.contains("CookTime", IntTag.TAG_INT)) {
             this.grindTime = tag.getInt("CookTime");
@@ -283,7 +283,7 @@ public class GrinderBE extends BlockEntity {
         if (tag.contains("Info")) {
             this.counter = tag.getCompound("Info").getInt("Counter");
         }
-        super.load(tag);
+        super.loadAdditional(tag, registries);
     }
 
     /**
@@ -291,10 +291,10 @@ public class GrinderBE extends BlockEntity {
      */
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        tag.put("Inventory", itemHandler.serializeNBT());
-        tag.put("Energy", energy.serializeNBT());
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("Inventory", itemHandler.serializeNBT(registries));
+        tag.put("Energy", energy.serializeNBT(registries));
         if (this.getGrindTime() != -1) {
             tag.putInt("CookTime", this.getGrindTime());
         }
@@ -466,9 +466,9 @@ public class GrinderBE extends BlockEntity {
      * it hasn't seen before. i.e. the chunk is loaded
      */
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
-        this.saveAdditional(tag);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        this.saveAdditional(tag, registries);
         return tag;
     }
 

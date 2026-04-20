@@ -1,0 +1,12 @@
+{
+  "type": "hempfarmer:grinder_recipe",
+  "ingredients": [
+    {"item": "hempfarmer:sativa_bud"}
+  ],
+  "output": {
+    "id": "hempfarmer:ground_sativa_bud",
+    "count": 1
+  },
+  "xp": 0.5,
+  "craft_time": 25
+}

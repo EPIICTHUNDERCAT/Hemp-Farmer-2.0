@@ -5,9 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,7 +53,7 @@ public class GrinderBlock extends Block implements EntityBlock {
 
     }
 //Keep
-    @Override
+
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
         list.add(Component.translatable(MESSAGE_GRINDER).withStyle(ChatFormatting.BLUE));
     }
@@ -80,7 +79,7 @@ public class GrinderBlock extends Block implements EntityBlock {
     }
 @SuppressWarnings("deprecation")
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         if (!level.isClientSide) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof GrinderBE) {
@@ -95,7 +94,7 @@ public class GrinderBlock extends Block implements EntityBlock {
                         return new GrinderContainer(windowId, pos, playerInventory, playerEntity, ((GrinderBE) be).blockData);
                     }
                 };
-                NetworkHooks.openScreen((ServerPlayer) player, containerProvider, be.getBlockPos());
+                ((ServerPlayer) player).openMenu(containerProvider, buf -> buf.writeBlockPos(be.getBlockPos()));
             } else {
                 throw new IllegalStateException("Our named container provider is missing!");
             }
@@ -103,6 +102,23 @@ public class GrinderBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof GrinderBE grinder) {
+                for (int i = 0; i < grinder.itemHandler.getSlots(); i++) {
+                    ItemStack stack = grinder.itemHandler.getStackInSlot(i);
+                    if (!stack.isEmpty()) {
+                        Block.popResource(level, pos, stack);
+                    }
+                }
+            }
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {

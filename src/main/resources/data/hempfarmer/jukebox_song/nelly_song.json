@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "hempfarmer:nelly_song"
+  },
+  "description": {
+    "translate": "jukebox_song.hempfarmer.nelly_song"
+  },
+  "length_in_seconds": 210.0,
+  "comparator_output": 5
+}

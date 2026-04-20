@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "burlap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:dry_hemp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:burlap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "burlap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:burlap"
+    ]
+  }
+}

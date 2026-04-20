@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hempfarmer:bowl_violet_hemp_hearts"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "violet_hemp_bowl": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hempfarmer:violet_hemp_hearts"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "violet_hemp_bowl"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hempfarmer:bowl_violet_hemp_hearts"
+    ]
+  }
+}

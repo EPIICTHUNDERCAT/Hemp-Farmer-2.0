@@ -30,7 +30,7 @@ public class IndicaItem extends ItemNameBlockItem {
                 player.displayClientMessage(UtilTools.translate(INDICA_ITEM_MESSAGE).withStyle(ChatFormatting.DARK_PURPLE), true);
             }
         }
-        return !result.consumesAction() && this.isEdible() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult() : result;
+        return result;
     }
 
 

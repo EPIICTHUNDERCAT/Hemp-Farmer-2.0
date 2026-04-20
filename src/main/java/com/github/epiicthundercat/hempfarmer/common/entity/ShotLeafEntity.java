@@ -4,14 +4,11 @@ import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
+
 import net.minecraft.world.entity.*;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -24,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -36,7 +32,6 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.ForgeEventFactory;
 
 //Some WIP
@@ -109,7 +104,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (villager != null) {
             villager.moveTo(zombie.getX(), zombie.getY(), zombie.getZ(), zombie.getYRot(), zombie.getXRot());
-            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, null);
             villager.setVillagerXp(villager.getVillagerXp());
             if (zombie.hasCustomName()) {
                 villager.setCustomName(zombie.getCustomName());
@@ -127,7 +122,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (villager != null) {
             villager.moveTo(witch.getX(), witch.getY(), witch.getZ(), witch.getYRot(), witch.getXRot());
-            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            villager.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, null);
             villager.setVillagerXp(villager.getVillagerXp());
             if (witch.hasCustomName()) {
                 villager.setCustomName(witch.getCustomName());
@@ -145,7 +140,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (pig != null) {
             pig.moveTo(piglin.getX(), piglin.getY(), piglin.getZ(), piglin.getYRot(), piglin.getXRot());
-            pig.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(pig.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            pig.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(pig.blockPosition()), MobSpawnType.CONVERSION, null);
             if (piglin.hasCustomName()) {
                 pig.setCustomName(piglin.getCustomName());
                 pig.setCustomNameVisible(piglin.isCustomNameVisible());
@@ -161,7 +156,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
         if (zombie != null) {
             zombie.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-            zombie.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            zombie.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.CONVERSION, null);
             if (skeleton.hasCustomName()) {
                 zombie.setCustomName(skeleton.getCustomName());
                 zombie.setCustomNameVisible(skeleton.isCustomNameVisible());
@@ -183,7 +178,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         MagmaCube magmaCube = slime.convertTo(EntityType.MAGMA_CUBE, false);
         if (magmaCube != null) {
             magmaCube.moveTo(slime.getX(), slime.getY(), slime.getZ(), slime.getYRot(), slime.getXRot());
-            magmaCube.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(magmaCube.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            magmaCube.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(magmaCube.blockPosition()), MobSpawnType.CONVERSION, null);
             if (slime.hasCustomName()) {
                 magmaCube.setCustomName(slime.getCustomName());
                 magmaCube.setCustomNameVisible(slime.isCustomNameVisible());
@@ -198,7 +193,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         Slime slime = magmaCube.convertTo(EntityType.SLIME, false);
         if (slime != null) {
             slime.moveTo(magmaCube.getX(), magmaCube.getY(), magmaCube.getZ(), magmaCube.getYRot(), magmaCube.getXRot());
-            slime.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(slime.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            slime.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(slime.blockPosition()), MobSpawnType.CONVERSION, null);
             if (magmaCube.hasCustomName()) {
                 slime.setCustomName(magmaCube.getCustomName());
                 slime.setCustomNameVisible(magmaCube.isCustomNameVisible());
@@ -213,7 +208,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         Horse horse = zombieHorse.convertTo(EntityType.HORSE, false);
         if (horse != null) {
             horse.moveTo(zombieHorse.getX(), zombieHorse.getY(), zombieHorse.getZ(), zombieHorse.getYRot(), zombieHorse.getXRot());
-            horse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(horse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            horse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(horse.blockPosition()), MobSpawnType.CONVERSION, null);
             if (zombieHorse.hasCustomName()) {
                 horse.setCustomName(zombieHorse.getCustomName());
                 horse.setCustomNameVisible(zombieHorse.isCustomNameVisible());
@@ -228,7 +223,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
         ZombieHorse zombieHorse = skeletonHorse.convertTo(EntityType.ZOMBIE_HORSE, false);
         if (zombieHorse != null) {
             zombieHorse.moveTo(skeletonHorse.getX(), skeletonHorse.getY(), skeletonHorse.getZ(), skeletonHorse.getYRot(), skeletonHorse.getXRot());
-            zombieHorse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombieHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            zombieHorse.finalizeSpawn((ServerLevelAccessor) this.level(), this.level().getCurrentDifficultyAt(zombieHorse.blockPosition()), MobSpawnType.CONVERSION, null);
             if (skeletonHorse.hasCustomName()) {
                 zombieHorse.setCustomName(skeletonHorse.getCustomName());
                 zombieHorse.setCustomNameVisible(skeletonHorse.isCustomNameVisible());
@@ -290,7 +285,7 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
                         // Use the actual hit blockstate for the guard, not getBlockStateOn()
                         // (getBlockStateOn() returns the block below the projectile's feet, not the hit block)
-                        if (!blockstate.is(Blocks.TALL_GRASS) && !blockstate.is(Blocks.GRASS)) {
+                        if (!blockstate.is(Blocks.TALL_GRASS) && !blockstate.is(Blocks.SHORT_GRASS)) {
 
                             BlockState newState = null;
 
@@ -357,8 +352,8 @@ public class ShotLeafEntity extends ThrowableItemProjectile {
 
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
+        super.defineSynchedData(pBuilder);
     }
 
 

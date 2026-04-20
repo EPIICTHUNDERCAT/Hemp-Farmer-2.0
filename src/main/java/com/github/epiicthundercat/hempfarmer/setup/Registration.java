@@ -13,19 +13,27 @@ import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBE;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryContainer;
 import com.github.epiicthundercat.hempfarmer.common.FoodValues;
+import com.github.epiicthundercat.hempfarmer.common.effect.CalmEffect;
 import com.github.epiicthundercat.hempfarmer.common.effect.HighEffect;
 import com.github.epiicthundercat.hempfarmer.common.entity.ShotLeafEntity;
 import com.github.epiicthundercat.hempfarmer.common.item.*;
+import com.github.epiicthundercat.hempfarmer.common.item.food.BowlFoodItem;
+import com.github.epiicthundercat.hempfarmer.common.item.food.CannabisTeaItem;
 import com.github.epiicthundercat.hempfarmer.common.item.food.PotBrownieItem;
 import com.github.epiicthundercat.hempfarmer.common.item.joint.HempJointItem;
 import com.github.epiicthundercat.hempfarmer.common.item.joint.IndicaJointItem;
 import com.github.epiicthundercat.hempfarmer.common.item.joint.SativaJointItem;
 import com.github.epiicthundercat.hempfarmer.event.loot.SeedDropModifier;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -33,6 +41,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -45,10 +54,12 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.EnumMap;
+import java.util.List;
 
 
 import static com.github.epiicthundercat.hempfarmer.HempFarmer.MODID;
@@ -67,12 +78,12 @@ public class Registration {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, MODID);
-    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
             DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, MODID);
 
 
-    public static void init() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static void init(IEventBus bus) {
         EFFECT.register(bus);
         BLOCKS.register(bus);
         ITEMS.register(bus);
@@ -84,6 +95,7 @@ public class Registration {
         CREATIVE_MODE_TABS.register(bus);
         RECIPE_TYPES.register(bus);
         LOOT_MODIFIERS.register(bus);
+        ARMOR_MATERIALS.register(bus);
     }
 
 
@@ -92,7 +104,7 @@ public class Registration {
     public static final RegistryObject<RecipeType<GrinderRecipeHandler>> GRINDER_RECIPE_TYPE = RECIPE_TYPES.register("grinder_recipe",
             () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(MODID, "grinder_recipe")));
 
-    public static final RegistryObject<Codec<SeedDropModifier>> SEED_DROP_MODIFIER = LOOT_MODIFIERS.register("seed_drop_modifier", SeedDropModifier.CODEC::get);
+    public static final RegistryObject<MapCodec<SeedDropModifier>> SEED_DROP_MODIFIER = LOOT_MODIFIERS.register("seed_drop_modifier", SeedDropModifier.CODEC::get);
 
     public static final Item.Properties ITEM_PROPERTIES = new Item.Properties();
     public static final RegistryObject<Item> SHOT_LEAF = ITEMS.register("shot_leaf", () -> new Item(ITEM_PROPERTIES));
@@ -111,6 +123,7 @@ public class Registration {
             EntityType.Builder.<ShotLeafEntity>of(ShotLeafEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(8).updateInterval(10).build("shot_leaf_entity"));
 
     public static final RegistryObject<MobEffect> HIGH = EFFECT.register("high", () -> new HighEffect(MobEffectCategory.BENEFICIAL, 0xB77BAB));
+    public static final RegistryObject<MobEffect> CALM = EFFECT.register("calm", () -> new CalmEffect(MobEffectCategory.BENEFICIAL, 0xD4C1D1));
 
     //Sounds
     public static final RegistryObject<SoundEvent> SMOKE = SOUNDS.register("smoke", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MODID, "smoke")));
@@ -121,8 +134,9 @@ public class Registration {
     //Items Here
 
     //CD
+    public static final ResourceKey<JukeboxSong> NELLY_SONG_KEY = ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, "nelly_song"));
     public static final RegistryObject<Item> NELLY_SONG_MUSIC_DISC = ITEMS.register("nelly_song_music_disc",
-            () -> new RecordItem(4, Registration.NELLY_SONG, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 150 * 20));
+            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(NELLY_SONG_KEY)));
     //Lighter
 
     public static final RegistryObject<Item> LIGHTER = ITEMS.register("lighter", () -> new LighterItem(new Item.Properties().stacksTo(1).durability(100)));
@@ -164,7 +178,7 @@ public class Registration {
     public static final RegistryObject<Item> VIOLET_OIL = ITEMS.register("violet_oil", () -> new Item(ITEM_PROPERTIES));
 
 
-    public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new LeafWandItem(new Item.Properties().stacksTo(1).defaultDurability(100)));
+    public static final RegistryObject<Item> SUPERIOR_LEAF_WAND = ITEMS.register("superior_leaf_wand", () -> new LeafWandItem(new Item.Properties().stacksTo(1).durability(100)));
     public static final RegistryObject<Item> ROLLING_PAPER = ITEMS.register("rolling_paper", () -> new Item(ITEM_PROPERTIES));
 
     public static final RegistryObject<Item> LEAF_WAND = ITEMS.register("leaf_wand", () -> new Item(ITEM_PROPERTIES));
@@ -195,13 +209,37 @@ public class Registration {
 
     public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(ITEM_PROPERTIES));
 
-    public static final RegistryObject<Item> BURLAP_HELMET = ITEMS.register("burlap_helmet", () -> new ArmorItem(HFArmorMaterials.BURLAP, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<Item> CANNABIS_TEA = ITEMS.register("cannabis_tea", () ->  new CannabisTeaItem((new Item.Properties()).food(FoodValues.CANNABIS_TEA)));
 
-    public static final RegistryObject<Item> BURLAP_CHESTPLATE = ITEMS.register("burlap_chestplate", () -> new ArmorItem(HFArmorMaterials.BURLAP, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
 
-    public static final RegistryObject<Item> BURLAP_LEGGINGS = ITEMS.register("burlap_leggings", () -> new ArmorItem(HFArmorMaterials.BURLAP, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryObject<ArmorMaterial> BURLAP_ARMOR_MATERIAL = ARMOR_MATERIALS.register("burlap", () ->
+            new ArmorMaterial(
+                    Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                        map.put(ArmorItem.Type.BOOTS,       1);
+                        map.put(ArmorItem.Type.LEGGINGS,    2);
+                        map.put(ArmorItem.Type.CHESTPLATE,  2);
+                        map.put(ArmorItem.Type.HELMET,      1);
+                        map.put(ArmorItem.Type.BODY,        0);
+                    }),
+                    15,
+                    SoundEvents.ARMOR_EQUIP_LEATHER,
+                    () -> Ingredient.of(BURLAP_ITEM.get()),
+                    List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MODID, "burlap"))),
+                    0.0f,
+                    0.0f
+            ));
 
-    public static final RegistryObject<Item> BURLAP_BOOTS = ITEMS.register("burlap_boots", () -> new ArmorItem(HFArmorMaterials.BURLAP, ArmorItem.Type.BOOTS, new Item.Properties()));
+    public static final RegistryObject<Item> BURLAP_HELMET = ITEMS.register("burlap_helmet",
+            () -> new ArmorItem(BURLAP_ARMOR_MATERIAL.getHolder().orElseThrow(), ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> BURLAP_CHESTPLATE = ITEMS.register("burlap_chestplate",
+            () -> new ArmorItem(BURLAP_ARMOR_MATERIAL.getHolder().orElseThrow(), ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> BURLAP_LEGGINGS = ITEMS.register("burlap_leggings",
+            () -> new ArmorItem(BURLAP_ARMOR_MATERIAL.getHolder().orElseThrow(), ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> BURLAP_BOOTS = ITEMS.register("burlap_boots",
+            () -> new ArmorItem(BURLAP_ARMOR_MATERIAL.getHolder().orElseThrow(), ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1)));
 
     //Blocks Here
     public static final RegistryObject<Block> LIME_DIRT = BLOCKS.register("lime_dirt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
@@ -213,11 +251,11 @@ public class Registration {
     public static final RegistryObject<Block> VIOLET_DIRT = BLOCKS.register("violet_dirt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Item> VIOLET_DIRT_ITEM = fromBlock(VIOLET_DIRT);
     public static final RegistryObject<Block> INDICA_CROP = BLOCKS.register("indica_crop",
-            () -> new IndicaCrop(Block.Properties.copy(Blocks.WHEAT)));
+            () -> new IndicaCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
     public static final RegistryObject<Block> SATIVA_CROP = BLOCKS.register("sativa_crop",
-            () -> new SativaCrop(Block.Properties.copy(Blocks.WHEAT)));
+            () -> new SativaCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
     public static final RegistryObject<Block> HEMP_CROP = BLOCKS.register("hemp_crop",
-            () -> new HempCrop(Block.Properties.copy(Blocks.WHEAT)));
+            () -> new HempCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
 
     public static final RegistryObject<Block> BURLAP_CARPET_BLOCK = BLOCKS.register("burlap_carpet", () -> new BurlapCarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).sound(SoundType.WOOL).strength(0.1f)));
     public static final RegistryObject<Item> BURLAP_BLOCK_ITEM = fromBlock(BURLAP_CARPET_BLOCK);

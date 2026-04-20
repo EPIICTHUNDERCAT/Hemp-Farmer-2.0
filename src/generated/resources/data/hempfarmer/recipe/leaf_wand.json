@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "hempfarmer",
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "x": {
+      "item": "hempfarmer:leaf"
+    }
+  },
+  "pattern": [
+    " x ",
+    "s  ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hempfarmer:leaf_wand"
+  }
+}

@@ -4,6 +4,7 @@ import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.event.loot.SeedDropModifier;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -16,31 +17,33 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
+
+import java.util.concurrent.CompletableFuture;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 
 public class HempFarmerGlobalLootModifiers extends GlobalLootModifierProvider {
 
-    public HempFarmerGlobalLootModifiers(PackOutput output) {
-        super(output, HempFarmer.MODID);
+    public HempFarmerGlobalLootModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, HempFarmer.MODID, lookupProvider);
     }
 
     @Override
-    protected void start() {
+    protected void start(HolderLookup.Provider provider) {
         LootItemCondition notShears = InvertedLootItemCondition.invert(
                 MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
         ).build();
 
-        addSeed("hemp_seeds_from_grass",      Blocks.GRASS,       Registration.SEEDS_HEMP.get(),   notShears);
+        addSeed("hemp_seeds_from_grass",      Blocks.SHORT_GRASS,       Registration.SEEDS_HEMP.get(),   notShears);
         addSeed("hemp_seeds_from_fern",        Blocks.FERN,        Registration.SEEDS_HEMP.get(),   notShears);
         addSeed("hemp_seeds_from_large_fern",  Blocks.LARGE_FERN,  Registration.SEEDS_HEMP.get(),   notShears);
         addSeed("hemp_seeds_from_tall_grass",  Blocks.TALL_GRASS,  Registration.SEEDS_HEMP.get(),   notShears);
 
-        addSeed("indica_seeds_from_grass",     Blocks.GRASS,       Registration.SEEDS_INDICA.get(), notShears);
+        addSeed("indica_seeds_from_grass",     Blocks.SHORT_GRASS,       Registration.SEEDS_INDICA.get(), notShears);
         addSeed("indica_seeds_from_fern",      Blocks.FERN,        Registration.SEEDS_INDICA.get(), notShears);
         addSeed("indica_seeds_from_large_fern",Blocks.LARGE_FERN,  Registration.SEEDS_INDICA.get(), notShears);
         addSeed("indica_seeds_from_tall_grass",Blocks.TALL_GRASS,  Registration.SEEDS_INDICA.get(), notShears);
 
-        addSeed("sativa_seeds_from_grass",     Blocks.GRASS,       Registration.SEEDS_SATIVA.get(), notShears);
+        addSeed("sativa_seeds_from_grass",     Blocks.SHORT_GRASS,       Registration.SEEDS_SATIVA.get(), notShears);
         addSeed("sativa_seeds_from_fern",      Blocks.FERN,        Registration.SEEDS_SATIVA.get(), notShears);
         addSeed("sativa_seeds_from_large_fern",Blocks.LARGE_FERN,  Registration.SEEDS_SATIVA.get(), notShears);
         addSeed("sativa_seeds_from_tall_grass",Blocks.TALL_GRASS,  Registration.SEEDS_SATIVA.get(), notShears);
@@ -61,7 +64,7 @@ public class HempFarmerGlobalLootModifiers extends GlobalLootModifierProvider {
         add(name, new SeedDropModifier(
                 new LootItemCondition[] {
                         LootTableIdCondition.builder(ResourceLocation.parse(lootTableId)).build(),
-                        LootItemRandomChanceCondition.randomChance(0.03f).build()
+                        LootItemRandomChanceCondition.randomChance(0.9f).build()
                 },
                 Registration.NELLY_SONG_MUSIC_DISC.get(),
                 1
