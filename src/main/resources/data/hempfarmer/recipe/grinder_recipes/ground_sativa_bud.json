@@ -1,7 +1,7 @@
 {
   "type": "hempfarmer:grinder_recipe",
   "ingredients": [
-    {"item": "hempfarmer:sativa_bud"}
+    "hempfarmer:sativa_bud"
   ],
   "output": {
     "id": "hempfarmer:ground_sativa_bud",

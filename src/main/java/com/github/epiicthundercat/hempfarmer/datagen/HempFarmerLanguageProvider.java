@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import static com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock.MESSAGE_GRINDER;
+import static com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderBlock.SCREEN_HEMP_FARMER_GRINDER;
 import static com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock.MESSAGE_POWER_BATTERY;
 import static com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryBlock.SCREEN_HEMP_FARMER_POWER_BATTERY;
 import static com.github.epiicthundercat.hempfarmer.common.item.HempItem.HEMP_ITEM_MESSAGE;
@@ -36,7 +37,19 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.POWER_BATTERY.get(), "Power Battery");
 
         add(MESSAGE_GRINDER, "Grinding Hemp!");
+        add(SCREEN_HEMP_FARMER_GRINDER, "Hemp Grinder");
         add(Registration.GRINDER.get(), "Hemp Grinder");
+        add(Registration.GRINDER_ITEM.get(), "Hemp Grinder");
+        add(Registration.POWER_BATTERY_ITEM.get(), "Power Battery");
+        add(Registration.LIME_DIRT_ITEM.get(), "Lime Dirt");
+        add(Registration.OILY_DIRT_ITEM.get(), "Oily Dirt");
+        add(Registration.RESIN_DIRT_ITEM.get(), "Resin Dirt");
+        add(Registration.VIOLET_DIRT_ITEM.get(), "Violet Dirt");
+        add(Registration.BURLAP_BLOCK_ITEM.get(), "Burlap Carpet");
+        add(Registration.RESIN_BURLAP_BLOCK_ITEM.get(), "Resin Carpet");
+        add(Registration.OILY_BURLAP_BLOCK_ITEM.get(), "Oily Burlap Carpet");
+        add(Registration.LIME_BURLAP_BLOCK_ITEM.get(), "Lime Burlap Carpet");
+        add(Registration.VIOLET_BURLAP_BLOCK_ITEM.get(), "Violet Burlap Carpet");
         add(Registration.LIGHTER.get(), "Lighter");
         add(Registration.BURLAP_HELMET.get(), "Burlap Helmet");
         add(Registration.BURLAP_CHESTPLATE.get(), "Burlap Chestplate");
@@ -109,7 +122,7 @@ public class HempFarmerLanguageProvider extends LanguageProvider {
         add(Registration.CALM.get(), "Calm");
         add(LeafWandItem.MESSAGE_NOT_HIGH, "You are...not...high enough..");
         add(Registration.NELLY_SONG_MUSIC_DISC.get(), "Music Disc");
-        add("jukebox_song." + Registration.NELLY_SONG_KEY.location().getNamespace() + "." + Registration.NELLY_SONG_KEY.location().getPath(), "Nelly - Insane Riff");
+        add("jukebox_song." + Registration.NELLY_SONG_KEY.identifier().getNamespace() + "." + Registration.NELLY_SONG_KEY.identifier().getPath(), "Nelly - Insane Riff");
         add(HempJointItem.MESSAGE_NEED_LIGHT, "You need a light.. Maybe a Lighter?");
     }
 }

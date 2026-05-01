@@ -6,7 +6,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Set;
@@ -27,7 +27,7 @@ public class DataGenerators {
             generator.addProvider(true, new HempFarmerGlobalLootModifiers(output, lookupProvider));
             HempFarmerBlockTags blockTags = new HempFarmerBlockTags(output, lookupProvider, existingFileHelper);
             generator.addProvider(true, blockTags);
-            generator.addProvider(true, new HempFarmerItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+            generator.addProvider(true, new HempFarmerItemTags(output, lookupProvider, existingFileHelper));
 
             // Painting variants (data-driven registry)
             RegistrySetBuilder registryBuilder = new RegistrySetBuilder()
@@ -39,8 +39,8 @@ public class DataGenerators {
                     output, paintingProvider.getFullRegistries(), existingFileHelper));
         }
         if (event.includeClient()) {
-            generator.addProvider(true, new HempFarmerBlockStates(output, existingFileHelper));
-            generator.addProvider(true, new HempFarmerItemModels(output, existingFileHelper));
+            // HempFarmerBlockStates and HempFarmerItemModels removed: BlockStateProvider and
+            // ItemModelProvider were removed in Forge 64. Static JSONs are in src/main/resources.
             generator.addProvider(true, new HempFarmerLanguageProvider(output, "en_us"));
         }
     }

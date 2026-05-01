@@ -1,0 +1,10 @@
+{
+  "layers": {
+    "humanoid": [
+      { "texture": "hempfarmer:burlap_layer_1" }
+    ],
+    "humanoid_leggings": [
+      { "texture": "hempfarmer:burlap_layer_2" }
+    ]
+  }
+}

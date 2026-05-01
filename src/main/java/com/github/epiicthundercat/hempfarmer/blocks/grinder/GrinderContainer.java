@@ -1,8 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.blocks.grinder;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
-import com.mojang.serialization.Decoder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
@@ -26,15 +25,30 @@ public class GrinderContainer extends AbstractContainerMenu {
     private final ContainerData data;
     private final Player playerEntity;
     private final IItemHandler playerInventory;
+    private int energyCache = 0;
 
     public GrinderContainer(int ID, BlockPos pos, Inventory playerInventory, Player playerIn) {
-        this(ID, pos, playerInventory, playerIn, new SimpleContainerData(2));
+        this(ID, pos, playerInventory, playerIn, resolveData(playerIn.level(), pos));
+    }
+
+    // Pass the BE's own ContainerData directly instead of a blank SimpleContainerData(2).
+    // addDataSlots() copies the initial values into remoteDataSlots and sends 0s to the client;
+    // broadcastChanges() only transmits a slot when its value differs from the last-sent snapshot.
+    // If we used SimpleContainerData the snapshot starts at 0 matching the sent 0, so grindTime
+    // and grindLength would never be pushed on open. Using the real blockData means the snapshot
+    // starts at the actual live values, so the first change (or the next tick) syncs them.
+    private static ContainerData resolveData(Level level, BlockPos pos) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof GrinderBE grinderBE) {
+            return grinderBE.blockData;
+        }
+        return new SimpleContainerData(2);
     }
 
     public GrinderContainer(int ID, BlockPos pos, Inventory playerInventory, Player player, ContainerData blockData) {
         super(Registration.GRINDER_CONTAINER.get(), ID);
         checkContainerDataCount(blockData, 2);
-        this.blockEntity = (GrinderBE) player.getCommandSenderWorld().getBlockEntity(pos);
+        this.blockEntity = (GrinderBE) player.level().getBlockEntity(pos);
         this.playerEntity = player;
         this.level = playerInventory.player.level();
         this.playerInventory = new InvWrapper(playerInventory);
@@ -47,45 +61,48 @@ public class GrinderContainer extends AbstractContainerMenu {
             });
         }
         //tracks player inventory as well
-        layoutPlayerInventorySlots(10, 70);
+        layoutPlayerInventorySlots(9, 70);
         trackPower();
+        addDataSlots(this.data);
+
+        // Pre-seed energyCache from the client BE on open. broadcastChanges() only pushes DataSlot
+        // updates when the value changes from its last-sent snapshot, so static values (e.g. energy
+        // hasn't changed since the last tick) would never arrive — the screen would show 0 until
+        // something actually changed. The BE is kept fresh by its 20-tick sendBlockUpdated pulse,
+        // so reading it here gives the correct value immediately.
+        if (blockEntity != null) {
+            energyCache = blockEntity.getCapability(ForgeCapabilities.ENERGY)
+                    .map(IEnergyStorage::getEnergyStored).orElse(0);
+        }
     }
 
     public GrinderBE getBE() {
         return this.blockEntity;
     }
 
-    // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
-    //MCJTY!
+    // DataSlots are signed 16-bit on the wire, so energy (up to Integer.MAX_VALUE) is split across
+    // two slots. get() is called server-side each tick; set() is called client-side on change.
     private void trackPower() {
-        // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
-        // to split our integer here (split our 32 bit integer into two 16 bit integers)
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return getEnergy() & 0xffff;
+                return blockEntity.getCapability(ForgeCapabilities.ENERGY)
+                        .map(IEnergyStorage::getEnergyStored).orElse(0) & 0xffff;
             }
-
             @Override
             public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0xffff0000;
-                    ((HempFarmerEnergyStorage) h).setEnergy(energyStored + (value & 0xffff));
-                });
+                energyCache = (energyCache & 0xffff0000) | (value & 0xffff);
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return (getEnergy() >> 16) & 0xffff;
+                return (blockEntity.getCapability(ForgeCapabilities.ENERGY)
+                        .map(IEnergyStorage::getEnergyStored).orElse(0) >> 16) & 0xffff;
             }
-
             @Override
             public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0x0000ffff;
-                    ((HempFarmerEnergyStorage) h).setEnergy(energyStored | (value << 16));
-                });
+                energyCache = (energyCache & 0x0000ffff) | (value << 16);
             }
         });
     }
@@ -100,7 +117,11 @@ public class GrinderContainer extends AbstractContainerMenu {
     }
 
     public int getEnergy() {
-        return blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+        return energyCache;
+    }
+
+    public int getMaxEnergy() {
+        return blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
     }
 
     @Override

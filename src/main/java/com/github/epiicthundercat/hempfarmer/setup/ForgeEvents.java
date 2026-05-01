@@ -5,9 +5,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.util.Result;
 import net.minecraftforge.event.brewing.BrewingRecipeRegisterEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = HempFarmer.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -26,16 +27,16 @@ public class ForgeEvents {
         if (event.getEffectInstance().getEffect() == Registration.CALM.getHolder().orElseThrow()) {
             event.getEntity().removeEffect(MobEffects.BLINDNESS);
             event.getEntity().removeEffect(MobEffects.DARKNESS);
-            event.getEntity().removeEffect(MobEffects.DIG_SLOWDOWN);
+            event.getEntity().removeEffect(MobEffects.MINING_FATIGUE);
         }
     }
 
     @SubscribeEvent
     public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         var effect = event.getEffectInstance().getEffect();
-        if (effect == MobEffects.BLINDNESS || effect == MobEffects.DARKNESS || effect == MobEffects.DIG_SLOWDOWN) {
+        if (effect == MobEffects.BLINDNESS || effect == MobEffects.DARKNESS || effect == MobEffects.MINING_FATIGUE) {
             if (event.getEntity().hasEffect(Registration.CALM.getHolder().orElseThrow())) {
-                event.setResult(net.minecraftforge.eventbus.api.Event.Result.DENY);
+                event.setResult(Result.DENY);
             }
         }
     }

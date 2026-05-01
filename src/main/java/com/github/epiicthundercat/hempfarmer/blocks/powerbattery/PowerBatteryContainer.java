@@ -1,7 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.blocks.powerbattery;
 
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import com.github.epiicthundercat.hempfarmer.util.HempFarmerEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,9 +9,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
@@ -21,13 +17,16 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class PowerBatteryContainer extends AbstractContainerMenu {
 
-    private final BlockEntity blockEntity;
+    private final PowerBatteryBE blockEntity;
     private final Player playerEntity;
     private final IItemHandler playerInventory;
+    private int energyCache = 0;
+    private int burnTimeCache = 0;
+    private int burnLengthCache = 0;
 
     public PowerBatteryContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
         super(Registration.POWER_BATTERY_CONTAINER.get(), windowId);
-        blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
+        blockEntity = (PowerBatteryBE) player.level().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
@@ -36,47 +35,81 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
             });
         }
-        //tracks player inventory as well
-        layoutPlayerInventorySlots(10, 70);
+        layoutPlayerInventorySlots(9, 70);
         trackPower();
+
+        // Pre-seed all caches from the client BE on open — same reason as energyCache in GrinderContainer.
+        // burnTime/burnLength are plain DataSlots so they'd only arrive on change; reading the fresh
+        // client BE avoids showing empty bars until the first tick update.
+        if (blockEntity != null) {
+            energyCache     = blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+            burnTimeCache   = blockEntity.getCounter();
+            burnLengthCache = blockEntity.getBurnLength();
+        }
     }
 
-    // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
+    // Syncs energy and fuel-burn progress from server to client via DataSlots.
+    // Energy is split across two 16-bit slots because DataSlots are transmitted as signed shorts.
+    // get() is called server-side each tick; set() updates local cache client-side on change.
     private void trackPower() {
-        // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
-        // to split our integer here (split our 32 bit integer into two 16 bit integers)
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return getEnergy() & 0xffff;
+                return blockEntity.getCapability(ForgeCapabilities.ENERGY)
+                        .map(IEnergyStorage::getEnergyStored).orElse(0) & 0xffff;
             }
-
             @Override
             public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0xffff0000;
-                    ((HempFarmerEnergyStorage)h).setEnergy(energyStored + (value & 0xffff));
-                });
+                energyCache = (energyCache & 0xffff0000) | (value & 0xffff);
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return (getEnergy() >> 16) & 0xffff;
+                return (blockEntity.getCapability(ForgeCapabilities.ENERGY)
+                        .map(IEnergyStorage::getEnergyStored).orElse(0) >> 16) & 0xffff;
             }
-
             @Override
             public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0x0000ffff;
-                    ((HempFarmerEnergyStorage)h).setEnergy(energyStored | (value << 16));
-                });
+                energyCache = (energyCache & 0x0000ffff) | (value << 16);
+            }
+        });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return blockEntity != null ? blockEntity.getCounter() : 0;
+            }
+            @Override
+            public void set(int value) {
+                burnTimeCache = value;
+            }
+        });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return blockEntity != null ? blockEntity.getBurnLength() : 0;
+            }
+            @Override
+            public void set(int value) {
+                burnLengthCache = value;
             }
         });
     }
 
     public int getEnergy() {
-        return blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+        return energyCache;
+    }
+
+    public int getMaxEnergy() {
+        return blockEntity.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+    }
+
+    public int getBurnTime() {
+        return burnTimeCache;
+    }
+
+    public int getBurnLength() {
+        return burnLengthCache;
     }
 
     @Override
@@ -99,7 +132,7 @@ public class PowerBatteryContainer extends AbstractContainerMenu {
                 slot.onQuickCraft(stack, itemstack);
             } else {
                 //if item is smeltable, add it to our slot
-                if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0) {
+                if (blockEntity.getLevel() != null && blockEntity.getLevel().fuelValues().isFuel(stack)) {
                     if (!this.moveItemStackTo(stack, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }

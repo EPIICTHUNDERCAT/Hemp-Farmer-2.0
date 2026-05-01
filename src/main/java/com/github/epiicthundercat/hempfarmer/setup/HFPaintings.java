@@ -4,8 +4,10 @@ import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
+
+import java.util.Optional;
 
 public class HFPaintings {
 
@@ -17,11 +19,11 @@ public class HFPaintings {
     }
 
     private static void register(BootstrapContext<PaintingVariant> context, ResourceKey<PaintingVariant> key, int width, int height) {
-        context.register(key, new PaintingVariant(width, height, key.location()));
+        context.register(key, new PaintingVariant(width, height, key.identifier(), Optional.empty(), Optional.empty()));
     }
 
     private static ResourceKey<PaintingVariant> create(String name) {
         return ResourceKey.create(Registries.PAINTING_VARIANT,
-                ResourceLocation.fromNamespaceAndPath(HempFarmer.MODID, name));
+                Identifier.fromNamespaceAndPath(HempFarmer.MODID, name));
     }
 }

@@ -1,22 +1,7 @@
 package com.github.epiicthundercat.hempfarmer.datagen;
 
-import com.github.epiicthundercat.hempfarmer.HempFarmer;
-import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import net.minecraft.data.PackOutput;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-
-public class HempFarmerBlockStates extends BlockStateProvider {
-
-    public HempFarmerBlockStates(PackOutput output, ExistingFileHelper exFileHelper) {
-        super(output, HempFarmer.MODID, exFileHelper);
-    }
-
-    @Override
-    protected void registerStatesAndModels() {
-        simpleBlock(Registration.LIME_DIRT.get());
-        simpleBlock(Registration.OILY_DIRT.get());
-        simpleBlock(Registration.VIOLET_DIRT.get());
-        simpleBlock(Registration.RESIN_DIRT.get());
-    }
+// BlockStateProvider was removed in Forge 64 / MC 26.1.2.
+// Block states and models for lime_dirt, oily_dirt, resin_dirt, violet_dirt are now
+// static JSON files in assets/hempfarmer/blockstates/ and assets/hempfarmer/models/block/.
+public class HempFarmerBlockStates {
 }

@@ -3,21 +3,12 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:rolling_paper"
-    },
-    {
-      "item": "hempfarmer:ground_bud"
-    },
-    {
-      "item": "hempfarmer:ground_bud"
-    },
-    {
-      "item": "hempfarmer:ground_bud"
-    }
+    "hempfarmer:rolling_paper",
+    "hempfarmer:ground_bud",
+    "hempfarmer:ground_bud",
+    "hempfarmer:ground_bud"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:regs_joint"
   }
 }

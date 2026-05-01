@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "m": {
-      "item": "hempfarmer:seeds_indica"
-    },
-    "x": {
-      "tag": "c:glass_blocks"
-    }
+    "m": "hempfarmer:seeds_indica",
+    "x": "#c:glass_blocks"
   },
   "pattern": [
     "mmm",
@@ -16,7 +12,6 @@
     " x "
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:violet_oil"
   }
 }

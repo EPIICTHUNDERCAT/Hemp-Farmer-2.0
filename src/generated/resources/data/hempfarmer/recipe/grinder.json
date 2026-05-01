@@ -3,15 +3,9 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "#": {
-      "tag": "c:dusts/redstone"
-    },
-    "m": {
-      "tag": "c:ingots/gold"
-    },
-    "x": {
-      "tag": "c:ingots/iron"
-    }
+    "#": "#c:dusts/redstone",
+    "m": "#c:ingots/gold",
+    "x": "#c:ingots/iron"
   },
   "pattern": [
     "mxm",
@@ -19,7 +13,6 @@
     "#x#"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:grinder"
   }
 }

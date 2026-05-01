@@ -3,15 +3,9 @@
   "category": "equipment",
   "group": "hempfarmer",
   "key": {
-    "f": {
-      "item": "hempfarmer:leaf"
-    },
-    "s": {
-      "item": "minecraft:stick"
-    },
-    "x": {
-      "item": "hempfarmer:leaf_wand"
-    }
+    "f": "hempfarmer:leaf",
+    "s": "minecraft:stick",
+    "x": "hempfarmer:leaf_wand"
   },
   "pattern": [
     " x ",
@@ -19,7 +13,6 @@
     "fff"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:superior_leaf_wand"
   }
 }

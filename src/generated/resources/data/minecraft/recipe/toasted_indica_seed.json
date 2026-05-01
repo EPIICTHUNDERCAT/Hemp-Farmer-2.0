@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 1.0,
-  "ingredient": {
-    "item": "hempfarmer:seeds_indica"
-  },
+  "ingredient": "hempfarmer:seeds_indica",
   "result": {
     "id": "hempfarmer:seeds_indica_toasted"
   }

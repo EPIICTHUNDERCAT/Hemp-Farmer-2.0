@@ -1,7 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.decoration.Painting;
 
 // TODO (1.21.1): Forge 52 replaced NetworkRegistry.ChannelBuilder / SimpleChannel with
 // RegisterPayloadsEvent + IPayloadRegistrar. Implement packets here when needed using:

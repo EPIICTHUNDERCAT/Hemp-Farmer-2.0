@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "hempfarmer:item/violet_hemp_hearts"
+  }
+}

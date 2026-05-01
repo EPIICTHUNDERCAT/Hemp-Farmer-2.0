@@ -3,18 +3,11 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:violet_hemp_hearts"
-    },
-    {
-      "tag": "hempfarmer:milk"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
+    "hempfarmer:violet_hemp_hearts",
+    "#hempfarmer:milk",
+    "minecraft:bowl"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:bowl_violet_hemp_hearts"
   }
 }

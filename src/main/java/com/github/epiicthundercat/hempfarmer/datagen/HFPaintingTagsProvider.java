@@ -21,6 +21,6 @@ public class HFPaintingTagsProvider extends PaintingVariantTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // Adds CANNABIS_FIELD to the minecraft:placeable tag so it can appear when placing a painting.
         tag(PaintingVariantTags.PLACEABLE)
-            .addOptional(HFPaintings.CANNABIS_FIELD.location());
+            .addOptional(HFPaintings.CANNABIS_FIELD.identifier());
     }
 }

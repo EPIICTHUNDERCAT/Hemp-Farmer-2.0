@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "f": {
-      "item": "minecraft:flint"
-    },
-    "i": {
-      "tag": "c:ingots/iron"
-    }
+    "f": "minecraft:flint",
+    "i": "#c:ingots/iron"
   },
   "pattern": [
     " i ",
@@ -16,7 +12,6 @@
     "iii"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:lighter"
   }
 }

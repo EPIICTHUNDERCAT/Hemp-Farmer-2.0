@@ -1,5 +1,6 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
+import com.github.epiicthundercat.hempfarmer.blocks.crops.CropDropConfig;
 import com.github.epiicthundercat.hempfarmer.blocks.grinder.GrinderConfig;
 import com.github.epiicthundercat.hempfarmer.blocks.powerbattery.PowerBatteryConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -23,6 +24,7 @@ public class HFConfig {
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
         GrinderConfig.registerServerConfig(SERVER_BUILDER);
         PowerBatteryConfig.registerServerConfig(SERVER_BUILDER);
+        CropDropConfig.registerServerConfig(SERVER_BUILDER);
         container.addConfig(new ModConfig(ModConfig.Type.SERVER, SERVER_BUILDER.build(), container));
     }
 

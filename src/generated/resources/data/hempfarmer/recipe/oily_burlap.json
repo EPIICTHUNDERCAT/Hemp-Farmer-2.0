@@ -3,15 +3,10 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:hemp_oil"
-    },
-    {
-      "item": "hempfarmer:burlap"
-    }
+    "hempfarmer:hemp_oil",
+    "hempfarmer:burlap"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:oily_burlap"
   }
 }

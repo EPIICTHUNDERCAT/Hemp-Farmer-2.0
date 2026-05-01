@@ -1,7 +1,7 @@
 {
   "type": "hempfarmer:grinder_recipe",
   "ingredients": [
-    {"item": "hempfarmer:seeds_indica"}
+    "hempfarmer:seeds_indica"
   ],
   "output": {
     "id": "hempfarmer:seeds_indica_crushed",

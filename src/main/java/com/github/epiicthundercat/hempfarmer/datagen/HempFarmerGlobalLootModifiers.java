@@ -3,10 +3,12 @@ package com.github.epiicthundercat.hempfarmer.datagen;
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
 import com.github.epiicthundercat.hempfarmer.event.loot.SeedDropModifier;
 import com.github.epiicthundercat.hempfarmer.setup.Registration;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -29,8 +31,9 @@ public class HempFarmerGlobalLootModifiers extends GlobalLootModifierProvider {
 
     @Override
     protected void start(HolderLookup.Provider provider) {
+        HolderGetter<Item> items = provider.lookupOrThrow(Registries.ITEM);
         LootItemCondition notShears = InvertedLootItemCondition.invert(
-                MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
+                MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, Items.SHEARS))
         ).build();
 
         addSeed("hemp_seeds_from_grass",      Blocks.SHORT_GRASS,       Registration.SEEDS_HEMP.get(),   notShears);
@@ -63,7 +66,7 @@ public class HempFarmerGlobalLootModifiers extends GlobalLootModifierProvider {
     private void addDisc(String name, String lootTableId) {
         add(name, new SeedDropModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.parse(lootTableId)).build(),
+                        LootTableIdCondition.builder(Identifier.parse(lootTableId)).build(),
                         LootItemRandomChanceCondition.randomChance(0.9f).build()
                 },
                 Registration.NELLY_SONG_MUSIC_DISC.get(),

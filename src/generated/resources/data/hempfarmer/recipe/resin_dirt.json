@@ -3,15 +3,10 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:resin"
-    },
-    {
-      "tag": "hempfarmer:oily_dirt"
-    }
+    "hempfarmer:resin",
+    "#hempfarmer:oily_dirt"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:resin_dirt"
   }
 }

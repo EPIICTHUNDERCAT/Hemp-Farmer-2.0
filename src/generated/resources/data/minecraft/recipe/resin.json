@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 1.0,
-  "ingredient": {
-    "tag": "hempfarmer:oil"
-  },
+  "ingredient": "#hempfarmer:oil",
   "result": {
     "id": "hempfarmer:resin"
   }

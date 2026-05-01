@@ -1,27 +1,17 @@
 package com.github.epiicthundercat.hempfarmer.setup;
 
 import com.github.epiicthundercat.hempfarmer.HempFarmer;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-@Mod.EventBusSubscriber(modid = HempFarmer.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModSetup {
 
     public static final String TAB_NAME = "hempfarmer";
-
-    public static void setup() {
-        IEventBus bus = MinecraftForge.EVENT_BUS;
-    }
 
     public static void init(FMLCommonSetupEvent event) {
         HFMessages.register();
     }
 
-    @SubscribeEvent
     public static void buildCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == Registration.HEMP_FARMER_TAB.getKey()) {
             event.accept(Registration.SHOT_LEAF);

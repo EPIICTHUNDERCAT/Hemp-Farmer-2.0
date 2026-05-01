@@ -7,8 +7,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +21,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
@@ -35,6 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GrinderBE extends BlockEntity {
 
+    public static net.minecraftforge.registries.RegistryObject<BlockEntityType<GrinderBE>> blockEntityType;
 
     private final HempFarmerEnergyStorage energy = createEnergyStorage();
     private final LazyOptional<IEnergyStorage> energyHandler = LazyOptional.of(() -> energy);
@@ -45,9 +53,10 @@ public class GrinderBE extends BlockEntity {
     private float xp = 0f;
 
     private int counter;
+    private int syncTick = 0;
 
 
-    protected final ContainerData blockData = new ContainerData() {
+    public final ContainerData blockData = new ContainerData() {
         public int get(int id) {
             return switch (id) {
                 case 0 -> GrinderBE.this.grindTime;
@@ -81,6 +90,13 @@ public class GrinderBE extends BlockEntity {
         this.setPlayersInside(this.getPlayersInside());
         AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
         if (!this.level.isClientSide()) {
+            // Pulse a block update every second so the client BE stays fresh.
+            // Container caches are pre-seeded from the client BE on open, so this
+            // ensures the screen shows correct values even if nothing changed recently.
+            if (++syncTick >= 20) {
+                syncTick = 0;
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
 
             GrinderRecipeHandler recipe = canCraft();
             if (recipe != null) {
@@ -158,15 +174,15 @@ public class GrinderBE extends BlockEntity {
      * Returns the recipe that can be crafted from this tile's input slots.
      */
     public GrinderRecipeHandler getRecipeFromContents() {
-        GrinderRecipeHandler toCraft = null;
-        for (final RecipeHolder<GrinderRecipeHandler> holder : level.getRecipeManager().getAllRecipesFor(Registration.GRINDER_RECIPE_TYPE.get())) {
-            GrinderRecipeHandler recipe = holder.value();
-            if (recipe.matches(itemHandler)) {
-                toCraft = recipe;
-                break;
+        if (!(level instanceof ServerLevel serverLevel)) return null;
+        for (RecipeHolder<?> holder : serverLevel.recipeAccess().getRecipes()) {
+            if (holder.value() instanceof GrinderRecipeHandler recipe) {
+                if (recipe.matches(itemHandler)) {
+                    return recipe;
+                }
             }
         }
-        return toCraft;
+        return null;
     }
 
     /**
@@ -203,11 +219,8 @@ public class GrinderBE extends BlockEntity {
         ItemStack inputStack = itemHandler.getStackInSlot(SLOT_INPUT_1);
         for (Ingredient ingredient : recipe.getIngredients()) {
             if (ingredient.test(inputStack)) {
-                ItemStack[] items = ingredient.getItems();
-                if (items.length > 0 && !items[0].isEmpty()) {
-                    inputStack.shrink(items[0].getCount());
-                }
-                break; // 1-slot machine, stop after first match
+                inputStack.shrink(1);
+                break;
             }
         }
 
@@ -260,54 +273,36 @@ public class GrinderBE extends BlockEntity {
     }
 
 
-    /**
-     * These are the data components that save to the block - how it maintains energy and items after being broken and placed!
-     */
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        if (tag.contains("Inventory")) {
-            this.itemHandler.deserializeNBT(registries, tag.getCompound("Inventory"));
-        }
-        if (tag.contains("Energy")) {
-            this.energy.deserializeNBT(registries, (IntTag) tag.get("Energy"));
-        }
-        if (tag.contains("CookTime", IntTag.TAG_INT)) {
-            this.grindTime = tag.getInt("CookTime");
-        }
-        if (tag.contains("CookLength", IntTag.TAG_INT)) {
-            this.grindLength = tag.getInt("CookLength");
-        }
-        if (tag.contains("XP", IntTag.TAG_FLOAT)) {
-            this.xp = tag.getFloat("XP");
-        }
-        if (tag.contains("Info")) {
-            this.counter = tag.getCompound("Info").getInt("Counter");
-        }
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput input) {
+        input.read("Inventory", CompoundTag.CODEC).ifPresent(tag -> this.itemHandler.deserializeNBT(input.lookup(), tag));
+        input.getInt("Energy").ifPresent(v -> this.energy.setEnergy(v));
+        input.getInt("CookTime").ifPresent(v -> this.grindTime = v);
+        input.getInt("CookLength").ifPresent(v -> this.grindLength = v);
+        this.xp = input.getFloatOr("XP", 0f);
+        input.child("Info").ifPresent(info -> this.counter = info.getIntOr("Counter", 0));
+        super.loadAdditional(input);
     }
 
-    /**
-     * These are the data components that save to the block - how it maintains energy and items after being broken and placed!
-     */
+    @Override
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.store("Inventory", CompoundTag.CODEC, this.itemHandler.serializeNBT(this.level.registryAccess()));
+        output.putInt("Energy", this.energy.getEnergyStored());
+        if (this.getGrindTime() != -1) output.putInt("CookTime", this.getGrindTime());
+        if (this.getGrindLength() != -1) output.putInt("CookLength", this.getGrindLength());
+        if (this.getXP() != 0) output.putFloat("XP", this.getXP());
+        output.child("Info").putInt("Counter", counter);
+    }
 
     @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("Inventory", itemHandler.serializeNBT(registries));
-        tag.put("Energy", energy.serializeNBT(registries));
-        if (this.getGrindTime() != -1) {
-            tag.putInt("CookTime", this.getGrindTime());
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                Block.popResource(this.level, pos, stack);
+            }
         }
-        if (this.getGrindLength() != -1) {
-            tag.putInt("CookLength", this.getGrindLength());
-        }
-        if (this.getXP() != 0) {
-            tag.putFloat("XP", this.getXP());
-        }
-        CompoundTag infoTag = new CompoundTag();
-        infoTag.putInt("Counter", counter);
-        tag.put("Info", infoTag);
-
     }
 
     @Override
@@ -329,7 +324,7 @@ public class GrinderBE extends BlockEntity {
         }
 
         if (playersInside == 0 && amt > 0) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 this.getLevel().setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(GrinderBlock.IS_OPEN, true));
             }
             this.getLevel().playLocalSound(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 0.25f, 0.5f, false);
@@ -338,7 +333,7 @@ public class GrinderBE extends BlockEntity {
         this.playersInside = amt;
 
         if (playersInside == 0) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 this.getLevel().setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(GrinderBlock.IS_OPEN, false));
             }
             this.getLevel().playLocalSound(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 0.25f, 0.5f, false);
@@ -370,10 +365,23 @@ public class GrinderBE extends BlockEntity {
      */
 
 
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
     protected final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            if (level != null && !level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
         }
 
         @Override
@@ -448,7 +456,7 @@ public class GrinderBE extends BlockEntity {
 
 
     public GrinderBE(BlockPos pos, BlockState state) {
-        super(Registration.GRINDER_BE.get(), pos, state);
+        super(blockEntityType.get(), pos, state);
     }
 
 
@@ -460,17 +468,5 @@ public class GrinderBE extends BlockEntity {
             }
         };
     }
-
-    /**
-     * The getUpdateTag()/handleUpdateTag() pair is called whenever the client receives a new chunk
-     * it hasn't seen before. i.e. the chunk is loaded
-     */
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag tag = super.getUpdateTag(registries);
-        this.saveAdditional(tag, registries);
-        return tag;
-    }
-
 
 }

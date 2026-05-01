@@ -1,69 +1,50 @@
 package com.github.epiicthundercat.hempfarmer.blocks.powerbattery;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class PowerBatteryBlock extends Block implements EntityBlock {
 
     public static final String MESSAGE_POWER_BATTERY = "message.powerbattery";
     public static final String SCREEN_HEMP_FARMER_POWER_BATTERY = "screen.hempfarmer.powerbattery";
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape RENDER_SHAPE = Shapes.box(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
 
-    public PowerBatteryBlock() {
-        super(Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL)
-                .strength(2.0f)
-                .lightLevel(state -> state.getValue(BlockStateProperties.POWERED) ? 14 : 0)
-                .requiresCorrectToolForDrops()
-        );
+    public PowerBatteryBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(BlockStateProperties.POWERED, false)
         );
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
+    protected VoxelShape getOcclusionShape(BlockState state) {
         return RENDER_SHAPE;
     }
 
-
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter reader, List<Component> list, TooltipFlag flags) {
-        list.add(Component.translatable(MESSAGE_POWER_BATTERY, Integer.toString(PowerBatteryConfig.POWER_BATTERY_GENERATE.get())).withStyle(ChatFormatting.BLUE));
-    }
 
     @Nullable
     @Override
@@ -88,7 +69,7 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult trace) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof PowerBatteryBE) {
                 MenuProvider containerProvider = new MenuProvider() {
@@ -110,24 +91,6 @@ public class PowerBatteryBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof PowerBatteryBE battery) {
-                ItemStackHandler handler = battery.getItemHandler();
-                for (int i = 0; i < handler.getSlots(); i++) {
-                    ItemStack stack = handler.getStackInSlot(i);
-                    if (!stack.isEmpty()) {
-                        Block.popResource(level, pos, stack);
-                    }
-                }
-            }
-        }
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
 
     @Nullable
     @Override

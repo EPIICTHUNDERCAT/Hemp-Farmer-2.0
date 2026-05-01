@@ -3,15 +3,10 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:resin"
-    },
-    {
-      "item": "hempfarmer:burlap"
-    }
+    "hempfarmer:resin",
+    "hempfarmer:burlap"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:resin_burlap"
   }
 }

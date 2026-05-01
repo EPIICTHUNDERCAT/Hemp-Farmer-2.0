@@ -6,14 +6,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SativaItem extends ItemNameBlockItem {
+public class SativaItem extends BlockItem {
 
     public static final String SATIVA_ITEM_MESSAGE = "message.sativa_invalid_placement";
 
@@ -27,8 +27,8 @@ public class SativaItem extends ItemNameBlockItem {
         if (result.equals(InteractionResult.FAIL)) {
             Player player = context.getPlayer();
             BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
-            if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.getBlock() instanceof FarmBlock)) {
-                player.displayClientMessage(UtilTools.translate(SATIVA_ITEM_MESSAGE).withStyle(ChatFormatting.GREEN), true);
+            if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.getBlock() instanceof FarmlandBlock)) {
+                player.sendOverlayMessage(UtilTools.translate(SATIVA_ITEM_MESSAGE).withStyle(ChatFormatting.GREEN));
             }
         }
         return result;

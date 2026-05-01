@@ -3,15 +3,10 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:violet_oil"
-    },
-    {
-      "tag": "hempfarmer:oily_dirt"
-    }
+    "hempfarmer:violet_oil",
+    "#hempfarmer:oily_dirt"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:violet_dirt"
   }
 }

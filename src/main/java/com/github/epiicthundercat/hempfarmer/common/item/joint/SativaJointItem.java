@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,8 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -37,23 +35,23 @@ public class SativaJointItem extends Item {
 
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player pPlayer, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player pPlayer, InteractionHand interactionHand) {
         ItemStack itemstack = pPlayer.getItemInHand(interactionHand);
 
         ItemStack flintItem = pPlayer.getOffhandItem();
 
         if (itemstack.is(Registration.SATIVA_JOINT.get()) && !flintItem.is(Registration.LIGHTER.get())) {
-            pPlayer.displayClientMessage(UtilTools.translate(MESSAGE_NEED_LIGHT).withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC), true);
+            pPlayer.sendOverlayMessage(UtilTools.translate(MESSAGE_NEED_LIGHT).withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC));
 
-            return InteractionResultHolder.fail(itemstack);
+            return InteractionResult.FAIL;
 
         } else if (itemstack.is(Registration.SATIVA_JOINT.get()) && flintItem.is(Registration.LIGHTER.get())) {
             pPlayer.startUsingItem(interactionHand);
-            pPlayer.getCooldowns().addCooldown(this, getUseDuration(itemstack, pPlayer));
+            pPlayer.getCooldowns().addCooldown(itemstack, getUseDuration(itemstack, pPlayer));
 
         }
 
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class SativaJointItem extends Item {
             serverplayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             livingEntity.removeEffect(MobEffects.WITHER);
             livingEntity.addEffect(new MobEffectInstance(Registration.HIGH.getHolder().orElseThrow(), 2500, 1));
 
@@ -88,7 +86,7 @@ public class SativaJointItem extends Item {
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
         // onUseTick fires client-side only in Forge 1.18.2
-        if (!pLevel.isClientSide) return;
+        if (!pLevel.isClientSide()) return;
 
         // First tick: play smoke sound once
         if (pRemainingUseDuration == getUseDuration(pStack, pLivingEntity) - 1) {
@@ -112,8 +110,8 @@ public class SativaJointItem extends Item {
         }
     }
 
-    public UseAnim getUseAnimation(ItemStack itemStack) {
-        return UseAnim.SPYGLASS;
+    public ItemUseAnimation getUseAnimation(ItemStack itemStack) {
+        return ItemUseAnimation.SPYGLASS;
     }
 
 }

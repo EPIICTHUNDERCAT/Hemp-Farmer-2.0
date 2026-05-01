@@ -3,9 +3,7 @@
   "category": "equipment",
   "group": "hempfarmer",
   "key": {
-    "x": {
-      "item": "hempfarmer:burlap"
-    }
+    "x": "hempfarmer:burlap"
   },
   "pattern": [
     "xxx",
@@ -13,7 +11,6 @@
     "   "
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:burlap_helmet"
   }
 }

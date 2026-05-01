@@ -3,21 +3,11 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "#": {
-      "tag": "forge:eggs"
-    },
-    "b": {
-      "tag": "hempfarmer:bud"
-    },
-    "m": {
-      "item": "minecraft:cocoa_beans"
-    },
-    "s": {
-      "item": "minecraft:sugar"
-    },
-    "x": {
-      "tag": "hempfarmer:milk"
-    }
+    "#": "#c:eggs",
+    "b": "#hempfarmer:bud",
+    "m": "minecraft:cocoa_beans",
+    "s": "minecraft:sugar",
+    "x": "#hempfarmer:milk"
   },
   "pattern": [
     "mxm",
@@ -25,7 +15,6 @@
     "#x#"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:pot_brownie"
   }
 }

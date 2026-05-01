@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "tag": "hempfarmer:paper"
-    }
+    "#hempfarmer:paper"
   ],
   "result": {
     "count": 3,

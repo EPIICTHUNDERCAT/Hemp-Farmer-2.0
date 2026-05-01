@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 1.0,
-  "ingredient": {
-    "item": "hempfarmer:raw_hemp"
-  },
+  "ingredient": "hempfarmer:raw_hemp",
   "result": {
     "id": "hempfarmer:dry_hemp"
   }

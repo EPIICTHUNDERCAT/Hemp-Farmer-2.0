@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:seeds_sativa"
-    }
+    "hempfarmer:seeds_sativa"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:seeds_sativa"
   }
 }

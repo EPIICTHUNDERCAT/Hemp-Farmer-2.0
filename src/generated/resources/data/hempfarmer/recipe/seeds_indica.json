@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "hempfarmer",
   "ingredients": [
-    {
-      "item": "hempfarmer:seeds_indica"
-    }
+    "hempfarmer:seeds_indica"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:seeds_indica"
   }
 }

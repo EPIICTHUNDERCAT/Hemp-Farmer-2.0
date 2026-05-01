@@ -3,18 +3,10 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "#": {
-      "tag": "c:dusts/redstone"
-    },
-    "m": {
-      "tag": "c:ingots/gold"
-    },
-    "o": {
-      "item": "minecraft:redstone_torch"
-    },
-    "x": {
-      "tag": "c:ingots/iron"
-    }
+    "#": "#c:dusts/redstone",
+    "m": "#c:ingots/gold",
+    "o": "minecraft:redstone_torch",
+    "x": "#c:ingots/iron"
   },
   "pattern": [
     "mxm",
@@ -22,7 +14,6 @@
     "#x#"
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:powerbattery"
   }
 }

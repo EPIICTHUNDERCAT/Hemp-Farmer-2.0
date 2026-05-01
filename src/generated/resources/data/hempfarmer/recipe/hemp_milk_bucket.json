@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "hempfarmer",
   "key": {
-    "s": {
-      "tag": "hempfarmer:seed_triad"
-    },
-    "w": {
-      "item": "minecraft:bucket"
-    }
+    "s": "#hempfarmer:seed_triad",
+    "w": "minecraft:bucket"
   },
   "pattern": [
     "sss",
@@ -16,7 +12,6 @@
     " w "
   ],
   "result": {
-    "count": 1,
     "id": "hempfarmer:hemp_milk_bucket"
   }
 }
